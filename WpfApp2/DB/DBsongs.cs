@@ -21,7 +21,7 @@ namespace MuSearch.DB
                               {
                                   CommandType = CommandType.StoredProcedure
                               };
-                
+                cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
