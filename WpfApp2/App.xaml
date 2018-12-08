@@ -1,8 +1,8 @@
-﻿<Application x:Class="WpfApp2.App"
+﻿<Application x:Class="MuSearch.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:WpfApp2"
-             StartupUri="GUI/LoginPage.xaml">
+             StartupUri="MainWindow.xaml"> 
     <Application.Resources>
          
     </Application.Resources>
