@@ -10,13 +10,13 @@ namespace MuSearch.BusinessLayer
     {
         private char[,] gameTable;
         private int rows;
-        private int columms;
+        private int columns;
 
-        public WordSearch(int rows, int columms)
+        public WordSearch(int rows, int columns)
         {
             this.rows = rows;
-            this.columms = columms;
-            this.gameTable = new char[rows, columms];
+            this.columns = columns;
+            this.gameTable = new char[rows, columns];
         }
 
         public char[,] GetGameTable()
@@ -66,7 +66,7 @@ namespace MuSearch.BusinessLayer
             int charRandIndex;
             for (int i = 0; i < rows; i++)
             {
-                for (int j = 0; j < columms; j++)
+                for (int j = 0; j < this.columns; j++)
                 {
                     if (this.gameTable[i, j] == '\0')
                     {
@@ -83,7 +83,7 @@ namespace MuSearch.BusinessLayer
             for(int i = 0; i < this.rows; i++)
             {
                 Console.Write(i%10);
-                for (int j = 0; j < this.columms; j++)
+                for (int j = 0; j < this.columns; j++)
                 {
                     Console.Write(" " + this.gameTable[i, j]);
                 }
@@ -104,17 +104,27 @@ namespace MuSearch.BusinessLayer
                     if (direction == 0)
                     {
                         positionRow = rnd.Next(0, this.rows);
-                        positionCol = rnd.Next(0, this.columms - word.Length);
+                        positionCol = rnd.Next(0, this.columns - word.Length);
                     }
                     else
                     {
                         positionRow = rnd.Next(0, this.rows - word.Length);
-                        positionCol = rnd.Next(0, this.columms);
+                        positionCol = rnd.Next(0, this.columns);
                     }
                 } while (!this.haveRoom(word, direction, positionRow, positionCol));
                 this.insertWord(word, direction, positionRow, positionCol);
             }
             this.fillIn();
+        }
+
+        public List<string> fixWords(List<string> words)
+        {
+            for (int i = 0; i < words.Count; i++)
+            {
+                words[i] = words[i].ToLower();
+                words[i] = words[i].Replace(" ", String.Empty);
+            }
+            return words;
         }
     }
 }

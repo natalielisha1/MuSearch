@@ -10,7 +10,7 @@ namespace MuSearch.DB
 
     class songs
     {
-        public static List<string> GetSongs()
+        public static List<string> GetWords()
         {
             var dbCon = DBConnection.Instance();
             dbCon.DatabaseName = "musearch";

@@ -25,47 +25,40 @@ namespace WpfApp2
     {
         public char[,] Table { get; set; }
         char[,] _dataArray;
-        DataView _dataView;
+
+        public DataView DataView { get; set; }
+    
         public MainWindow()
         {
             InitializeComponent();
         }
 
+        private void fillingDataGrid()
+        {
+            char[,] dataMatrix = Program.getWordSearch(30);
+            var rows = dataMatrix.GetLength(0);
+            var columns = dataMatrix.GetLength(1);
+            DataTable dt = new DataTable();
+            for (int i = 0; i < columns; i++)
+            {
+                dt.Columns.Add(new DataColumn());
+            }
+
+            for (int i = 0; i < rows; i++)
+            {
+                DataRow row = dt.NewRow();
+                for (int j = 0; j < columns; j++)
+                {
+                    row[j] = dataMatrix[i, j];
+                }
+                dt.Rows.Add(row);
+            }
+            
+            this.dataGrid.ItemsSource = dt.DefaultView;
+        }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            Table = Program.showWordSearch();
-            this._dataArray = Table;
-
-            var array = this._dataArray;
-            var rows = array.GetLength(0);
-            var columns = array.GetLength(1);
-            var t = new DataTable();
-
-            // Add columns with name "0", "1", "2", ...
-            for (var c = 0; c < columns; c++)
-            {
-                t.Columns.Add(new DataColumn(c.ToString()));
-            }
-
-            // Add data to DataTable
-            for (var r = 0; r < rows; r++)
-            {
-                var newRow = t.NewRow();
-                for (var c = 0; c < columns; c++)
-                {
-                    newRow[c] = array[r, c];
-                }
-                t.Rows.Add(newRow);
-            }
-            _dataView = t.DefaultView;
-        }
-
-        public DataView DataView
-        {
-            get
-            {
-                return _dataView;
-            }
+            this.fillingDataGrid();
         }
     }
 }
