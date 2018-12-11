@@ -1,0 +1,32 @@
+﻿<Window x:Class="MuSearch.GUI.MyGames"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:MuSearch.GUI"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="MyGames">
+
+    <StackPanel Background="Black">
+        <TextBlock FontSize="50" Foreground="Maroon" FontFamily="AR DARLING" Margin="260,10,240,10" FontWeight="ExtraBold">MY GAMES</TextBlock>
+        <DataGrid>
+            <DataGrid.Columns>
+                <DataGridTextColumn x:Name="times" Header="time" Width="300" IsReadOnly="True">
+                </DataGridTextColumn>
+                <DataGridComboBoxColumn x:Name="scores" Header="score" Width="300" IsReadOnly="True">
+                </DataGridComboBoxColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Button Margin="330,30,318,10" FontSize="13" FontWeight="Bold" FontFamily="AR CHRISTY" Foreground="Maroon" Background="Black" Height="36" Content="BACK TO SETTINGS" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="4.374"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+    </StackPanel>
+</Window>
