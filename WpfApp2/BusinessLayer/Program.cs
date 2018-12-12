@@ -9,11 +9,12 @@ namespace MuSearch.BusinessLayer
 
     class Program
     {
-        public static char[,] showWordSearch()
+        public static char[,] getWordSearch(int size)
         {
-            List<string> names = songs.GetSongs();
-            WordSearch search = new WordSearch(30, 30);
-            search.createWordSearch(names);
+            List<string> words = songs.GetWords();
+            WordSearch search = new WordSearch(size, size);
+            search.fixWords(words);
+            search.createWordSearch(words);
             search.printTable();
             Console.ReadLine();
             return search.GetGameTable();

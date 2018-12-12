@@ -22,14 +22,15 @@
                 //cmd.Parameters["@username"].Value = username;
                 //cmd.Parameters.Add("@password", SqlDbType.Text);
                 //cmd.Parameters["@password"].Value = password;
-                cmd.Parameters.Add(new MySqlParameter("username", username));
+                cmd.Parameters.Add(new MySqlParameter("username1", username));
 
-                cmd.Parameters.Add(new MySqlParameter("password", password));
-                var result = cmd.ExecuteNonQuery();
-                if (result == 0)
+                cmd.Parameters.Add(new MySqlParameter("password1", password));
+                var result = cmd.ExecuteScalar();
+                if (result!=null)
                 {
                     userExist = true;
                 }
+
                 dbCon.Close();
             }
             return userExist;

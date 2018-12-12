@@ -14,6 +14,8 @@ using System.Windows.Shapes;
 
 namespace MuSearch.GUI
 {
+    using WpfApp2;
+
     //using MuSearch.BusinessLayer;
 
     /// <summary>
