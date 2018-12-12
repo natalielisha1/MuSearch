@@ -12,7 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MuSearch.BusinessLayer;
 using MuSearch.DB;
+using WpfApp2.General;
 
 namespace MuSearch.GUI
 {
@@ -21,10 +23,12 @@ namespace MuSearch.GUI
     /// </summary>
     public partial class MyGames : Window
     {
-
+        private Users usersBL;
         public MyGames()
         {
             InitializeComponent();
+            usersBL = new Users();
+            List<Game> games = this.usersBL.getTopThreeGames(4);
         }
     }
 }
