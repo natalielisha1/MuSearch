@@ -21,15 +21,10 @@ namespace MuSearch.GUI
     /// </summary>
     public partial class MyGames : Window
     {
-        List<Score> lst;
 
         public MyGames()
         {
             InitializeComponent();
-            Score first = new Score("12.1.17", 200);
-            Score second = new Score("29.4.12", 870);
-            lst.Add(first);
-            lst.Add(second);
         }
     }
 }

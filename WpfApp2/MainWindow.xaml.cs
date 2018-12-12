@@ -15,8 +15,10 @@ using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
 namespace WpfApp2
 {
+    using MuSearch.GUI;
     using System.Data;
     using System.Windows.Controls.Primitives;
+    using WpfApp2.GUI;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -59,6 +61,20 @@ namespace WpfApp2
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             this.fillingDataGrid();
+        }
+
+        private void OnMyGames(object sender, RoutedEventArgs e)
+        {
+            MyGames window = new MyGames();
+            window.Show();
+            this.Close();
+        }
+
+        private void OnAllGames(object sender, RoutedEventArgs e)
+        {
+            AllGames window = new AllGames();
+            window.Show();
+            this.Close();
         }
     }
 }

@@ -9,16 +9,12 @@
       Title="MyGames">
 
     <StackPanel Background="Black">
-        <TextBlock FontSize="50" Foreground="Maroon" FontFamily="AR DARLING" Margin="260,10,240,10" FontWeight="ExtraBold">MY GAMES</TextBlock>
+        <TextBlock FontSize="50" Foreground="Maroon" FontFamily="AR DARLING"
+                   Margin="0,10,0,10" FontWeight="ExtraBold" HorizontalAlignment="Center">MY GAMES</TextBlock>
         <DataGrid>
-            <DataGrid.Columns>
-                <DataGridTextColumn x:Name="times" Header="time" Width="300" IsReadOnly="True">
-                </DataGridTextColumn>
-                <DataGridComboBoxColumn x:Name="scores" Header="score" Width="300" IsReadOnly="True">
-                </DataGridComboBoxColumn>
-            </DataGrid.Columns>
         </DataGrid>
-        <Button Margin="330,30,318,10" FontSize="13" FontWeight="Bold" FontFamily="AR CHRISTY" Foreground="Maroon" Background="Black" Height="36" Content="BACK TO SETTINGS" RenderTransformOrigin="0.5,0.5">
+        <Button Margin="0,30,0,10" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="AR CHRISTY" 
+                Foreground="Maroon" Background="Black" Height="36" Width="100" Content="BACK" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>
                 <TransformGroup>
                     <ScaleTransform/>
