@@ -27,7 +27,7 @@ namespace WpfApp2
         char[,] _dataArray;
 
         public DataView DataView { get; set; }
-    
+
         public MainWindow()
         {
             InitializeComponent();
@@ -53,7 +53,7 @@ namespace WpfApp2
                 }
                 dt.Rows.Add(row);
             }
-            
+
             this.dataGrid.ItemsSource = dt.DefaultView;
         }
         private void Button_Click(object sender, RoutedEventArgs e)
