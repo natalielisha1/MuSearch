@@ -6,9 +6,9 @@
     {
         private DBusers conn = new DBusers();
 
-        public bool checkUser(string username, string password)
+        public int checkUser(string username, string password)
         {
-            return conn.checkUser(username, password);
+            return this.conn.checkUser(username, password);
         }
 
     }

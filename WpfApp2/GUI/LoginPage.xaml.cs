@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,11 +13,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace MuSearch.GUI
+namespace WpfApp2.GUI
 {
-    using WpfApp2;
-
-    //using MuSearch.BusinessLayer;
+    using MuSearch.BusinessLayer;
 
     /// <summary>
     /// Interaction logic for LoginPage.xaml
@@ -26,29 +25,29 @@ namespace MuSearch.GUI
         public string Username { get; set; }
         public string Password { get; set; }
 
-        //private Users usersBL;
+        private Users usersBL;
         public LoginPage()
         {
             InitializeComponent();
-            //this.usersBL = new Users();
+            this.usersBL = new Users();
         }
 
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
-            //bool valid = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
-            //if (valid)
-            //{
+            int userId = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
+            if (userId!=-1)
+            {
                 //go to next page
                 MainWindow gameMainWindow = new MainWindow();
                 gameMainWindow.Show();
                 this.Close();
 
-            //}
-            //else
-            //{
+            }
+            else
+            {
                 // pop up error
-            //    MessageBox.Show("Sorry, username or password is incorrect!");
-            //}
+                MessageBox.Show("Sorry, username or password is incorrect!");
+            }
         }
     }
 }

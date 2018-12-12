@@ -8,32 +8,25 @@
 
     public class DBusers
     {
-        public bool checkUser(string username, string password)
+        public int checkUser(string username, string password)
         {
             var dbCon = DBConnection.Instance();
-            bool userExist = false;
-            int count;
+            int userId = -1;
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
             {
                 var cmd = new MySqlCommand("musearch.checkUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                //cmd.Parameters.Add("@username", SqlDbType.Text);
-                //cmd.Parameters["@username"].Value = username;
-                //cmd.Parameters.Add("@password", SqlDbType.Text);
-                //cmd.Parameters["@password"].Value = password;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
-
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
                 var result = cmd.ExecuteScalar();
-                if (result!=null)
+                if (result != null)
                 {
-                    userExist = true;
+                    userId = (int)result;
                 }
-
                 dbCon.Close();
             }
-            return userExist;
+            return userId;
         }
     }
 }
