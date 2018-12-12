@@ -71,7 +71,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GUI\AllGames.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\MyGames.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -91,11 +99,18 @@
     <Compile Include="BusinessLayer\SettingsLogic.cs" />
     <Compile Include="BusinessLayer\Users.cs" />
     <Compile Include="BusinessLayer\WordSearch.cs" />
+    <Compile Include="DB\Score.cs" />
     <Compile Include="DB\DBconnection.cs" />
     <Compile Include="DB\DBsongs.cs" />
     <Compile Include="DB\DBusers.cs" />
+    <Compile Include="GUI\AllGames.xaml.cs">
+      <DependentUpon>AllGames.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\MyGames.xaml.cs">
+      <DependentUpon>MyGames.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
