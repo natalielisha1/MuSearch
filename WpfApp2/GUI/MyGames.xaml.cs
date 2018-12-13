@@ -24,11 +24,12 @@ namespace MuSearch.GUI
     public partial class MyGames : Window
     {
         private Users usersBL;
+        List<Game> games { get; set; }
         public MyGames()
         {
             InitializeComponent();
             usersBL = new Users();
-            List<Game> games = this.usersBL.getTopThreeGames(4);
+            games = this.usersBL.getTopThreeGames(4);
         }
     }
 }

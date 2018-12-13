@@ -13,6 +13,16 @@
                    Margin="0,10,0,10" FontWeight="ExtraBold" HorizontalAlignment="Center">MY GAMES</TextBlock>
         <DataGrid>
         </DataGrid>
+        <ListView ItemsSource="{Binding games}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <TextBlock Text="{Binding Date}"/>
+                        <TextBlock Text="{Binding Score}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
         <Button Margin="0,30,0,10" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="AR CHRISTY" 
                 Foreground="Maroon" Background="Black" Height="36" Width="100" Content="BACK" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>

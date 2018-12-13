@@ -9,9 +9,9 @@ namespace WpfApp2.General
     public class Game
     {
         #region Properties
-        private int GameID {get; set;}
-        private int Score { get; set; }
-        private string Date { get; set; }
+        public int GameID {get; set;}
+        public int Score { get; set; }
+        public string Date { get; set; }
         #endregion
 
         public Game(int id, int score, string date)
