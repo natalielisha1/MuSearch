@@ -303,6 +303,16 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+
+---
+--- Function that gets the three best scores of a user
+---
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getTopThreeGames`(IN userid1 INT(11))
+BEGIN
+	SELECT gameId, points, date FROM musearch.games WHERE userId = userId1;
+END
+
 --
 -- Dumping data for table `users`
 --
