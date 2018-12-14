@@ -31,7 +31,7 @@
             return userId;
         }
 
-        public List<Game> getTopThreeGames(int userID)
+        public List<Game> getTopGames(int userID)
         {
             List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
@@ -39,7 +39,7 @@
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getTopThreeGames", dbCon.Connection);
+                var cmd = new MySqlCommand("musearch.getTopGames", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
                 cmd.Connection.Open();
