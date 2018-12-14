@@ -13,9 +13,9 @@
             return this.conn.checkUser(username, password);
         }
 
-        public List<Game> getTopThreeGames(int userID)
+        public List<Game> getTopGames(int userID)
         {
-            return this.conn.getTopThreeGames(userID);
+            return this.conn.getTopGames(userID);
         }
 
     }

@@ -28,11 +28,14 @@ namespace WpfApp2
         public char[,] Table { get; set; }
         char[,] _dataArray;
 
+        private int userId;
+
         public DataView DataView { get; set; }
 
-        public MainWindow()
+        public MainWindow(int userId)
         {
             InitializeComponent();
+            this.userId = userId;
         }
 
         private void fillingDataGrid()
@@ -65,14 +68,14 @@ namespace WpfApp2
 
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
-            MyGames window = new MyGames();
+            MyGames window = new MyGames(this.userId);
             window.Show();
             this.Close();
         }
 
         private void OnAllGames(object sender, RoutedEventArgs e)
         {
-            AllGames window = new AllGames();
+            AllGames window = new AllGames(this.userId);
             window.Show();
             this.Close();
         }
