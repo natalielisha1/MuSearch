@@ -3,9 +3,7 @@
 -- Host: localhost    Database: musearch
 -- ------------------------------------------------------
 -- Server version	8.0.13
-DROP DATABASE IF EXISTS musearch;
-CREATE DATABASE musearch;
-USE musearch;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -105,7 +103,7 @@ CREATE TABLE `games` (
   PRIMARY KEY (`gameId`),
   KEY `userId` (`userId`),
   CONSTRAINT `games_ibfk_1` FOREIGN KEY (`userId`) REFERENCES `users` (`userid`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -114,7 +112,7 @@ CREATE TABLE `games` (
 
 LOCK TABLES `games` WRITE;
 /*!40000 ALTER TABLE `games` DISABLE KEYS */;
-INSERT INTO `games` VALUES (1,4,100,'2018-12-12'),(2,4,200,'2018-12-12'),(3,4,300,'2018-12-12'),(4,4,300,'2018-12-12'),(5,4,400,'2018-12-12');
+INSERT INTO `games` VALUES (1,4,100,'2018-12-12'),(2,4,200,'2018-12-12'),(3,4,300,'2018-12-12'),(4,4,300,'2018-12-12'),(5,4,400,'2018-12-12'),(6,4,200,'2018-12-15'),(7,2,300,'2018-12-15'),(8,4,420,'2018-12-15'),(9,4,500,'2018-12-15'),(10,3,580,'2018-12-15'),(11,2,800,'2018-12-15'),(12,1,900,'2018-12-15'),(13,5,520,'2018-12-15'),(14,4,500,'2018-12-15'),(15,4,200,'2018-12-15');
 /*!40000 ALTER TABLE `games` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -301,7 +299,7 @@ CREATE TABLE `users` (
   `username` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   `password` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci NOT NULL,
   PRIMARY KEY (`userId`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -310,7 +308,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (4,'ifat','ifat1'),(5,'gili','gili');
+INSERT INTO `users` VALUES (4,'ifat','ifat1'),(5,'gili','gili'),(6,'Natalie','Natalie'),(7,'Natalie','Natalie'),(8,'Natalie','Natalie');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -359,6 +357,25 @@ DELIMITER ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
 ALTER DATABASE `musearch` CHARACTER SET utf8 COLLATE utf8_general_ci ;
+/*!50003 DROP PROCEDURE IF EXISTS `getTopAllGames` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'NO_AUTO_VALUE_ON_ZERO' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `getTopAllGames`()
+BEGIN
+	SELECT gameId, points, date FROM musearch.games ORDER BY points DESC LIMIT 5;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `getTopGames` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -371,7 +388,7 @@ ALTER DATABASE `musearch` CHARACTER SET utf8 COLLATE utf8_general_ci ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getTopGames`(IN userid1 INT(11))
 BEGIN
-	SELECT gameId, points, date FROM musearch.games WHERE userId = userId1;
+	SELECT gameId, points, date FROM musearch.games WHERE userId = userId1 ORDER BY points DESC LIMIT 5;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -388,4 +405,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-14 10:17:38
+-- Dump completed on 2018-12-15 22:14:02
