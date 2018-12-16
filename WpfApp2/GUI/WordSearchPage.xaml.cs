@@ -23,21 +23,33 @@ namespace WpfApp2.GUI
     public partial class WordSearchPage : Window
     {
         private GameGrid gameGrid;
+        private Button[,] buttons;
 
         public WordSearchPage()
         {
             this.gameGrid = Program.getWordSearch(30, 30);
             InitializeComponent();
-            createWordSearch();
+            drawWordSearch();
         }
 
-        public void createWordSearch()
+        public void drawWordSearch()
         {
-            var rows = this.gameGrid.rows;
-            var columns = this.gameGrid.columns;
-
-            Button[,] buttons = new Button[rows, columns];
-            
+            var rows = gameGrid.rows;
+            var columns = gameGrid.columns;
+            buttons = new Button[rows, columns];
+            DataGrid WPFGrid = new DataGrid();
+            List<Button> bbbb = new List<Button>();
+            for (int i = 0; i < rows; i++)
+            {
+                for (int j = 0; j < columns; j++)
+                {
+                    Button b = new Button();
+                    b.Content = gameGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
+                    bbbb.Add(b);
+                }
+                WPFGrid.ItemsSource = bbbb;
+            }
+            //WPFGrid.ItemsSource = buttons;
         }
     }
 }

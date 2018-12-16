@@ -10,7 +10,7 @@ namespace MuSearch.BusinessLayer
     class WordSearch
     {
         public GameGrid gameGrid;
-        public List<string> words;
+        public Dictionary<Point, string> words;
 
         public WordSearch(int rows, int columns)
         {
@@ -38,6 +38,13 @@ namespace MuSearch.BusinessLayer
             return true;
         }
 
+        public bool WordExists(string word)
+        {
+            if (this.words.ContainsValue(word))
+                return true;
+            return false;
+        }
+
         /*public void printTable()
         {
             Console.WriteLine("  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4");
@@ -51,10 +58,14 @@ namespace MuSearch.BusinessLayer
                 Console.WriteLine();
             }
         }*/
+        
+        private void savePosition(string word, Point pos)
+        {
+            this.words.Add(pos, word);
+        }
 
         public void createWordSearch(List<string> words)
         {
-            this.words = words;
             Random rnd = new Random();
             int direction;
             Point position;
@@ -74,6 +85,7 @@ namespace MuSearch.BusinessLayer
                     }
                 } while (!this.haveRoom(word, direction, position));
                 gameGrid.insertWord(word, direction, position);
+                this.savePosition(word, position);
             }
             gameGrid.fillIn();
         }

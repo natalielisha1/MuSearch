@@ -6,7 +6,15 @@
         xmlns:local="clr-namespace:WpfApp2.GUI"
         mc:Ignorable="d"
         Title="WordSearchPage" Height="450" Width="800">
-
+    <Grid Name="dataGrid">
+        <ItemsControl x:Name="ic">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                    <Button Content="{Binding ButtonContent}"/>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
 
 </Window>
     
