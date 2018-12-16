@@ -17,6 +17,7 @@ namespace WpfApp2
 {
     using System.Data;
     using System.Windows.Controls.Primitives;
+    using WpfApp2.BusinessLayer;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -35,9 +36,10 @@ namespace WpfApp2
 
         private void fillingDataGrid()
         {
-            char[,] dataMatrix = Program.getWordSearch(30);
-            var rows = dataMatrix.GetLength(0);
-            var columns = dataMatrix.GetLength(1);
+            GameGrid dataGrid = Program.getWordSearch(30,30);
+            var rows = dataGrid.rows;
+            var columns = dataGrid.columns;
+
             DataTable dt = new DataTable();
             for (int i = 0; i < columns; i++)
             {
@@ -49,7 +51,7 @@ namespace WpfApp2
                 DataRow row = dt.NewRow();
                 for (int j = 0; j < columns; j++)
                 {
-                    row[j] = dataMatrix[i, j];
+                    row[j] = dataGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
                 }
                 dt.Rows.Add(row);
             }
@@ -60,5 +62,11 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
         }
+
+
+
+
+
+      
     }
 }

@@ -79,6 +79,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\WordSearchPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -87,10 +91,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessLayer\GameGrid.cs" />
+    <Compile Include="BusinessLayer\Point.cs" />
     <Compile Include="BusinessLayer\Program.cs" />
     <Compile Include="BusinessLayer\SettingsLogic.cs" />
     <Compile Include="BusinessLayer\Users.cs" />
     <Compile Include="BusinessLayer\WordSearch.cs" />
+    <Compile Include="BusinessLayer\WordSearchCell.cs" />
     <Compile Include="DB\DBconnection.cs" />
     <Compile Include="DB\DBsongs.cs" />
     <Compile Include="DB\DBusers.cs" />
@@ -99,6 +106,9 @@
     </Compile>
     <Compile Include="GUI\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\WordSearchPage.xaml.cs">
+      <DependentUpon>WordSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

@@ -3,81 +3,42 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WpfApp2.BusinessLayer;
 
 namespace MuSearch.BusinessLayer
 {
     class WordSearch
     {
-        private char[,] gameTable;
-        private int rows;
-        private int columns;
+        public GameGrid gameGrid;
+        public List<string> words;
 
         public WordSearch(int rows, int columns)
         {
-            this.rows = rows;
-            this.columns = columns;
-            this.gameTable = new char[rows, columns];
+            this.gameGrid = new GameGrid(rows, columns);
         }
 
-        public char[,] GetGameTable()
-        {
-            return this.gameTable;
-        }
-        private bool haveRoom(string word, int direction, int posiRow, int posiCol)
+        private bool haveRoom(string word, int direction, Point position)
         {
             if (direction == 0)
             {
                 for (int i = 0; i < word.Length; i++)
                 {
-                    if (this.gameTable[posiRow, posiCol + i] != '\0')
+                    Point newPosition = new Point(position.x, position.y + i);
+                    if (gameGrid.getCellByPosition(newPosition) != null)
                         return false;
                 }
             }
             else
                 for (int i = 0; i < word.Length; i++)
                 {
-                    if (this.gameTable[posiRow + i, posiCol] != '\0')
+                    Point newPosition = new Point(position.x + i, position.y);
+                    if (gameGrid.getCellByPosition(newPosition) != null)
                         return false;
                 }
             return true;
         }
 
-        private void insertWord(string word, int direction, int posiRow, int posiCol)
-        {
-            Console.WriteLine(word + " is in (" + posiRow + ", " + posiCol + ")");
-            if (direction == 0)
-            {
-                for (int i = 0; i < word.Length; i++)
-                {
-                    this.gameTable[posiRow, posiCol + i] = word[i];
-                }
-            }
-            else
-                for (int i = 0; i < word.Length; i++)
-                {
-                    this.gameTable[posiRow + i, posiCol] = word[i];
-                }
-        }
-
-        private void fillIn()
-        {
-            char[] chars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-            Random r = new Random();
-            int charRandIndex;
-            for (int i = 0; i < rows; i++)
-            {
-                for (int j = 0; j < this.columns; j++)
-                {
-                    if (this.gameTable[i, j] == '\0')
-                    {
-                        charRandIndex = r.Next(chars.Length);
-                        this.gameTable[i, j] = chars[charRandIndex];
-                    }
-                }
-            }
-        }
-
-        public void printTable()
+        /*public void printTable()
         {
             Console.WriteLine("  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4");
             for(int i = 0; i < this.rows; i++)
@@ -89,12 +50,14 @@ namespace MuSearch.BusinessLayer
                 }
                 Console.WriteLine();
             }
-        }
+        }*/
 
         public void createWordSearch(List<string> words)
         {
+            this.words = words;
             Random rnd = new Random();
-            int positionRow, positionCol, direction;
+            int direction;
+            Point position;
 
             foreach (string word in words)
             {
@@ -103,19 +66,18 @@ namespace MuSearch.BusinessLayer
                 {
                     if (direction == 0)
                     {
-                        positionRow = rnd.Next(0, this.rows);
-                        positionCol = rnd.Next(0, this.columns - word.Length);
+                        position = new Point(rnd.Next(0, gameGrid.rows), rnd.Next(0, gameGrid.columns - word.Length));
                     }
                     else
                     {
-                        positionRow = rnd.Next(0, this.rows - word.Length);
-                        positionCol = rnd.Next(0, this.columns);
+                        position = new Point(rnd.Next(0, gameGrid.rows - word.Length), rnd.Next(0,gameGrid.columns));
                     }
-                } while (!this.haveRoom(word, direction, positionRow, positionCol));
-                this.insertWord(word, direction, positionRow, positionCol);
+                } while (!this.haveRoom(word, direction, position));
+                gameGrid.insertWord(word, direction, position);
             }
-            this.fillIn();
+            gameGrid.fillIn();
         }
+
 
         public List<string> fixWords(List<string> words)
         {
