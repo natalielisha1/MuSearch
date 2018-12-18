@@ -5,16 +5,16 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.GUI"
         mc:Ignorable="d"
-        Title="LoginPage" Height="300" Width="300" FontSize="14" Background="#04c582">
-    <Border Background="#2e3137" CornerRadius="20" Margin="20">
+        Title="LoginPage" Height="500" Width="400" FontSize="14" Background="Maroon">
+    <Border Background="#4d4d33" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
-            <Label Content="Login" Foreground="White" FontSize="25" HorizontalAlignment="Center"></Label>
-            <Separator></Separator>
-            <Label Content="Username" Foreground="White"/>
-            <TextBox Name="txtUsername" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Label Content="Password" Foreground="White"/>
-            <PasswordBox Name="txtPassword" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Button Name="btnSubmit" Click ="btnSubmitClick" Content="Submit" Margin="60 10" Background="#545d6a" Foreground="White" FontSize="18"></Button>
+            <Label Content="Login" Foreground="Maroon" FontSize="65" HorizontalAlignment="Center" FontFamily="AR BERKLEY"></Label>
+            <Separator Background="Maroon"></Separator>
+            <Label Content="Username" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"/>
+            <TextBox Name="txtUsername" Background="#adad85" Foreground="White" FontSize="18"/>
+            <Label Content="Password" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"/>
+            <PasswordBox Name="txtPassword" Background="#adad85" Foreground="White" FontSize="18"/>
+            <Button Name="btnSubmit" Click ="btnSubmitClick" Content="Submit" Margin="60 10" Background="#adad85" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"></Button>
         </StackPanel>
     </Border>
 </Window>
