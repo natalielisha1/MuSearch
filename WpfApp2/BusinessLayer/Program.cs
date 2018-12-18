@@ -4,20 +4,22 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using MuSearch.DB;
+using WpfApp2.BusinessLayer;
+
 namespace MuSearch.BusinessLayer
 {
 
     class Program
     {
-        public static char[,] getWordSearch(int size)
+        public static GameGrid getWordSearch(int rows, int cols)
         {
             List<string> words = songs.GetWords();
-            WordSearch search = new WordSearch(size, size);
+            WordSearch search = new WordSearch(rows, cols);
             search.fixWords(words);
             search.createWordSearch(words);
-            search.printTable();
+            //search.printTable();
             Console.ReadLine();
-            return search.GetGameTable();
+            return search.gameGrid;
         }
     }
 }
