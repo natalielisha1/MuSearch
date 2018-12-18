@@ -38,7 +38,7 @@ namespace WpfApp2.GUI
             if (userId!=-1)
             {
                 //go to next page
-                MainWindow gameMainWindow = new MainWindow();
+                MainWindow gameMainWindow = new MainWindow(userId);
                 gameMainWindow.Show();
                 this.Close();
 

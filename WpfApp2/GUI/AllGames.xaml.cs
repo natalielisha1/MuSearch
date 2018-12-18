@@ -15,6 +15,12 @@ using System.Windows.Shapes;
 
 namespace WpfApp2.GUI
 {
+    using System.Data;
+
+    using MuSearch.BusinessLayer;
+
+    using WpfApp2.General;
+
     /// <summary>
     /// Interaction logic for AllGames.xaml
     /// </summary>
@@ -22,14 +28,18 @@ namespace WpfApp2.GUI
     {
         #region Properties
         //public DelegateCommand<object> GoToSettings { get; set; }
+        private Users _users;
+
+        private int userId;
         #endregion
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        public AllGames()
+        public AllGames(int userId)
         {
             InitializeComponent();
-            this.DataContext = this;
+            this._users = new Users();
+            this.userId = userId;
         }
 
         public void NotifyPropertyChanged(string prop)
@@ -37,6 +47,12 @@ namespace WpfApp2.GUI
             this.PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }
 
-
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //go to home page
+            MainWindow gameMainWindow = new MainWindow(this.userId);
+            gameMainWindow.Show();
+            this.Close();
+        }
     }
 }
