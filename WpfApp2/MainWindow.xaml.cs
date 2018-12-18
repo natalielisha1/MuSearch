@@ -27,7 +27,7 @@ namespace WpfApp2
     public partial class MainWindow : Window
     {
         public char[,] Table { get; set; }
-        char[,] _dataArray;
+        public GameGrid gameGrid;
 
         private int userId;
 
@@ -41,9 +41,9 @@ namespace WpfApp2
 
         private void fillingDataGrid()
         {
-            GameGrid dataGrid = Program.getWordSearch(30,30);
-            var rows = dataGrid.rows;
-            var columns = dataGrid.columns;
+            this.gameGrid = Program.getWordSearch(30,30);
+            var rows = this.gameGrid.rows;
+            var columns = this.gameGrid.columns;
 
             DataTable dt = new DataTable();
             for (int i = 0; i < columns; i++)
@@ -56,7 +56,7 @@ namespace WpfApp2
                 DataRow row = dt.NewRow();
                 for (int j = 0; j < columns; j++)
                 {
-                    row[j] = dataGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
+                    row[j] = this.gameGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
                 }
                 dt.Rows.Add(row);
             }
@@ -83,8 +83,9 @@ namespace WpfApp2
 
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
-            Console.WriteLine("********************");
-            Console.WriteLine(e.ToString());
+            int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
+            int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
+
         }
     }
 }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.BusinessLayer
 {
-    class GameGrid
+    public class GameGrid
     {
         public WordSearchCell[,] grid;
         public int rows;
