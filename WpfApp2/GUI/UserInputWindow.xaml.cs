@@ -25,6 +25,8 @@ namespace WpfApp2.GUI
         public string categoryInput { get; set; }
         private int userId;
         private UserInput userInputBL;
+        MainWindow gameMainWindow;
+
         public UserInputWindow(int userId)
         {
             InitializeComponent();
@@ -37,19 +39,32 @@ namespace WpfApp2.GUI
             string valid = this.userInputBL.generateCategories(this.txtUserInput.Text);
             if (valid != null)
             {
-                //go to next page
-                //CategoryWindow categoryWindow = new CategoryWindow(this.userId,valid);
-                //categoryWindow.Show();
                 MainWindow gameMainWindow = new MainWindow(userId, valid);
-                gameMainWindow.Show();
-                //GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
-                this.Close();
+                //creating the check boxes
+                CheckBox box;
+                for (int i = 0; i < 10; i++)
+                {
+                    box = new CheckBox();
+                    /*box.Tag = i.ToString();
+                    box.Text = "a";
+                    box.AutoSize = true;
+                    box.Location = new Point(10, i * 50); //vertical
+                                                          //box.Location = new Point(i * 50, 10); //horizontal
+                    this.Controls.Add(box);*/
+                }
             }
             else
             {
                 // pop up error
-                MessageBox.Show("Sorry, username or password is incorrect!");
+                MessageBox.Show("Sorry, song's not exist in our database!");
             }
+        }
+
+        private void btnSubmitClick2(object sender, RoutedEventArgs e)
+        {
+            //go to next page
+            gameMainWindow.Show();
+            this.Close();
         }
     }
 }
