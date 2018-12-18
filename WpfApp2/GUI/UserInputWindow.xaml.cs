@@ -38,8 +38,11 @@ namespace WpfApp2.GUI
             if (valid != null)
             {
                 //go to next page
-                CategoryWindow categoryWindow = new CategoryWindow(this.userId,valid);
-                categoryWindow.Show();
+                //CategoryWindow categoryWindow = new CategoryWindow(this.userId,valid);
+                //categoryWindow.Show();
+                MainWindow gameMainWindow = new MainWindow(userId, valid);
+                gameMainWindow.Show();
+                //GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
                 this.Close();
             }
             else

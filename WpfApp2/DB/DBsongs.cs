@@ -10,7 +10,7 @@ namespace MuSearch.DB
 
     class songs
     {
-        public static List<string> GetWords()
+        public static List<string> GetWords(string artistName)
         {
             var dbCon = DBConnection.Instance();
             dbCon.DatabaseName = "musearch";
@@ -21,14 +21,14 @@ namespace MuSearch.DB
                               {
                                   CommandType = CommandType.StoredProcedure
                               };
-
+                cmd.Parameters.Add(new MySqlParameter("artistName", artistName));
                 cmd.Connection.Open();
                 try
                 {
                     MySqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
                     {
-                        songs.Add(reader["AlbumName"].ToString());
+                        songs.Add(reader["SongName"].ToString());
                     }
                 } catch(Exception e)
                 {
