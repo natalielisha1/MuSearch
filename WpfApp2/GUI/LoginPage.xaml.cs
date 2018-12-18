@@ -39,8 +39,10 @@ namespace WpfApp2.GUI
             {
                 //go to next page
 
-                UserInputWindow userInputWindow = new UserInputWindow();
-                userInputWindow.Show();
+                //UserInputWindow userInputWindow = new UserInputWindow(userId);
+                //userInputWindow.Show();
+                MainWindow gameMainWindow = new MainWindow(userId);
+                gameMainWindow.Show();
                 this.Close();
             }
             else

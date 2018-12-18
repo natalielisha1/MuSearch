@@ -23,12 +23,13 @@ namespace WpfApp2.GUI
     public partial class UserInputWindow : Window
     {
         public string categoryInput { get; set; }
-
+        private int userId;
         private UserInput userInputBL;
-        public UserInputWindow()
+        public UserInputWindow(int userId)
         {
             InitializeComponent();
             this.userInputBL = new UserInput();
+            this.userId = userId;
         }
 
         private void btnSubmitClick(object sender, RoutedEventArgs e)
@@ -37,7 +38,7 @@ namespace WpfApp2.GUI
             if (valid != null)
             {
                 //go to next page
-                CategoryWindow categoryWindow = new CategoryWindow(valid);
+                CategoryWindow categoryWindow = new CategoryWindow(this.userId,valid);
                 categoryWindow.Show();
                 this.Close();
             }

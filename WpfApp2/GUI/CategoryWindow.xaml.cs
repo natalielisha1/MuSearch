@@ -21,17 +21,18 @@ namespace WpfApp2.GUI
     {
 
         public string categories { get; set; }
-
-        public CategoryWindow(string categories)
+        private int userId;
+        public CategoryWindow(int userId, string categories)
         {
             InitializeComponent();
             this.categories = categories;
+            this.userId = userId;
         }
 
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
             //go to next page
-            MainWindow gameMainWindow = new MainWindow();
+            MainWindow gameMainWindow = new MainWindow(this.userId);
             gameMainWindow.Show();
             this.Close();
         }
