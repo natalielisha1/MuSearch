@@ -15,6 +15,7 @@ namespace MuSearch.BusinessLayer
         public WordSearch(int rows, int columns)
         {
             this.gameGrid = new GameGrid(rows, columns);
+            this.words = new Dictionary<string, Point>();
         }
 
         private bool haveRoom(string word, int direction, Point position)
