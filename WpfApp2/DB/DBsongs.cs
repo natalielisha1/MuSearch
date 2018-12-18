@@ -17,11 +17,15 @@ namespace MuSearch.DB
             List<string> songs = new List<string>();
             if (dbCon.IsConnect())
             {
+                /**
                 var cmd = new MySqlCommand("musearch.getSongs", dbCon.Connection)
                               {
                                   CommandType = CommandType.StoredProcedure
                               };
                 cmd.Parameters.Add(new MySqlParameter("artistName", artistName));
+                */
+                string queryString = "SELECT songName FROM musearch.songs where songs.artistId = " +  '"' + artistName + '"';
+                var cmd = new MySqlCommand(queryString, dbCon.Connection);
                 cmd.Connection.Open();
                 try
                 {
