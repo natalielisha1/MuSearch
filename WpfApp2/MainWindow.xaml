@@ -5,11 +5,34 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="620" Width="800" Background="Maroon">
     <Grid>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="342,331,0,0" VerticalAlignment="Top" Width="75" Click="Button_Click"/>
-        <DataGrid Name ="dataGrid" HorizontalAlignment="Left" Height="288" Margin="55,38,0,0" VerticalAlignment="Top" Width="669" HeadersVisibility="None" ColumnWidth="*"/>
-        <Button Content="MY GAMES" HorizontalAlignment="Left" Margin="532,378,0,0" VerticalAlignment="Top" Width="75" Click="OnMyGames"/>
-        <Button Content="ALL GAMES" HorizontalAlignment="Left" Margin="176,374,0,0" VerticalAlignment="Top" Width="75" Click="OnAllGames"/>
+        <StackPanel>
+            <TextBlock FontSize="65" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">MuSearch</TextBlock>
+        <Button Content="Click Me For Tifzoret" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
+        <DataGrid Name ="dataGrid" HorizontalAlignment="Center" Height="288" Margin="0,0,0,0" VerticalAlignment="Top" Width="669" HeadersVisibility="None" ColumnWidth="*"/>
+        <Button Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
+                Width="156" Height="50" Click="OnMyGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="12.168"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        <Button Content="ALL GAMES" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"
+                Width="156" Height="50" Click="OnAllGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-10.041"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
+        </StackPanel>
     </Grid>
 </Window>
