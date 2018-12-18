@@ -1,5 +1,4 @@
-﻿
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,34 +14,32 @@ using System.Windows.Shapes;
 
 namespace WpfApp2.GUI
 {
+
     using MuSearch.BusinessLayer;
 
     /// <summary>
-    /// Interaction logic for LoginPage.xaml
+    /// Interaction logic for UserInput.xaml
     /// </summary>
-    public partial class LoginPage : Window
+    public partial class UserInputWindow : Window
     {
-        public string Username { get; set; }
-        public string Password { get; set; }
-
-        private Users usersBL;
-        public LoginPage()
+        public string categoryInput { get; set; }
+        private int userId;
+        private UserInput userInputBL;
+        public UserInputWindow(int userId)
         {
             InitializeComponent();
-            this.usersBL = new Users();
+            this.userInputBL = new UserInput();
+            this.userId = userId;
         }
 
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
-            int userId = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
-            if (userId!=-1)
+            string valid = this.userInputBL.generateCategories(this.txtUserInput.Text);
+            if (valid != null)
             {
                 //go to next page
-                //UserInputWindow userInputWindow = new UserInputWindow(userId);
-                //userInputWindow.Show();
-                MainWindow gameMainWindow = new MainWindow(userId);
-                //GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
-                gameMainWindow.Show();
+                CategoryWindow categoryWindow = new CategoryWindow(this.userId,valid);
+                categoryWindow.Show();
                 this.Close();
             }
             else

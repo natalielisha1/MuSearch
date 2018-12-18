@@ -15,9 +15,11 @@ using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
 namespace WpfApp2
 {
+    using MuSearch.GUI;
     using System.Data;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
+    using WpfApp2.GUI;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -27,11 +29,14 @@ namespace WpfApp2
         public char[,] Table { get; set; }
         char[,] _dataArray;
 
+        private int userId;
+
         public DataView DataView { get; set; }
 
-        public MainWindow()
+        public MainWindow(int userId)
         {
             InitializeComponent();
+            this.userId = userId;
         }
 
         private void fillingDataGrid()
@@ -63,10 +68,26 @@ namespace WpfApp2
             this.fillingDataGrid();
         }
 
+<<<<<<< HEAD
 
 
 
 
       
+=======
+        private void OnMyGames(object sender, RoutedEventArgs e)
+        {
+            MyGames window = new MyGames(this.userId);
+            window.Show();
+            this.Close();
+        }
+
+        private void OnAllGames(object sender, RoutedEventArgs e)
+        {
+            AllGames window = new AllGames(this.userId);
+            window.Show();
+            this.Close();
+        }
+>>>>>>> 6d5aadeb8805bd71657d196d76f2385bb362da25
     }
 }

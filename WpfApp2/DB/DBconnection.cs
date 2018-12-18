@@ -4,6 +4,7 @@ using MySql.Data.MySqlClient;
 namespace MuSearch.DB
 {
     using System;
+    using System.Configuration;
 
     public class DBConnection
     {
@@ -39,7 +40,7 @@ namespace MuSearch.DB
             {
                 if (String.IsNullOrEmpty(databaseName))
                     return false;
-                string connstring = string.Format("Server=localhost; database=musearch; UID=root; password=", databaseName);
+                string connstring = string.Format("Server=localhost; database=musearch; UID=root; password =" + ConfigurationManager.AppSettings["DBPassword"], this.databaseName);
                 connection = new MySqlConnection(connstring);
                 connection.Open();
             }
