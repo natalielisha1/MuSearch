@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Dynamic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,17 +36,26 @@ namespace WpfApp2.GUI
         {
             var rows = gameGrid.rows;
             var columns = gameGrid.columns;
-            //DataGrid WPFGrid = new DataGrid();
 
-            for(int i = 0; i < columns; i++)
+            string[] labels = new string[] { "Column 0", "Column 1", "Column 2" };
+
+            foreach (string label in labels)
             {
-                xmlGrid.ColumnDefinitions.Add(new ColumnDefinition());
+                DataGridTextColumn column = new DataGridTextColumn();
+                column.Header = label;
+                column.Binding = new Binding(label.Replace(' ', '_'));
+
+                this.dataGrid.Columns.Add(column);
             }
 
-            for(int i = 0; i < rows; i++)
-            {
-                //TODO
-            }
+            int[] values = new int[] { 0, 1, 2 };
+
+            dynamic row = new ExpandoObject();
+
+            for (int i = 0; i < labels.Length; i++)
+                ((IDictionary<String, Object>)row)[labels[i].Replace(' ', '_')] = values[i];
+
+            dataGrid.Items.Add(row);
         }
     }
 }

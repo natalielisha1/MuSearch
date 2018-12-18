@@ -67,14 +67,6 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
         }
-
-<<<<<<< HEAD
-
-
-
-
-      
-=======
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
             MyGames window = new MyGames(this.userId);
@@ -88,6 +80,11 @@ namespace WpfApp2
             window.Show();
             this.Close();
         }
->>>>>>> 6d5aadeb8805bd71657d196d76f2385bb362da25
+
+        private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
+        {
+            Console.WriteLine("********************");
+            Console.WriteLine(e.ToString());
+        }
     }
 }

@@ -10,7 +10,7 @@
         <StackPanel>
             <TextBlock FontSize="65" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">MuSearch</TextBlock>
         <Button Content="Click Me For Tifzoret" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
-        <DataGrid Name ="dataGrid" HorizontalAlignment="Center" Height="288" Margin="0,0,0,0" VerticalAlignment="Top" Width="669" HeadersVisibility="None" ColumnWidth="*"/>
+        <DataGrid Name ="dataGrid" HorizontalAlignment="Center" Height="288" Margin="0,0,0,0" VerticalAlignment="Top" Width="669" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture"/>
         <Button Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
                 Width="156" Height="50" Click="OnMyGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
             <Button.RenderTransform>

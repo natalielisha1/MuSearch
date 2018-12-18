@@ -6,14 +6,8 @@
         xmlns:local="clr-namespace:WpfApp2.GUI"
         mc:Ignorable="d"
         Title="WordSearchPage" Height="450" Width="800">
-    <Grid Name="xmlGrid" ShowGridLines="true" Background="White">
-        <Grid.ColumnDefinitions>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-
-        </Grid.RowDefinitions>
-
+    <DataGrid Name="dataGrid" Background="White">
         <!--Button Grid.Column="4" Grid.Row="2">a button</-->
-    </Grid>
+    </DataGrid>
 </Window>
     
