@@ -38,8 +38,8 @@ namespace WpfApp2.GUI
             if (userId!=-1)
             {
                 //go to next page
-                MainWindow gameMainWindow = new MainWindow();
-                //GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
+                //MainWindow gameMainWindow = new MainWindow();
+                GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
                 gameMainWindow.Show();
                 this.Close();
 
