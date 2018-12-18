@@ -67,27 +67,12 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
         }
-
-<<<<<<< HEAD
-
-
-
-
-      
-=======
-        private void OnMyGames(object sender, RoutedEventArgs e)
+   
+        private void OnBackToMenu(object sender, RoutedEventArgs e)
         {
-            MyGames window = new MyGames(this.userId);
+            Menu window = new Menu(this.userId);
             window.Show();
             this.Close();
         }
-
-        private void OnAllGames(object sender, RoutedEventArgs e)
-        {
-            AllGames window = new AllGames(this.userId);
-            window.Show();
-            this.Close();
-        }
->>>>>>> 6d5aadeb8805bd71657d196d76f2385bb362da25
     }
 }

@@ -4,6 +4,6 @@
              xmlns:local="clr-namespace:WpfApp2"
              StartupUri="GUI/LoginPage.xaml"> 
     <Application.Resources>
-         
+        <CollectionViewSource Source="{Binding Source={x:Static Fonts.SystemFontFamilies}}" x:Key="familyCollection"/>
     </Application.Resources>
 </Application>
