@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.BusinessLayer
 {
-    public class GameGrid
+    class GameGrid
     {
         public WordSearchCell[,] grid;
         public int rows;
@@ -36,19 +36,34 @@ namespace WpfApp2.BusinessLayer
         public void insertWord(string word, int direction, Point position)
         {
             Console.WriteLine(word + " is in: " + position.printPoint());
-            if (direction == 0)
+
+            if (direction == 0) //hurizantel
             {
                 for (int i = 0; i < word.Length; i++)
                 {
                     Point newPosition = new Point(position.x, position.y + i);
-                    grid[position.x, position.y + i] =  new WordSearchCell(newPosition, word[i], true);
+                    WordSearchCell newCell = new WordSearchCell(newPosition, word[i], true);
+                    newCell.fullWord = word;
+                    newCell.direction = direction;
+                    if (i == 0)
+                        newCell.isStartOfWord = true;
+                    else
+                        newCell.isStartOfWord = false;
+                    grid[position.x, position.y + i] = newCell;
                 }
             }
             else
                 for (int i = 0; i < word.Length; i++)
                 {
                     Point newPosition = new Point(position.x + i, position.y);
-                    grid[position.x + i, position.y] = new WordSearchCell(newPosition, word[i], true);
+                    WordSearchCell newCell = new WordSearchCell(newPosition, word[i], true);
+                    newCell.fullWord = word;
+                    newCell.direction = direction;
+                    if (i == 0)
+                        newCell.isStartOfWord = true;
+                    else
+                        newCell.isStartOfWord = false;
+                    grid[position.x + i, position.y] = newCell;
                 }
         }
 

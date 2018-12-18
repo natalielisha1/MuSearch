@@ -10,7 +10,7 @@ namespace MuSearch.BusinessLayer
     class WordSearch
     {
         public GameGrid gameGrid;
-        public Dictionary<string,Point> words;
+        public Dictionary<string, Point> words;
 
         public WordSearch(int rows, int columns)
         {
@@ -48,8 +48,11 @@ namespace MuSearch.BusinessLayer
 
         public Point getPosition(string word)
         {
+            if (!this.words.ContainsKey(word))
+                return null;
             return this.words[word];
         }
+
 
         /*public void printTable()
         {

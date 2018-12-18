@@ -72,7 +72,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Page Include="GUI\AllGames.xaml">
-	<SubType>Designer</SubType>
+      <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\CategoryWindow.xaml">
@@ -88,10 +88,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\UserInputWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="GUI\WordSearchPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -117,7 +113,7 @@
     <Compile Include="General\Game.cs" />
     <Compile Include="GUI\AllGames.xaml.cs">
       <DependentUpon>AllGames.xaml</DependentUpon>
-	  </Compile>
+    </Compile>
     <Compile Include="GUI\CategoryWindow.xaml.cs">
       <DependentUpon>CategoryWindow.xaml</DependentUpon>
     </Compile>
@@ -129,9 +125,6 @@
     </Compile>
     <Compile Include="GUI\UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\WordSearchPage.xaml.cs">
-      <DependentUpon>WordSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
