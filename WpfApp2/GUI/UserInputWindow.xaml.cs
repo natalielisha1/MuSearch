@@ -26,12 +26,15 @@ namespace WpfApp2.GUI
         private int userId;
         private UserInput userInputBL;
         MainWindow gameMainWindow;
+        List<CheckBox> CategoryBoxes;
 
         public UserInputWindow(int userId)
         {
             InitializeComponent();
             this.userInputBL = new UserInput();
             this.userId = userId;
+            CategoryBoxes = new List<CheckBox>();
+            gameMainWindow = new MainWindow(0, ""); //for compilation
         }
 
         private void btnSubmitClick(object sender, RoutedEventArgs e)
@@ -39,29 +42,46 @@ namespace WpfApp2.GUI
             string valid = this.userInputBL.generateCategories(this.txtUserInput.Text);
             if (valid != null)
             {
-                MainWindow gameMainWindow = new MainWindow(userId, valid);
+                gameMainWindow = new MainWindow(userId, valid);
                 //creating the check boxes
                 CheckBox box;
-                for (int i = 0; i < 10; i++)
+                //getting here a list of all the categories
+                List<string> Categories = new List<string>();
+                //categories = getCategories()...
+                //creating a list of checkboxes of categories
+                for (int i = 0; i < Categories.Count; i++)
                 {
                     box = new CheckBox();
                     /*box.Tag = i.ToString();
-                    box.Text = "a";
+                    //the name of the category
+                    box.Text = Categories[i];
+                    //the box isn't checked yet so:
+                    box.IsChecked = false;
                     box.AutoSize = true;
                     box.Location = new Point(10, i * 50); //vertical
                                                           //box.Location = new Point(i * 50, 10); //horizontal
                     this.Controls.Add(box);*/
+                    this.CategoryBoxes.Add(box);
                 }
             }
             else
             {
                 // pop up error
-                MessageBox.Show("Sorry, song's not exist in our database!");
+                MessageBox.Show("Sorry, this song doesn't exist in our database!");
             }
         }
 
         private void btnSubmitClick2(object sender, RoutedEventArgs e)
         {
+            List<string> checkedCategories = new List<string>();
+            //check which categories were checked and add them the list
+            for (int i = 0; i < CategoryBoxes.Count; i++) {
+                if (CategoryBoxes[i].IsChecked == true)
+                {
+                    //checkedCategories.Add(CategoryBoxes[i].Text);
+                }
+            }
+            //TODO: do something with the checkedCategories
             //go to next page
             gameMainWindow.Show();
             this.Close();
