@@ -25,10 +25,16 @@
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
 
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
-                var result = cmd.ExecuteScalar();
-                if (result!=null)
+                try
                 {
-                    userExist = true;
+                    var result = cmd.ExecuteScalar();
+                    if (result != null)
+                    {
+                        userExist = true;
+                    }
+                } catch(Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
                 }
 
                 dbCon.Close();

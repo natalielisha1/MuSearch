@@ -71,11 +71,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="GUI\CategoryWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="GUI\SettingsView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="GUI\UserInputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -87,18 +95,26 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessLayer\UserInput.cs" />
     <Compile Include="BusinessLayer\Program.cs" />
     <Compile Include="BusinessLayer\SettingsLogic.cs" />
     <Compile Include="BusinessLayer\Users.cs" />
     <Compile Include="BusinessLayer\WordSearch.cs" />
+    <Compile Include="DB\DBcategories.cs" />
     <Compile Include="DB\DBconnection.cs" />
     <Compile Include="DB\DBsongs.cs" />
     <Compile Include="DB\DBusers.cs" />
+    <Compile Include="GUI\CategoryWindow.xaml.cs">
+      <DependentUpon>CategoryWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\SettingsView.xaml.cs">
       <DependentUpon>SettingsView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="GUI\UserInputWindow.xaml.cs">
+      <DependentUpon>UserInputWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>

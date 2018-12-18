@@ -22,10 +22,16 @@ namespace MuSearch.DB
                                   CommandType = CommandType.StoredProcedure
                               };
                 cmd.Connection.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
+                try
                 {
-                    songs.Add(reader["AlbumName"].ToString());
+                    MySqlDataReader reader = cmd.ExecuteReader();
+                    while (reader.Read())
+                    {
+                        songs.Add(reader["AlbumName"].ToString());
+                    }
+                } catch(Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
                 }
                 dbCon.Close();
             }
