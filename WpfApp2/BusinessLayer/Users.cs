@@ -18,5 +18,10 @@
             return this.conn.getTopGames(userID);
         }
 
+        public List<Game> getTopAllGames()
+        {
+            return this.conn.getAllTopGames();
+        }
+
     }
 }

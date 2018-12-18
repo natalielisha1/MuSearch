@@ -35,13 +35,33 @@
         {
             List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
-            //int userId = -1;
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
             {
                 var cmd = new MySqlCommand("musearch.getTopGames", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
+                cmd.Connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                while (reader.Read())
+                {
+                    games.Add(new Game((int)reader["gameId"], (int)reader["points"], reader["date"].ToString()));
+                }
+                dbCon.Close();
+            }
+            return games;
+        }
+
+        public List<Game> getAllTopGames()
+        {
+            List<Game> games = new List<Game>();
+            var dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "musearch";
+            if (dbCon.IsConnect())
+            {
+                var cmd = new MySqlCommand("musearch.getTopAllGames", dbCon.Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter());
                 cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
