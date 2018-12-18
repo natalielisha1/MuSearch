@@ -1,4 +1,4 @@
-﻿using MuSearch.GUI;
+﻿using WpfApp2.GUI;
 using System;
 using System.Collections.Generic;
 using System.Linq;

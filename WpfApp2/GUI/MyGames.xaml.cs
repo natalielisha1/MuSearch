@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -10,16 +11,13 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Data;
 using MuSearch.BusinessLayer;
-using MuSearch.DB;
 using WpfApp2.General;
 
-namespace MuSearch.GUI
+namespace WpfApp2.GUI
 {
-    using System.Data;
-
     using WpfApp2;
 
     /// <summary>
@@ -77,9 +75,9 @@ namespace MuSearch.GUI
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //go to home page
-            MainWindow gameMainWindow = new MainWindow(this.userId);
-            gameMainWindow.Show();
+            //go to menu page
+            Menu window = new Menu(this.userId);
+            window.Show();
             this.Close();
         }
     }

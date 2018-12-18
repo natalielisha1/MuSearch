@@ -15,11 +15,10 @@ using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
 namespace WpfApp2
 {
-    using MuSearch.GUI;
+    using WpfApp2.GUI;
     using System.Data;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
-    using WpfApp2.GUI;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
