@@ -33,21 +33,22 @@
 
         public void insertNewGame(int userID, int score)
         {
-            /*var dbCon = DBConnection.Instance();
+            var dbCon = DBConnection.Instance();
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getTopGames", dbCon.Connection);
+                var cmd = new MySqlCommand("musearch.addGameToUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
+                cmd.Parameters.Add(new MySqlParameter("score1", score));
                 cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameId"], (int)reader["points"], reader["date"].ToString()));
+                    //games.Add(new Game((int)reader["gameId"], (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
-            }*/
+            }
         }
 
         public List<Game> getTopGames(int userID)

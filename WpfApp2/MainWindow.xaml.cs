@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
 namespace WpfApp2
 {
+    using MuSearch.DB;
     using MuSearch.GUI;
     using System.Data;
     using System.Windows.Controls.Primitives;
@@ -31,12 +32,16 @@ namespace WpfApp2
         private List<string> userFind;
         private int userScore;
         public DataView DataView { get; set; }
+        private DBusers DBUsers;
+        private bool gameEnd;
 
         public MainWindow(int userId)
         {
             InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
+            this.DBUsers = new DBusers();
+            this.gameEnd = false;
         }
 
         private void fillingDataGrid()
@@ -86,27 +91,51 @@ namespace WpfApp2
             this.Close();
         }
 
+        private void showEndGame()
+        {
+
+        }
+
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
-            int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
-            int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
-            Console.WriteLine(cellRow + ", " + cellCol);
-            WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
-            if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
-                if (this.userFind.Contains(choosenCell.fullWord))
-                    MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
-                else
-                {
-                    //MessageBox.Show("You found: " + choosenCell.fullWord + ". Great work!");
-                    this.userFind.Add(choosenCell.fullWord);
-                    for (int i = 0; i < choosenCell.fullWord.Length; i++)
+            if (gameEnd)
+                MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
+            else
+            {
+                //save the location that the user clicks on
+                int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
+                int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
+                //Console.WriteLine(cellRow + ", " + cellCol);
+                //save the cell from the WordSearch from this location
+                WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
+                //if this cell is part of a word and it is the beggining of tha word
+                //then this word is found
+                if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
+                    //did the user already found it?
+                    if (this.userFind.Contains(choosenCell.fullWord))
+                        MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
+                    //if it's the first time:
+                    else
                     {
-                        if (choosenCell.direction == 0) //horizantle
-                            this.colorCell(cellRow, cellCol + i);
-                        else
-                            this.colorCell(cellRow + i, cellCol);
+                        //add the word to the list of what the user found and add to his score
+                        this.userFind.Add(choosenCell.fullWord);
+                        this.userScore++;
+                        //color the word he found
+                        for (int i = 0; i < choosenCell.fullWord.Length; i++)
+                        {
+                            if (choosenCell.direction == 0) //horizantle
+                                this.colorCell(cellRow, cellCol + i);
+                            else
+                                this.colorCell(cellRow + i, cellCol);
+                        }
                     }
+                if (this.userFind.Count() == this.wordSearch.words.Count())
+                {
+                    this.DBUsers.insertNewGame(this.userId, this.userScore);
+                    this.gameEnd = true;
+                    MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
                 }
+            }
         }
         private void colorCell(int cellRow, int cellCol) 
         {
