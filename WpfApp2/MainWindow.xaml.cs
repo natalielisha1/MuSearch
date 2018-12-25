@@ -48,6 +48,11 @@ namespace WpfApp2
         {
             this.wordSearch = Program.getWordSearch(20, 20);
             GameGrid gameGrid = wordSearch.gameGrid;
+            foreach(string word in this.wordSearch.words.Keys)
+            {
+                this.wordBox.Items.Add(word);
+            }
+
             var rows = gameGrid.rows;
             var columns = gameGrid.columns;
 
@@ -91,11 +96,6 @@ namespace WpfApp2
             this.Close();
         }
 
-        private void showEndGame()
-        {
-
-        }
-
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
             if (gameEnd)
@@ -128,6 +128,7 @@ namespace WpfApp2
                             else
                                 this.colorCell(cellRow + i, cellCol);
                         }
+                        this.removeFromListBox(choosenCell.fullWord);
                     }
                 if (this.userFind.Count() == this.wordSearch.words.Count())
                 {
@@ -137,6 +138,19 @@ namespace WpfApp2
                 }
             }
         }
+
+        private void removeFromListBox(string word)
+        {
+           for(int i = 0; i < this.wordBox.Items.Count; i++)
+            {
+                if(this.wordBox.Items[i].ToString() == word)
+                {
+                    this.wordBox.Items.Remove(word);
+                    break;
+                }
+            }
+        }
+
         private void colorCell(int cellRow, int cellCol) 
         {
 

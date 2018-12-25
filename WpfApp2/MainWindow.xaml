@@ -5,11 +5,15 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2"
         mc:Ignorable="d"
-        Title="MainWindow" Height="700" Width="600" Background="Maroon">
+        Title="MainWindow" Height="700" Width="1000" Background="Maroon">
     <Grid>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="86*"/>
+            <RowDefinition Height="583*"/>
+        </Grid.RowDefinitions>
+        <StackPanel Grid.RowSpan="2">
             <TextBlock FontSize="65" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">MuSearch</TextBlock>
-        <Button Content="Click Me For Tifzoret" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
+            <Button Content="Click Me For Tifzoret" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
             <DataGrid Name ="dataGrid" HorizontalAlignment="Center" Height="420" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell" >
@@ -23,28 +27,32 @@
                     </Style>
                 </DataGrid.CellStyle>
             </DataGrid>
-        <Button Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
+            <!--ListBox Name="wordBox" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Top"></><!-->
+            <Button Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
                 Width="156" Height="50" Click="OnMyGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="12.168"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
-        <Button Content="ALL GAMES" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="12.168"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+            <Button Content="ALL GAMES" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"
                 Width="156" Height="50" Click="OnAllGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
-            <Button.RenderTransform>
-                <TransformGroup>
-                    <ScaleTransform/>
-                    <SkewTransform/>
-                    <RotateTransform Angle="-10.041"/>
-                    <TranslateTransform/>
-                </TransformGroup>
-            </Button.RenderTransform>
-        </Button>
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="-10.041"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+        </StackPanel>
+        <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <ListBox Name="wordBox" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Center"></ListBox>
         </StackPanel>
     </Grid>
 </Window>
