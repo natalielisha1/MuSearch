@@ -189,5 +189,12 @@ namespace WpfApp2
             this.HideWords.Visibility = Visibility.Hidden;
             this.ShowWords.Visibility = Visibility.Visible;
         }
+
+        private void WordBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            string currentWord = wordBox.SelectedValue.ToString();
+            Point wordsPos = this.wordSearch.getPosition(currentWord);
+            this.colorCell(wordsPos.x, wordsPos.y);
+        }
     }
 }
