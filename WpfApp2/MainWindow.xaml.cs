@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
 using System.ComponentModel;
 using System.Windows.Threading;
+using System.Timers;
+
 namespace WpfApp2
 {
     using MuSearch.DB;
@@ -23,6 +25,7 @@ namespace WpfApp2
     using System.Diagnostics;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
+    using WpfApp2.General;
     using WpfApp2.GUI;
 
     /// <summary>
@@ -32,10 +35,13 @@ namespace WpfApp2
     {
         private string currentTime;
         private Stopwatch stopWatch;
+        private List<Category> categories;
         private WordSearch wordSearch; // The current wordSearch
         private int userId; // The current users's ID
         private List<string> userFind; // The list of words the user already found
         private int _UserScore;
+
+        private DispatcherTimer dispatcherTimer;
         public int UserScore
         {
             get { return _UserScore; }
@@ -51,21 +57,20 @@ namespace WpfApp2
          * Constructor
          * @input: userID - the ID of the user that is currently playing
          */
-        public MainWindow(int userId)
+        public MainWindow(int userId, List<Category> categories)
         {
             InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
             this.DBUsers = new DBusers();
             this.DataContext = this;
-            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            this.categories = categories;
+            dispatcherTimer = new DispatcherTimer();
             stopWatch = new Stopwatch();
             currentTime = string.Empty;
             dispatcherTimer.Tick += new EventHandler(dt_Tick);
             dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
             lblStopWatch.Content = "00:00:00";
-            stopWatch.Start();
-            dispatcherTimer.Start();
         }
 
         void dt_Tick(object sender, EventArgs e)
@@ -96,35 +101,44 @@ namespace WpfApp2
             this.ShowWords.Visibility = Visibility.Visible;
             this.dataGrid.Visibility = Visibility.Visible;
 
-            // Create a new word serch with the wanted size
-            this.wordSearch = Program.getWordSearch(20, 20);
-
-            // Saving the grid
-            GameGrid gameGrid = wordSearch.gameGrid;
-            var rows = gameGrid.rows;
-            var columns = gameGrid.columns;
-
-            // Filling the word box (that helps the user)
-            foreach (string word in this.wordSearch.words.Keys)
-            { this.wordBox.Items.Add(word); }
-
-            // Creating a new data table and filling it with the word search
-            DataTable dt = new DataTable();
-            for (int i = 0; i < columns; i++)
-            { dt.Columns.Add(new DataColumn()); }
-
-            for (int i = 0; i < rows; i++)
+            try
             {
-                DataRow row = dt.NewRow();
-                for (int j = 0; j < columns; j++)
+                // Create a new word serch with the wanted size
+                this.wordSearch = Program.getWordSearch(20, 20, this.categories);
+
+                // Saving the grid
+                GameGrid gameGrid = wordSearch.gameGrid;
+                var rows = gameGrid.rows;
+                var columns = gameGrid.columns;
+
+                // Filling the word box (that helps the user)
+                foreach (string word in this.wordSearch.words.Keys)
+                { this.wordBox.Items.Add(word); }
+
+                // Creating a new data table and filling it with the word search
+                DataTable dt = new DataTable();
+                for (int i = 0; i < columns; i++)
+                { dt.Columns.Add(new DataColumn()); }
+
+                for (int i = 0; i < rows; i++)
                 {
-                    row[j] = gameGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
+                    DataRow row = dt.NewRow();
+                    for (int j = 0; j < columns; j++)
+                    {
+                        row[j] = gameGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
+                    }
+                    dt.Rows.Add(row);
+                    Console.WriteLine("adding row number " + i);
                 }
-                dt.Rows.Add(row);
-                Console.WriteLine("adding row number " + i);
+                Console.WriteLine(dt.Rows.Count);
+                // Convert the data table in to data grid
+                this.dataGrid.ItemsSource = dt.DefaultView;
             }
-            // Convert the data table in to data grid
-            this.dataGrid.ItemsSource = dt.DefaultView;
+            catch(Exception ex)
+            {
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
+            }
         }
 
         /*
@@ -135,6 +149,8 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
             this.help2.Visibility = Visibility.Visible;
+            stopWatch.Start();
+            dispatcherTimer.Start();
         }
 
         /*
@@ -184,7 +200,7 @@ namespace WpfApp2
                 {
                     //add the word to the list of what the user found and add to his score
                     this.userFind.Add(choosenCell.fullWord);
-                    this.UserScore++;
+                    this.UserScore+=2;
                     //color the word he found
                     for (int i = 0; i < choosenCell.fullWord.Length; i++)
                     {
@@ -199,14 +215,23 @@ namespace WpfApp2
             // if the user finished the game
             if (this.userFind.Count() == this.wordSearch.words.Count())
             {
-                // insert this game to the user's games
-                this.DBUsers.insertNewGame(this.userId, this.UserScore);
-                //let the user know the game ended
-                MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
-                //send him back to themenu
-                Menu menu = new Menu(userId);
-                menu.Show();
-                this.Close();
+                try
+                {
+                    // insert this game to the user's games
+                    this.DBUsers.insertNewGame(this.userId, this.UserScore);
+                    //let the user know the game ended
+                    MessageBox.Show("The game is over. You found all the words in. \r\nGreatWork!");
+
+                    //send him back to themenu
+                    Menu menu = new Menu(userId);
+                    menu.Show();
+                    this.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("System Error. \r\nTry again later.");
+                    this.Close();
+                }
             }
         }
 
@@ -260,6 +285,7 @@ namespace WpfApp2
 
         private void WordBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            this.UserScore--;
             string currentWord = wordBox.SelectedValue.ToString();
             Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);

@@ -7,26 +7,27 @@
 
     using MySql.Data.MySqlClient;
 
+    using WpfApp2.General;
+
     public class DBcategories
     {
-        public string checkCategories(string input)
+        public List<Category> checkCategories(string input)
         {
             var dbCon = DBConnection.Instance();
-
+            List<Category> categories = new List<Category>();
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
             {
                 var cmd = new MySqlCommand("musearch.categoryGenerator", dbCon.Connection);
-                cmd.Connection.Open();
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("input", input));
+                cmd.Connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 try
                 {
-                    var result = cmd.ExecuteScalar();
-                    if (result != null)
+                    while (reader.Read())
                     {
-                        dbCon.Close();
-                        return result.ToString();
+                        categories.Add(new Category(reader["CategoryName"].ToString(), reader["Input"].ToString(), reader["Categories"].ToString()));
                     }
                 }
                 catch (Exception e)
@@ -36,7 +37,7 @@
 
                 dbCon.Close();
             }
-            return null;
+            return categories;
         }
     }
 }

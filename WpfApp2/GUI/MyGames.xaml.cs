@@ -44,38 +44,46 @@ namespace MuSearch.GUI
 
         public void ShowTopGames()
         {
-            List<Game> games = this.usersBL.getTopGames(this.userId);
-            var rows = games.Count;
-            DataTable dt = new DataTable();
-
-            DataColumn columnId = new DataColumn();
-            columnId.Caption = "Id";
-            columnId.ColumnName = "Id";
-            columnId.DataType = System.Type.GetType("System.Int32");
-            dt.Columns.Add(columnId);
-
-            DataColumn columnScore = new DataColumn();
-            columnScore.Caption = "Score";
-            columnScore.ColumnName = "Score";
-            columnId.DataType = System.Type.GetType("System.Int32");
-            dt.Columns.Add(columnScore);
-
-            DataColumn columnDate = new DataColumn();
-            columnDate.Caption = "Date";
-            columnDate.ColumnName = "Date";
-            columnId.DataType = System.Type.GetType("System.String");
-            dt.Columns.Add(columnDate);
-
-            for (int i = 0; i < rows; i++)
+            try
             {
-                DataRow row = dt.NewRow();
-                row["Id"] = games[i].GameID;
-                row["Score"] = games[i].Score;
-                row["Date"] = games[i].Date;
-                dt.Rows.Add(row);
-            }
+                List<Game> games = this.usersBL.getTopGames(this.userId);
+                var rows = games.Count;
+                DataTable dt = new DataTable();
 
-            this.dataGrid.ItemsSource = dt.DefaultView;
+                DataColumn columnId = new DataColumn();
+                columnId.Caption = "Id";
+                columnId.ColumnName = "Id";
+                columnId.DataType = System.Type.GetType("System.Int32");
+                dt.Columns.Add(columnId);
+
+                DataColumn columnScore = new DataColumn();
+                columnScore.Caption = "Score";
+                columnScore.ColumnName = "Score";
+                columnId.DataType = System.Type.GetType("System.Int32");
+                dt.Columns.Add(columnScore);
+
+                DataColumn columnDate = new DataColumn();
+                columnDate.Caption = "Date";
+                columnDate.ColumnName = "Date";
+                columnId.DataType = System.Type.GetType("System.String");
+                dt.Columns.Add(columnDate);
+
+                for (int i = 0; i < rows; i++)
+                {
+                    DataRow row = dt.NewRow();
+                    row["Id"] = games[i].GameID;
+                    row["Score"] = games[i].Score;
+                    row["Date"] = games[i].Date;
+                    dt.Rows.Add(row);
+                }
+
+                this.dataGrid.ItemsSource = dt.DefaultView;
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
+            }
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)

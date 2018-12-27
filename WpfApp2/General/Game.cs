@@ -21,4 +21,20 @@ namespace WpfApp2.General
             this.Date = date;
         }
     }
+    public class Category
+    {
+        #region Properties
+        public string CategoryName { get; set; }
+        public string Input { get; set; }
+        public string Categories { get; set; }
+        #endregion
+
+        public Category(string categoryName, string input, string categories)
+        {
+            this.CategoryName = categoryName;
+            this.Input = input;
+            this.Categories = categories;
+        }
+    }
+
 }
