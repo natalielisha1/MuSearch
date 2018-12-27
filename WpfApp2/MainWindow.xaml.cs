@@ -21,6 +21,7 @@ namespace WpfApp2
     using System.Data;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
+    using WpfApp2.General;
     using WpfApp2.GUI;
 
     /// <summary>
@@ -28,6 +29,7 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
+        private List<Category> categories;
         private WordSearch wordSearch; // The current wordSearch
         private int userId; // The current users's ID
         private List<string> userFind; // The list of words the user already found
@@ -38,12 +40,13 @@ namespace WpfApp2
          * Constructor
          * @input: userID - the ID of the user that is currently playing
          */
-        public MainWindow(int userId)
+        public MainWindow(int userId, List<Category> categories)
         {
             InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
             this.DBUsers = new DBusers();
+            this.categories = categories;
         }
 
         /*
@@ -59,7 +62,7 @@ namespace WpfApp2
             try
             {
                 // Create a new word serch with the wanted size
-                this.wordSearch = Program.getWordSearch(20, 20);
+                this.wordSearch = Program.getWordSearch(20, 20, this.categories);
 
                 // Saving the grid
                 GameGrid gameGrid = wordSearch.gameGrid;
@@ -92,7 +95,7 @@ namespace WpfApp2
             catch(Exception ex)
             {
                 MessageBox.Show("System Error. \r\nTry again later.");
-
+                this.Close();
             }
         }
 
