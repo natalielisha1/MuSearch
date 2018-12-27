@@ -4,7 +4,6 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Runtime.CompilerServices;
-
     using MySql.Data.MySqlClient;
     using WpfApp2.General;
 
@@ -28,6 +27,8 @@
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return userId;
         }
 
@@ -40,8 +41,8 @@
                 var cmd = new MySqlCommand("musearch.isUsernamExists", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
-                //cmd.Connection.Open();
-                //MySqlDataReader reader = cmd.ExecuteReader();
+                if (cmd.Connection.State.ToString() != "Open")
+                    cmd.Connection.Open();
                 var result = cmd.ExecuteScalar();
                 if (result != null)
                 {
@@ -50,6 +51,8 @@
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return false;
         }
 
@@ -64,8 +67,8 @@
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", userName));
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
-                cmd.Connection.Open();
-                MySqlDataReader reader = cmd.ExecuteReader();
+                if (cmd.Connection.State.ToString() != "Open")
+                    cmd.Connection.Open();
                 var result = cmd.ExecuteScalar();
                 if (result != null)
                 {
@@ -73,6 +76,8 @@
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return userId;
 
         }
@@ -87,10 +92,13 @@
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
                 cmd.Parameters.Add(new MySqlParameter("score1", score));
-                cmd.Connection.Open();
+                if (cmd.Connection.State.ToString() != "Open")
+                    cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 dbCon.Close();
             }
+            else
+                throw new Exception();
         }
 
         public List<Game> getTopGames(int userID)
@@ -111,6 +119,8 @@
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return games;
         }
 
@@ -132,6 +142,8 @@
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return games;
         }
     }

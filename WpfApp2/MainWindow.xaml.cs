@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
+using System.Timers;
 namespace WpfApp2
 {
     using MuSearch.DB;
@@ -27,63 +28,87 @@ namespace WpfApp2
     /// </summary>
     public partial class MainWindow : Window
     {
-        private WordSearch wordSearch;
-        private int userId;
-        private List<string> userFind;
-        private int userScore;
-        public DataView DataView { get; set; }
-        private DBusers DBUsers;
-        private bool gameEnd;
+        private WordSearch wordSearch; // The current wordSearch
+        private int userId; // The current users's ID
+        private List<string> userFind; // The list of words the user already found
+        private int userScore; // The score of the current user
+        private DBusers DBUsers; // A Way To Connect to the DB
 
-        private string artistName;
-        public MainWindow(int userId, string artistName)
+        /*
+         * Constructor
+         * @input: userID - the ID of the user that is currently playing
+         */
+        public MainWindow(int userId)
         {
             InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
             this.DBUsers = new DBusers();
-            this.gameEnd = false;
         }
 
+        /*
+         * fillinDaatGrid
+         * filling the data grid with the word search we created
+         */
         private void fillingDataGrid()
         {
+            // Make the word search grid and the "show words" button visible
             this.ShowWords.Visibility = Visibility.Visible;
             this.dataGrid.Visibility = Visibility.Visible;
-            this.wordSearch = Program.getWordSearch(20, 20);
-            GameGrid gameGrid = wordSearch.gameGrid;
-            foreach (string word in this.wordSearch.words.Keys)
-            {
-                this.wordBox.Items.Add(word);
-            }
-            var rows = gameGrid.rows;
-            var columns = gameGrid.columns;
 
-            DataTable dt = new DataTable();
-            for (int i = 0; i < columns; i++)
+            try
             {
-                dt.Columns.Add(new DataColumn());
-            }
+                // Create a new word serch with the wanted size
+                this.wordSearch = Program.getWordSearch(20, 20);
 
-            for (int i = 0; i < rows; i++)
-            {
-                DataRow row = dt.NewRow();
-                for (int j = 0; j < columns; j++)
+                // Saving the grid
+                GameGrid gameGrid = wordSearch.gameGrid;
+                var rows = gameGrid.rows;
+                var columns = gameGrid.columns;
+
+                // Filling the word box (that helps the user)
+                foreach (string word in this.wordSearch.words.Keys)
+                { this.wordBox.Items.Add(word); }
+
+                // Creating a new data table and filling it with the word search
+                DataTable dt = new DataTable();
+                for (int i = 0; i < columns; i++)
+                { dt.Columns.Add(new DataColumn()); }
+
+                for (int i = 0; i < rows; i++)
                 {
-                    row[j] = gameGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
+                    DataRow row = dt.NewRow();
+                    for (int j = 0; j < columns; j++)
+                    {
+                        row[j] = gameGrid.getCellByPosition(new BusinessLayer.Point(i, j)).value;
+                    }
+                    dt.Rows.Add(row);
+                    Console.WriteLine("adding row number " + i);
                 }
-                dt.Rows.Add(row);
+                Console.WriteLine(dt.Rows.Count);
+                // Convert the data table in to data grid
+                this.dataGrid.ItemsSource = dt.DefaultView;
             }
-            Console.WriteLine(dt.Rows.Count);
-            this.dataGrid.ItemsSource = dt.DefaultView;
-            //this.dataGrid.Items.RemoveAt(20);
+            catch(Exception ex)
+            {
+                MessageBox.Show("System Error. \r\nTry again later.");
 
-
-            //Console.WriteLine(this.dataGrid.Items.Count);
+            }
         }
-        private void Button_Click(object sender, RoutedEventArgs e)
+
+        /*
+         * startTheGameButton
+         * When the button is clicked creat the game
+         */
+        private void startTheGameButton(object sender, RoutedEventArgs e)
         {
-            this.fillingDataGrid();
+            this.fillingDataGrid();;
         }
+
+        /*
+         * OnMyGames
+         * Click on the "my games" buttons. show the "my games" page
+         */
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
             MyGames window = new MyGames(this.userId);
@@ -91,32 +116,43 @@ namespace WpfApp2
             this.Close();
         }
 
+        /*
+         * OnAllGames
+         * Click on the "all games" buttons. show the "all games" page
+         */
         private void OnAllGames(object sender, RoutedEventArgs e)
         {
             Menu window = new Menu(this.userId);
             window.Show();
             this.Close();
         }
+
+        /*
+         * DataGrid_MouseCapture
+         * When the user clicks on one of the cells in the data grid (that is our word search)
+         */
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
             //save the location that the user clicks on
             int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
             int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
-            //Console.WriteLine(cellRow + ", " + cellCol);
-            //save the cell from the WordSearch from this location
+
+            //save the cell from the WordSearch in this location
             WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
-            //if this cell is part of a word and it is the beggining of tha word
+
+            //if this cell is part of a word and it is the first char of the word
             //then this word is found
             if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
                 //did the user already found it?
                 if (this.userFind.Contains(choosenCell.fullWord))
                     MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
+
                 //if it's the first time:
                 else
                 {
                     //add the word to the list of what the user found and add to his score
                     this.userFind.Add(choosenCell.fullWord);
-                    this.userScore++;
+                    this.userScore+=2;
                     //color the word he found
                     for (int i = 0; i < choosenCell.fullWord.Length; i++)
                     {
@@ -127,18 +163,27 @@ namespace WpfApp2
                     }
                     this.removeFromListBox(choosenCell.fullWord);
                 }
+            
+            // if the user finished the game
             if (this.userFind.Count() == this.wordSearch.words.Count())
             {
-                this.DBUsers.insertNewGame(this.userId, this.userScore);
-                //this.gameEnd = true;
-                MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
-                this.dataGrid.Visibility = Visibility.Hidden;
-                this.wordBox.Visibility = Visibility.Hidden;
-                this.ShowWords.Visibility = Visibility.Hidden;
-                this.HideWords.Visibility = Visibility.Hidden;
-                this.start.Visibility = Visibility.Hidden;
-                this.myGames.Visibility = Visibility.Visible;
-                this.allGames.Visibility = Visibility.Visible;
+                try
+                {
+                    // insert this game to the user's games
+                    this.DBUsers.insertNewGame(this.userId, this.userScore);
+                    //let the user know the game ended
+                    MessageBox.Show("The game is over. You found all the words in. \r\nGreatWork!");
+
+                    //send him back to themenu
+                    Menu menu = new Menu(userId);
+                    menu.Show();
+                    this.Close();
+                }
+                catch(Exception ex)
+                {
+                    MessageBox.Show("System Error. \r\nTry again later.");
+                    this.Close();
+                }
             }
         }
 
@@ -156,11 +201,10 @@ namespace WpfApp2
 
         private void colorCell(int cellRow, int cellCol) 
         {
-
             DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(
                 dataGrid.Items[cellRow], dataGrid.Columns[cellCol]);
             DataGridCell dataGridCell = this.GetDataGridCell(dataGridCellInfo);
-            dataGridCell.Background = Brushes.Pink;
+            dataGridCell.Background = Brushes.Maroon;
             dataGridCellInfo = new DataGridCellInfo(dataGridCell);
 
             dataGrid.CurrentCell = dataGridCellInfo;
@@ -178,7 +222,6 @@ namespace WpfApp2
         private void ShowWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Visible;
-            
             this.ShowWords.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Visible;
         }
@@ -192,6 +235,7 @@ namespace WpfApp2
 
         private void WordBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
+            userScore--;
             string currentWord = wordBox.SelectedValue.ToString();
             Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);

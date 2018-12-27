@@ -42,7 +42,13 @@ namespace MuSearch.DB
                     return false;
                 string connstring = string.Format("Server=localhost; database=musearch; UID=root; password =" + ConfigurationManager.AppSettings["DBPassword"], this.databaseName);
                 connection = new MySqlConnection(connstring);
-                connection.Open();
+                try
+                {
+                    connection.Open();
+                }catch (Exception e)
+                {
+                    return false;
+                }
             }
 
             return true;
