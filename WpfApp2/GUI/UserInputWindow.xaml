@@ -11,9 +11,8 @@
             <TextBlock HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="40" FontFamily="Century Gothic">CATEGORIES</TextBlock>
             <TextBlock FontSize="15" Margin="50,10,0,5" FontFamily="Century Gothic">enter keyword :</TextBlock>
             <TextBox Name="txtUserInput"  Margin="50,0,450,10" Background="#545d6a" Foreground="White" FontSize="18"/>
-            <Button Name="btnSubmit" FontFamily="Century Gothic" Click ="btnSubmitClick" Content="Submit" Margin="50,0,450,10" Width="100" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"></Button>
+            <Button Name="btnSubmit" FontFamily="Century Gothic" Click ="btnSubmitClick" Content="Categories" Margin="50,0,450,10" Width="100" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"></Button>
             <TextBlock FontSize="15" Margin="50,0,0,5" FontFamily="Century Gothic">choose categories :</TextBlock>
-            <Button Name="btnSubmit2" FontFamily="Century Gothic" Click ="btnSubmitClick2" Content="Submit" Margin="50,0,450,10" Width="100" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"></Button>
             <ListBox Name="listBoxZone" ItemsSource="{Binding TheList}"
                      Height="115" Background="Azure">
                 <ListBox.ItemTemplate>
@@ -22,6 +21,7 @@
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
+            <Button Name="btnSubmit2" FontFamily="Century Gothic" Click ="btnSubmitClick2" Content="Generate" Margin="50,0,450,10" Width="100" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"></Button>
         </StackPanel>
         <TextBox Name="ZoneText" Width="160" Height="20" Margin="-80,340,0,0" Background="Bisque" />
     </Grid>

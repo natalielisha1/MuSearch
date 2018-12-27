@@ -6,6 +6,8 @@
 
     public class Users
     {
+        public List<int> games;
+
         private DBusers conn = new DBusers();
 
         public int checkUser(string username, string password)

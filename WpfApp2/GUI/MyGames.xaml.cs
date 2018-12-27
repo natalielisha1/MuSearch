@@ -78,9 +78,9 @@ namespace MuSearch.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            //MainWindow gameMainWindow = new MainWindow(this.userId,);
+            //WpfApp2.GUI.Menu gameMainWindow = new Menu(this.userId);
             //gameMainWindow.Show();
-            //this.Close();
+            this.Close();
         }
     }
 }
