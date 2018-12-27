@@ -8,13 +8,14 @@ using WpfApp2.BusinessLayer;
 
 namespace MuSearch.BusinessLayer
 {
+    using WpfApp2.General;
 
     class Program
     {
 
-        public static WordSearch getWordSearch(int rows, int cols)
+        public static WordSearch getWordSearch(int rows, int cols, List<Category> categories)
         {
-            List<string> words = songs.GetWords("ifat");
+            List<string> words = songs.GetWords(categories);
             WordSearch search = new WordSearch(rows, cols);
             search.fixWords(words);
             search.createWordSearch(words);

@@ -20,6 +20,7 @@ namespace WpfApp2
     using System.Data;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
+    using WpfApp2.General;
     using WpfApp2.GUI;
 
     /// <summary>
@@ -35,21 +36,24 @@ namespace WpfApp2
         private DBusers DBUsers;
         private bool gameEnd;
 
+        private List<Category> categories;
+
         private string artistName;
-        public MainWindow(int userId, string artistName)
+        public MainWindow(int userId, List<Category> categories)
         {
             InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
             this.DBUsers = new DBusers();
             this.gameEnd = false;
+            this.categories = categories;
         }
 
         private void fillingDataGrid()
         {
             this.ShowWords.Visibility = Visibility.Visible;
             this.dataGrid.Visibility = Visibility.Visible;
-            this.wordSearch = Program.getWordSearch(20, 20);
+            this.wordSearch = Program.getWordSearch(20, 20,this.categories);
             GameGrid gameGrid = wordSearch.gameGrid;
             foreach (string word in this.wordSearch.words.Keys)
             {
