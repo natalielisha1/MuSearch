@@ -84,7 +84,6 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
         }
-<<<<<<< HEAD
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
             MyGames window = new MyGames(this.userId);
@@ -197,5 +196,11 @@ namespace WpfApp2
             Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);
         }
-}
+        private void OnBackToMenu(object sender, RoutedEventArgs e)
+        {
+            Menu window = new Menu(this.userId);
+            window.Show();
+            this.Close();
+        }
+    }
 }
