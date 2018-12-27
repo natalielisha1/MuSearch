@@ -85,6 +85,7 @@ namespace WpfApp2
                     dt.Rows.Add(row);
                     Console.WriteLine("adding row number " + i);
                 }
+                Console.WriteLine(dt.Rows.Count);
                 // Convert the data table in to data grid
                 this.dataGrid.ItemsSource = dt.DefaultView;
             }

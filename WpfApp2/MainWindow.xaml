@@ -14,7 +14,7 @@
         <StackPanel Grid.RowSpan="2">
             <TextBlock FontSize="65" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">MuSearch</TextBlock>
             <Button Name="start" Content="Start The Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"  Click="startTheGameButton" Width="200" Height="30" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY"/>
-            <DataGrid Name ="dataGrid" Visibility="Hidden" HorizontalAlignment="Center" Height="410" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
+            <DataGrid Name ="dataGrid" CanUserAddRows="False" Visibility="Hidden" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell" >
                         <Style.Triggers>
