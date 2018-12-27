@@ -11,9 +11,10 @@ namespace MuSearch.BusinessLayer
 
     class Program
     {
+
         public static WordSearch getWordSearch(int rows, int cols)
         {
-            List<string> words = songs.GetWords();
+            List<string> words = songs.GetWords("ifat");
             WordSearch search = new WordSearch(rows, cols);
             search.fixWords(words);
             search.createWordSearch(words);

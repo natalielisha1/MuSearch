@@ -35,7 +35,8 @@ namespace WpfApp2
         private DBusers DBUsers;
         private bool gameEnd;
 
-        public MainWindow(int userId)
+        private string artistName;
+        public MainWindow(int userId, string artistName)
         {
             InitializeComponent();
             this.userId = userId;
@@ -83,6 +84,7 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
         }
+<<<<<<< HEAD
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
             MyGames window = new MyGames(this.userId);
@@ -92,11 +94,10 @@ namespace WpfApp2
 
         private void OnAllGames(object sender, RoutedEventArgs e)
         {
-            AllGames window = new AllGames(this.userId);
+            Menu window = new Menu(this.userId);
             window.Show();
             this.Close();
         }
-
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
             //save the location that the user clicks on
@@ -196,5 +197,5 @@ namespace WpfApp2
             Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);
         }
-    }
+}
 }
