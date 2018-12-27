@@ -1,12 +1,12 @@
-
+DROP DATABASE IF EXISTS musearch;
+CREATE DATABASE musearch;
+USE musearch;
 -- MySQL dump 10.13  Distrib 8.0.13, for Win64 (x86_64)
 --
 -- Host: localhost    Database: musearch
 -- ------------------------------------------------------
 -- Server version	8.0.13
-DROP DATABASE IF EXISTS musearch;
-CREATE DATABASE musearch;
-USE musearch;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -374,9 +374,45 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryGenerator`(IN input VARCHAR(255))
 BEGIN
-	SELECT songs.ArtistId
+		-- if input is a song
+    SELECT songs.ArtistId as CategoryName,"song" as Input, "artist" as Categories
     FROM musearch.songs
-	WHERE songs.songName LIKE input;
+	WHERE songs.songName LIKE input
+    UNION 
+    SELECT songs.AlbumId as CategoryName,"song" as Input, "album" as Categories
+    FROM musearch.songs
+	WHERE songs.songName LIKE input
+    UNION 
+    SELECT (songs.year) - songs.year % 10 as CategoryName,"song" as Input, "decade" as Categories
+    FROM musearch.songs
+	WHERE songs.songName LIKE input AND songs.year not like "0"
+    -- if input is an artist
+    UNION
+    SELECT songs.ArtistId as CategoryName,"artist" as Input, "artist" as Categories
+    FROM musearch.songs
+	WHERE songs.ArtistId LIKE input
+    UNION
+    SELECT songs.AlbumId as CategoryName,"artist" as Input, "album" as Categories
+    FROM musearch.songs
+	WHERE songs.ArtistId LIKE input
+    UNION 
+    SELECT songs.year as CategoryName,"artist" as Input, "year" as Categories
+    FROM musearch.songs
+	WHERE songs.ArtistId LIKE input
+    UNION 
+    -- if input is an album
+    SELECT songs.ArtistId as CategoryName,"album" as Input, "artist" as Categories
+    FROM musearch.songs
+	WHERE songs.AlbumId LIKE input
+    UNION
+    SELECT albums.albumName as CategoryName,"album" as Input, "album" as Categories
+    FROM musearch.albums
+	WHERE albums.AlbumName LIKE input
+    UNION 
+    SELECT albums.year as CategoryName,"album" as Input, "decade" as Categories
+    FROM musearch.albums
+	WHERE albums.AlbumName LIKE input
+    ;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -490,4 +526,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-12-27 13:57:17
+-- Dump completed on 2018-12-27 18:46:46
