@@ -33,15 +33,17 @@ namespace WpfApp2
 
         public DataView DataView { get; set; }
 
-        public MainWindow(int userId)
+        private string artistName;
+        public MainWindow(int userId, string artistName)
         {
             InitializeComponent();
             this.userId = userId;
+            this.artistName = artistName;
         }
 
         private void fillingDataGrid()
         {
-            GameGrid dataGrid = Program.getWordSearch(30,30);
+            GameGrid dataGrid = Program.getWordSearch(30,30, this.artistName);
             var rows = dataGrid.rows;
             var columns = dataGrid.columns;
 
@@ -67,7 +69,7 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
         }
-   
+
         private void OnBackToMenu(object sender, RoutedEventArgs e)
         {
             Menu window = new Menu(this.userId);

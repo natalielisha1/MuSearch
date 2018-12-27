@@ -32,9 +32,9 @@ namespace WpfApp2.GUI
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
             //go to next page
-            MainWindow gameMainWindow = new MainWindow(this.userId);
-            gameMainWindow.Show();
-            this.Close();
+            //MainWindow gameMainWindow = new MainWindow(this.userId);
+            //gameMainWindow.Show();
+            //this.Close();
         }
     }
 }
