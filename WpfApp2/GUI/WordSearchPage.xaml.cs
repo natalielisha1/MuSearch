@@ -26,8 +26,8 @@ namespace WpfApp2.GUI
 
         public WordSearchPage()
         {
-            this.gameGrid = Program.getWordSearch(30, 30);
-            InitializeComponent();
+            //this.gameGrid = Program.getWordSearch(30, 30, );
+            //InitializeComponent();
             //drawWordSearch();
         }
 

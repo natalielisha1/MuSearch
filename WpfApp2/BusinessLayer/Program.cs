@@ -11,15 +11,16 @@ namespace MuSearch.BusinessLayer
 
     class Program
     {
-        public static GameGrid getWordSearch(int rows, int cols)
+
+        public static WordSearch getWordSearch(int rows, int cols)
         {
-            List<string> words = songs.GetWords();
+            List<string> words = songs.GetWords("ifat");
             WordSearch search = new WordSearch(rows, cols);
             search.fixWords(words);
             search.createWordSearch(words);
             //search.printTable();
             Console.ReadLine();
-            return search.gameGrid;
+            return search;
         }
     }
 }

@@ -76,8 +76,8 @@ namespace WpfApp2.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            Menu window = new Menu(this.userId);
-            window.Show();
+            Menu gameMainWindow = new Menu(this.userId);
+            gameMainWindow.Show();
             this.Close();
         }
     }
