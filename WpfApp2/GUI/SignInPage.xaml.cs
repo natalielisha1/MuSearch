@@ -39,8 +39,8 @@ namespace WpfApp2.GUI
                 else
                 {
                     int userID = this.BDUsers.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
-                    CategoryWindow CateWindow = new CategoryWindow(userID, "");
-                    CateWindow.Show();
+                    Menu gameMainWindow = new Menu(userID);
+                    gameMainWindow.Show();
                     this.Close();
                 }
             }

@@ -81,9 +81,15 @@ namespace MuSearch.BusinessLayer
 
             foreach (string word in words)
             {
+                if (word.Length > 20)
+                {
+                    continue;
+                }
                 direction = rnd.Next(0, 2);
+                int i = 0;
                 do
                 {
+                    i++;
                     if (direction == 0)
                     {
                         position = new Point(rnd.Next(0, gameGrid.rows), rnd.Next(0, gameGrid.columns - word.Length));
