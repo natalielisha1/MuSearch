@@ -100,7 +100,7 @@ namespace WpfApp2.GUI
             //TODO: do something with the checkedCategories
             //go to next page
 
-            MainWindow gameMainWindow = new MainWindow(this.userId, ""); //for compilation
+            MainWindow gameMainWindow = new MainWindow(this.userId); //for compilation
             gameMainWindow.Show();
             this.Close();
         }

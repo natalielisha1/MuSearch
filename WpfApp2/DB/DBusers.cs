@@ -40,8 +40,8 @@
                 var cmd = new MySqlCommand("musearch.isUsernamExists", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
-                //cmd.Connection.Open();
-                //MySqlDataReader reader = cmd.ExecuteReader();
+                cmd.Connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
                 var result = cmd.ExecuteScalar();
                 if (result != null)
                 {

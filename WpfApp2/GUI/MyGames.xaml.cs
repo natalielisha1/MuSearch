@@ -12,17 +12,16 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using MuSearch.BusinessLayer;
+using WpfApp2.BusinessLayer;
 using MuSearch.DB;
 using WpfApp2.General;
+using MuSearch.BusinessLayer;
+using System.Data;
+using WpfApp2;
 
 namespace MuSearch.GUI
 {
-    using System.Data;
-
-    using WpfApp2;
-
-    /// <summary>
+   /// <summary>
     /// Interaction logic for MyGames.xaml
     /// </summary>
     public partial class MyGames : Window
@@ -78,8 +77,8 @@ namespace MuSearch.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            //WpfApp2.GUI.Menu gameMainWindow = new Menu(this.userId);
-            //gameMainWindow.Show();
+            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(userId);
+            gameMainWindow.Show();
             this.Close();
         }
     }

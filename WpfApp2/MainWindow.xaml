@@ -13,49 +13,27 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.RowSpan="2">
             <TextBlock FontSize="65" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">MuSearch</TextBlock>
-            <Button Name="start" Content="Start The Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"  Click="Button_Click" Width="200" Height="30" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY"/>
-            <DataGrid Name ="dataGrid" Visibility="Hidden" HorizontalAlignment="Center" Height="420" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
+            <Button Name="start" Content="Start The Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"  Click="startTheGameButton" Width="200" Height="30" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY"/>
+            <DataGrid Name ="dataGrid" Visibility="Hidden" HorizontalAlignment="Center" Height="410" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell" >
                         <Style.Triggers>
                             <Trigger Property="IsSelected" Value="True">
                                 <Setter Property="Background">
-                                    <Setter.Value>Pink</Setter.Value>
+                                    <Setter.Value>Gray</Setter.Value>
                                 </Setter>
                             </Trigger>
                         </Style.Triggers>
                     </Style>
                 </DataGrid.CellStyle>
             </DataGrid>
-            <Button Name="myGames" Visibility="Hidden" Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
-                Width="156" Height="50" Click="OnMyGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="12.168"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
-            <Button Name="allGames" Visibility="Hidden" Content="ALL GAMES" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"
-                Width="156" Height="50" Click="OnAllGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
-                <Button.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform Angle="-10.041"/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Button.RenderTransform>
-            </Button>
+            <Button Content="BACK TO MENU" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Bottom"
+            Width="250" Height="50" Click="OnBackToMenu" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5"/>
         </StackPanel>
         <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Button Name="ShowWords" Visibility="Hidden" Content="Show Words" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="ShowWordsClick"/>
-            <ListBox x:Name="wordBox" Visibility="Hidden" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Center" MouseDoubleClick="WordBox_MouseDoubleClick"/>
+            <ListBox x:Name="wordBox" Visibility="Hidden" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Center" MouseDoubleClick="WordBox_MouseDoubleClick" Background="Maroon" Foreground="Black" FontSize="20" FontWeight="ExtraBlack" FontFamily="AR DELANEY"/>
             <Button Name="HideWords" Visibility="Hidden" Content="Hide Words" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="HideWordsClick"/>
-        <Button Content="BACK TO MENU" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
-            Width="250" Height="50" Click="OnBackToMenu" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5"/>
         </StackPanel>
     </Grid>
 </Window>
