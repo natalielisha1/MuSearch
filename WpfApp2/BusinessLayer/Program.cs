@@ -11,9 +11,9 @@ namespace MuSearch.BusinessLayer
 
     class Program
     {
-        public static GameGrid getWordSearch(int rows, int cols)
+        public static GameGrid getWordSearch(int rows, int cols, string artistName)
         {
-            List<string> words = songs.GetWords();
+            List<string> words = songs.GetWords(artistName);
             WordSearch search = new WordSearch(rows, cols);
             search.fixWords(words);
             search.createWordSearch(words);
