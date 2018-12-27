@@ -31,6 +31,52 @@
             return userId;
         }
 
+        public bool isUsernameExists(string username)
+        {
+            var dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "musearch";
+            if (dbCon.IsConnect())
+            {
+                var cmd = new MySqlCommand("musearch.isUsernamExists", dbCon.Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("username1", username));
+                //cmd.Connection.Open();
+                //MySqlDataReader reader = cmd.ExecuteReader();
+                var result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    dbCon.Close();
+                    return true;
+                }
+                dbCon.Close();
+            }
+            return false;
+        }
+
+        public int insertNewUser(string userName, string password)
+        {
+            var dbCon = DBConnection.Instance();
+            dbCon.DatabaseName = "musearch";
+            int userId = -1;
+            if (dbCon.IsConnect())
+            {
+                var cmd = new MySqlCommand("musearch.addNewUser", dbCon.Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("username1", userName));
+                cmd.Parameters.Add(new MySqlParameter("password1", password));
+                cmd.Connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                var result = cmd.ExecuteScalar();
+                if (result != null)
+                {
+                    userId = (int)result;
+                }
+                dbCon.Close();
+            }
+            return userId;
+
+        }
+
         public void insertNewGame(int userID, int score)
         {
             var dbCon = DBConnection.Instance();
@@ -43,10 +89,6 @@
                 cmd.Parameters.Add(new MySqlParameter("score1", score));
                 cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
-                while (reader.Read())
-                {
-                    //games.Add(new Game((int)reader["gameId"], (int)reader["points"], reader["date"].ToString()));
-                }
                 dbCon.Close();
             }
         }

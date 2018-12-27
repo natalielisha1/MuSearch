@@ -13,8 +13,8 @@
         </Grid.RowDefinitions>
         <StackPanel Grid.RowSpan="2">
             <TextBlock FontSize="65" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">MuSearch</TextBlock>
-            <Button Content="Click Me For Tifzoret" HorizontalAlignment="Center" Margin="0,0,0,10" VerticalAlignment="Top" Width="125" Click="Button_Click"/>
-            <DataGrid Name ="dataGrid" HorizontalAlignment="Center" Height="420" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
+            <Button Name="start" Content="Start The Game" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,10"  Click="Button_Click" Width="200" Height="30" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY"/>
+            <DataGrid Name ="dataGrid" Visibility="Hidden" HorizontalAlignment="Center" Height="420" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell" >
                         <Style.Triggers>
@@ -27,8 +27,7 @@
                     </Style>
                 </DataGrid.CellStyle>
             </DataGrid>
-            <!--ListBox Name="wordBox" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Top"></><!-->
-            <Button Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
+            <Button Name="myGames" Visibility="Hidden" Content="MY GAMES" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
                 Width="156" Height="50" Click="OnMyGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -39,7 +38,7 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button Content="ALL GAMES" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"
+            <Button Name="allGames" Visibility="Hidden" Content="ALL GAMES" HorizontalAlignment="Center" Margin="0,0,0,0" VerticalAlignment="Top"
                 Width="156" Height="50" Click="OnAllGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>
                     <TransformGroup>
@@ -52,7 +51,9 @@
             </Button>
         </StackPanel>
         <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2">
-            <ListBox Name="wordBox" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Center"></ListBox>
+            <Button Name="ShowWords" Visibility="Hidden" Content="Show Words" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="ShowWordsClick"/>
+            <ListBox x:Name="wordBox" Visibility="Hidden" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Center" />
+            <Button Name="HideWords" Visibility="Hidden" Content="Hide Words" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="HideWordsClick"/>
         </StackPanel>
     </Grid>
 </Window>

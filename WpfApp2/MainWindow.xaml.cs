@@ -46,13 +46,14 @@ namespace WpfApp2
 
         private void fillingDataGrid()
         {
+            this.ShowWords.Visibility = Visibility.Visible;
+            this.dataGrid.Visibility = Visibility.Visible;
             this.wordSearch = Program.getWordSearch(20, 20);
             GameGrid gameGrid = wordSearch.gameGrid;
-            foreach(string word in this.wordSearch.words.Keys)
+            foreach (string word in this.wordSearch.words.Keys)
             {
                 this.wordBox.Items.Add(word);
             }
-
             var rows = gameGrid.rows;
             var columns = gameGrid.columns;
 
@@ -98,44 +99,46 @@ namespace WpfApp2
 
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
-            if (gameEnd)
-                MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
-            else
-            {
-                //save the location that the user clicks on
-                int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
-                int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
-                //Console.WriteLine(cellRow + ", " + cellCol);
-                //save the cell from the WordSearch from this location
-                WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
-                //if this cell is part of a word and it is the beggining of tha word
-                //then this word is found
-                if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
-                    //did the user already found it?
-                    if (this.userFind.Contains(choosenCell.fullWord))
-                        MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
-                    //if it's the first time:
-                    else
-                    {
-                        //add the word to the list of what the user found and add to his score
-                        this.userFind.Add(choosenCell.fullWord);
-                        this.userScore++;
-                        //color the word he found
-                        for (int i = 0; i < choosenCell.fullWord.Length; i++)
-                        {
-                            if (choosenCell.direction == 0) //horizantle
-                                this.colorCell(cellRow, cellCol + i);
-                            else
-                                this.colorCell(cellRow + i, cellCol);
-                        }
-                        this.removeFromListBox(choosenCell.fullWord);
-                    }
-                if (this.userFind.Count() == this.wordSearch.words.Count())
+            //save the location that the user clicks on
+            int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
+            int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
+            //Console.WriteLine(cellRow + ", " + cellCol);
+            //save the cell from the WordSearch from this location
+            WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
+            //if this cell is part of a word and it is the beggining of tha word
+            //then this word is found
+            if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
+                //did the user already found it?
+                if (this.userFind.Contains(choosenCell.fullWord))
+                    MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
+                //if it's the first time:
+                else
                 {
-                    this.DBUsers.insertNewGame(this.userId, this.userScore);
-                    this.gameEnd = true;
-                    MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
+                    //add the word to the list of what the user found and add to his score
+                    this.userFind.Add(choosenCell.fullWord);
+                    this.userScore++;
+                    //color the word he found
+                    for (int i = 0; i < choosenCell.fullWord.Length; i++)
+                    {
+                        if (choosenCell.direction == 0) //horizantle
+                            this.colorCell(cellRow, cellCol + i);
+                        else
+                            this.colorCell(cellRow + i, cellCol);
+                    }
+                    this.removeFromListBox(choosenCell.fullWord);
                 }
+            if (this.userFind.Count() == this.wordSearch.words.Count())
+            {
+                this.DBUsers.insertNewGame(this.userId, this.userScore);
+                //this.gameEnd = true;
+                MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
+                this.dataGrid.Visibility = Visibility.Hidden;
+                this.wordBox.Visibility = Visibility.Hidden;
+                this.ShowWords.Visibility = Visibility.Hidden;
+                this.HideWords.Visibility = Visibility.Hidden;
+                this.start.Visibility = Visibility.Hidden;
+                this.myGames.Visibility = Visibility.Visible;
+                this.allGames.Visibility = Visibility.Visible;
             }
         }
 
@@ -171,6 +174,20 @@ namespace WpfApp2
 
             return null;
         }
-   
+
+        private void ShowWordsClick(object sender, RoutedEventArgs e)
+        {
+            this.wordBox.Visibility = Visibility.Visible;
+            
+            this.ShowWords.Visibility = Visibility.Hidden;
+            this.HideWords.Visibility = Visibility.Visible;
+        }
+
+        private void HideWordsClick(object sender, RoutedEventArgs e)
+        {
+            this.wordBox.Visibility = Visibility.Hidden;
+            this.HideWords.Visibility = Visibility.Hidden;
+            this.ShowWords.Visibility = Visibility.Visible;
+        }
     }
 }
