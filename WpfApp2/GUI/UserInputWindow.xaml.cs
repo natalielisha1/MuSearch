@@ -33,7 +33,6 @@ namespace WpfApp2.GUI
         public string categoryInput { get; set; }
         private int userId;
         private UserInput userInputBL;
-        MainWindow gameMainWindow;
         List<CheckBox> CategoryBoxes;
 
         private List<string> categories;
@@ -45,7 +44,6 @@ namespace WpfApp2.GUI
             this.userId = userId;
             this.categories = new List<string>();
             CategoryBoxes = new List<CheckBox>();
-            gameMainWindow = new MainWindow(0, ""); //for compilation
         }
         
         private void CheckBoxZone_Checked(object sender, RoutedEventArgs e)
@@ -101,6 +99,8 @@ namespace WpfApp2.GUI
             }
             //TODO: do something with the checkedCategories
             //go to next page
+
+            MainWindow gameMainWindow = new MainWindow(this.userId, ""); //for compilation
             gameMainWindow.Show();
             this.Close();
         }

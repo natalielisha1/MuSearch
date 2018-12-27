@@ -54,6 +54,8 @@
             <Button Name="ShowWords" Visibility="Hidden" Content="Show Words" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="ShowWordsClick"/>
             <ListBox x:Name="wordBox" Visibility="Hidden" HorizontalAlignment="Left" AllowDrop="True" VerticalAlignment="Center" MouseDoubleClick="WordBox_MouseDoubleClick"/>
             <Button Name="HideWords" Visibility="Hidden" Content="Hide Words" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="HideWordsClick"/>
+        <Button Content="BACK TO MENU" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Top"
+            Width="250" Height="50" Click="OnBackToMenu" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5"/>
         </StackPanel>
     </Grid>
 </Window>

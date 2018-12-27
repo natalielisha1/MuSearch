@@ -44,8 +44,8 @@ namespace WpfApp2.GUI
 
         private void OnStartGame(object sender, RoutedEventArgs e)
         {
-            MainWindow window = new MainWindow(this.userId);
-            window.Show();
+            UserInputWindow userInputWindow = new UserInputWindow(this.userId);
+            userInputWindow.Show();
             this.Close();
         }
     }
