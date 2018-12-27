@@ -94,8 +94,8 @@ namespace WpfApp2.GUI
         {
             
             //go to next page
-
-            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); //for compilation
+            
+            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); 
             gameMainWindow.Show();
             this.Close();
         }

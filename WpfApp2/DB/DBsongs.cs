@@ -18,7 +18,6 @@ namespace MuSearch.DB
             List<string> songs = new List<string>();
             if (dbCon.IsConnect())
             {
-                
                 string query = CreateQuery(categories);
                 /*var cmd = new MySqlCommand("musearch.getSongsShort", dbCon.Connection)
                               {
@@ -28,6 +27,7 @@ namespace MuSearch.DB
 
 
                 var cmd = new MySqlCommand(query, dbCon.Connection);
+
                 cmd.Connection.Open();
                 try
                 {
@@ -36,12 +36,15 @@ namespace MuSearch.DB
                     {
                         songs.Add(reader["songName"].ToString());
                     }
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     Console.WriteLine(e.StackTrace);
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return songs;
         }
 
@@ -69,20 +72,20 @@ namespace MuSearch.DB
             }
             for (int i = 1; i < categories.Count; i++)
             {
-                if (categories[0].Categories.Equals("artist"))
+                if (categories[i].Categories.Equals("artist"))
                 {
                     query = query+ " UNION SELECT songs.songName FROM musearch.songs where songs.artistId LIKE " + '"'
-                            + categories[0].CategoryName + '"';
+                            + categories[i].CategoryName + '"';
                 }
-                else if (categories[0].Categories.Equals("album"))
+                else if (categories[i].Categories.Equals("album"))
                 {
                     query = query + " UNION SELECT songs.songName FROM musearch.songs where songs.albumId LIKE " + '"'
-                            + categories[0].CategoryName + '"';
+                            + categories[i].CategoryName + '"';
                 }
-                else if (categories[0].Categories.Equals("decade"))
+                else if (categories[i].Categories.Equals("decade"))
                 {
-                    query = query + " UNION SELECT songs.songName,songs.year FROM musearch.songs where(songs.year -" + categories[0].CategoryName +
-                            ") < 10 AND(songs.year - " + categories[0].CategoryName + ") > 0";
+                    query = query + " UNION SELECT songs.songName,songs.year FROM musearch.songs where(songs.year -" + categories[i].CategoryName +
+                            ") < 10 AND(songs.year - " + categories[i].CategoryName + ") > 0";
                 }
                 else
                 {
