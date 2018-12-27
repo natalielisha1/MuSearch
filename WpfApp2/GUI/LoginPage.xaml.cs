@@ -42,10 +42,8 @@ namespace WpfApp2.GUI
                 userInputWindow.Show();
                 //MainWindow gameMainWindow = new MainWindow(userId);
                 //GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
-
-                //MainWindow gameMainWindow = new MainWindow(userId);
-                //GUI.WordSearchPage gameMainWindow = new GUI.WordSearchPage();
-                //gameMainWindow.Show();
+                MainWindow gameMainWindow = new MainWindow(userId);
+                gameMainWindow.Show();
                 this.Close();
             }
             else
@@ -53,6 +51,13 @@ namespace WpfApp2.GUI
                 // pop up error
                 MessageBox.Show("Sorry, username or password is incorrect!");
             }
+        }
+
+        private void btnSignInClick(object sender, RoutedEventArgs e)
+        {
+            SignInPage signIn = new SignInPage();
+            signIn.Show();
+            this.Close();
         }
     }
 }

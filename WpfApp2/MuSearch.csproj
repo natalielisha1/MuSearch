@@ -91,11 +91,11 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\UserInputWindow.xaml">
+    <Page Include="GUI\SignInPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\WordSearchPage.xaml">
+    <Page Include="GUI\UserInputWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,11 +134,11 @@
     <Compile Include="GUI\MyGames.xaml.cs">
       <DependentUpon>MyGames.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\SignInPage.xaml.cs">
+      <DependentUpon>SignInPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="GUI\WordSearchPage.xaml.cs">
-      <DependentUpon>WordSearchPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
