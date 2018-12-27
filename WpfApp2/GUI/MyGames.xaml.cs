@@ -30,6 +30,9 @@ namespace MuSearch.GUI
         private int userId;
         List<Game> games { get; set; }
 
+        /// <summary>
+        /// Constructor function for My Games window.
+        /// </summary>
         public MyGames(int userId)
         {
             InitializeComponent();
@@ -37,6 +40,7 @@ namespace MuSearch.GUI
             this.userId = userId;
             this.ShowTopGames();
         }
+
 
         public void ShowTopGames()
         {

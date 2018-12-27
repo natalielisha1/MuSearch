@@ -13,11 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using MuSearch.BusinessLayer;
+using System.ComponentModel;
+using System.Windows.Threading;
 namespace WpfApp2
 {
     using MuSearch.DB;
     using MuSearch.GUI;
     using System.Data;
+    using System.Diagnostics;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
     using WpfApp2.GUI;
@@ -25,12 +28,23 @@ namespace WpfApp2
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        private string currentTime;
+        private Stopwatch stopWatch;
         private WordSearch wordSearch; // The current wordSearch
         private int userId; // The current users's ID
         private List<string> userFind; // The list of words the user already found
-        private int userScore; // The score of the current user
+        private int _UserScore;
+        public int UserScore
+        {
+            get { return _UserScore; }
+            set
+            {
+                _UserScore = value;
+                OnPropertyChanged("UserScore");
+            }
+        }// The score of the current user
         private DBusers DBUsers; // A Way To Connect to the DB
 
         /*
@@ -43,6 +57,33 @@ namespace WpfApp2
             this.userId = userId;
             this.userFind = new List<string>();
             this.DBUsers = new DBusers();
+            this.DataContext = this;
+            DispatcherTimer dispatcherTimer = new DispatcherTimer();
+            stopWatch = new Stopwatch();
+            currentTime = string.Empty;
+            dispatcherTimer.Tick += new EventHandler(dt_Tick);
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            lblStopWatch.Content = "00:00:00";
+            stopWatch.Start();
+            dispatcherTimer.Start();
+        }
+
+        void dt_Tick(object sender, EventArgs e)
+        {
+            TimeSpan ts = stopWatch.Elapsed;
+            currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            lblStopWatch.Content = currentTime;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChangedEventHandler handler = PropertyChanged;
+            if (handler != null)
+            {
+                handler(this, new PropertyChangedEventArgs(name));
+            }
         }
 
         /*
@@ -91,7 +132,10 @@ namespace WpfApp2
          * When the button is clicked creat the game
          */
         private void startTheGameButton(object sender, RoutedEventArgs e)
-        { this.fillingDataGrid(); }
+        {
+            this.fillingDataGrid();
+            this.help2.Visibility = Visibility.Visible;
+        }
 
         /*
          * OnMyGames
@@ -140,7 +184,7 @@ namespace WpfApp2
                 {
                     //add the word to the list of what the user found and add to his score
                     this.userFind.Add(choosenCell.fullWord);
-                    this.userScore++;
+                    this.UserScore++;
                     //color the word he found
                     for (int i = 0; i < choosenCell.fullWord.Length; i++)
                     {
@@ -156,7 +200,7 @@ namespace WpfApp2
             if (this.userFind.Count() == this.wordSearch.words.Count())
             {
                 // insert this game to the user's games
-                this.DBUsers.insertNewGame(this.userId, this.userScore);
+                this.DBUsers.insertNewGame(this.userId, this.UserScore);
                 //let the user know the game ended
                 MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
                 //send him back to themenu
@@ -201,7 +245,7 @@ namespace WpfApp2
         private void ShowWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Visible;
-            
+            this.help1.Visibility = Visibility.Visible;
             this.ShowWords.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Visible;
         }
@@ -209,6 +253,7 @@ namespace WpfApp2
         private void HideWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Hidden;
+            this.help1.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Hidden;
             this.ShowWords.Visibility = Visibility.Visible;
         }

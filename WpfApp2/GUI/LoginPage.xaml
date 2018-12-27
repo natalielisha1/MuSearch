@@ -14,8 +14,8 @@
             <TextBox Name="txtUsername" Background="#adad85" Foreground="White" FontSize="18"/>
             <Label Content="Password" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"/>
             <PasswordBox Name="txtPassword" Background="#adad85" Foreground="White" FontSize="18"/>
-            <Button Name="btnSubmit" Click ="btnSubmitClick" Content="Submit" Margin="60 10" Background="#adad85" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"></Button>
-            <Button Name="btnSignIn" Click ="btnSignInClick" Content="Sign In" Margin="60 10" Background="#adad85" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"></Button>
+            <Button Name="btnSubmit" Click ="btnSubmitClick" Content="Submit" Margin="70,35,70,0" Background="#adad85" FontFamily="AR BERKLEY" FontSize="24" Foreground="Maroon"></Button>
+            <Button Name="btnSignIn" Click ="btnSignInClick" Content="Sign In" Margin="70,10,70,0" Background="#adad85" FontFamily="AR BERKLEY" FontSize="24" Foreground="Maroon"></Button>
         </StackPanel>
     </Border>
 </Window>
