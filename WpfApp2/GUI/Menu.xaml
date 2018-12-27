@@ -5,10 +5,21 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.GUI"
         mc:Ignorable="d"
-        Title="Menu" Height="450" Width="800">
+        Title="Menu" Height="490" Width="800">
     <Grid Background="Black">
         <StackPanel>
-            <TextBlock HorizontalAlignment="Center" FontWeight="Bold" Margin="0,10,0,10" FontSize="50" Foreground="Maroon" FontFamily="AR DELANEY">MuSearch Menu</TextBlock>
+            <TextBlock HorizontalAlignment="Center" FontWeight="Bold" Margin="0,10,0,50" FontSize="50" Foreground="Maroon" FontFamily="AR DELANEY">MuSearch Menu</TextBlock>
+            <Button Content="START GAME" HorizontalAlignment="Center" Margin="0,15,0,0" VerticalAlignment="Top"
+                Width="200" Height="50" Click="OnStartGame" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="8.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
             <Button Content="MY GAMES" HorizontalAlignment="Center" Margin="0,25,0,10" VerticalAlignment="Top"
                 Width="200" Height="50" Click="OnMyGames" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>
@@ -31,8 +42,8 @@
                     </TransformGroup>
                 </Button.RenderTransform>
             </Button>
-            <Button Content="START GAME" HorizontalAlignment="Center" Margin="0,15,0,10" VerticalAlignment="Top"
-                Width="200" Height="50" Click="OnStartGame" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
+            <Button Content="EXIT" HorizontalAlignment="Center" Margin="0,15,0,10" VerticalAlignment="Top"
+                Width="200" Height="50" Click="OnExit" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5">
                 <Button.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
