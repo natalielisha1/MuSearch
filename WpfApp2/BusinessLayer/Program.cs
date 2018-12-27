@@ -14,13 +14,19 @@ namespace MuSearch.BusinessLayer
 
         public static WordSearch getWordSearch(int rows, int cols)
         {
-            List<string> words = songs.GetWords("ifat");
-            WordSearch search = new WordSearch(rows, cols);
-            search.fixWords(words);
-            search.createWordSearch(words);
-            //search.printTable();
-            Console.ReadLine();
-            return search;
+            try
+            {
+                List<string> words = songs.GetWords("ifat");
+                WordSearch search = new WordSearch(rows, cols);
+                search.fixWords(words);
+                search.createWordSearch(words);
+                //search.printTable();
+                Console.ReadLine();
+                return search;
+            }catch(Exception ex)
+            {
+                throw ex;
+            }
         }
     }
 }

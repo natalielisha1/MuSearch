@@ -17,13 +17,13 @@ namespace MuSearch.DB
             List<string> songs = new List<string>();
             if (dbCon.IsConnect())
             {
-                
+
                 var cmd = new MySqlCommand("musearch.getSongsShort", dbCon.Connection)
-                              {
-                                  CommandType = CommandType.StoredProcedure
-                              };
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
                 //cmd.Parameters.Add(new MySqlParameter("artistName", artistName));
-                
+
                 //string queryString = "SELECT songName FROM musearch.songs where songs.artistId = " +  '"' + artistName + '"';
                 //var cmd = new MySqlCommand(queryString, dbCon.Connection);
                 cmd.Connection.Open();
@@ -34,12 +34,15 @@ namespace MuSearch.DB
                     {
                         songs.Add(reader["AlbumName"].ToString());
                     }
-                } catch(Exception e)
+                }
+                catch (Exception e)
                 {
                     Console.WriteLine(e.StackTrace);
                 }
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return songs;
         }
     }

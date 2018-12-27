@@ -34,18 +34,26 @@ namespace WpfApp2.GUI
 
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
-            int userId = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
-            if (userId!=-1)
+            try
             {
-                //go to next page
-                Menu menuWindow = new Menu(userId);
-                menuWindow.Show();
-                this.Close();
+                int userId = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
+                if (userId != -1)
+                {
+                    //go to next page
+                    Menu menuWindow = new Menu(userId);
+                    menuWindow.Show();
+                    this.Close();
+                }
+                else
+                {
+                    // pop up error
+                    MessageBox.Show("Sorry, username or password is incorrect!");
+                }
             }
-            else
+            catch (Exception exc)
             {
-                // pop up error
-                MessageBox.Show("Sorry, username or password is incorrect!");
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
             }
         }
 
