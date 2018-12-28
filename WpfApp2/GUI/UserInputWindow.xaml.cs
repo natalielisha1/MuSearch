@@ -57,14 +57,12 @@ namespace WpfApp2.GUI
             CheckBox chkZone = (CheckBox)sender;
             int i = Int32.Parse(chkZone.Tag.ToString());
             this.categories.Add(this.categoryOptions[i]);
-            ZoneText.Text = "Selected So Far= " + String.Join(", ", this.categoryOptions[i].CategoryName);
         }
         private void CheckBoxZone_Unchecked(object sender, RoutedEventArgs e)
         {
             CheckBox chkZone = (CheckBox)sender;
             int i = Int32.Parse(chkZone.Tag.ToString());
             this.categories.Remove(this.categoryOptions[i]);
-            ZoneText.Text = "Selected So Far= " + String.Join(", ", this.categoryOptions[i].CategoryName);
         }
         public void CreateCheckBoxList()
         {
@@ -96,6 +94,14 @@ namespace WpfApp2.GUI
             //go to next page
             
             MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); 
+            gameMainWindow.Show();
+            this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //go to home page
+            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(this.userId);
             gameMainWindow.Show();
             this.Close();
         }

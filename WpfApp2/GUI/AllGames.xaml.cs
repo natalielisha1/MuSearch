@@ -40,32 +40,32 @@ namespace WpfApp2.GUI
         {
             try
             {
-                List<Game> games = this._users.getTopAllGames();
+                List<GameAll> games = this._users.getTopAllGames();
                 var rows = games.Count;
                 DataTable dt = new DataTable();
 
-                DataColumn columnId = new DataColumn();
-                columnId.Caption = "Id";
-                columnId.ColumnName = "Id";
-                columnId.DataType = System.Type.GetType("System.Int32");
-                dt.Columns.Add(columnId);
+                DataColumn columnUsername = new DataColumn();
+                columnUsername.Caption = "Username";
+                columnUsername.ColumnName = "Username";
+                columnUsername.DataType = System.Type.GetType("System.String");
+                dt.Columns.Add(columnUsername);
 
                 DataColumn columnScore = new DataColumn();
                 columnScore.Caption = "Score";
                 columnScore.ColumnName = "Score";
-                columnId.DataType = System.Type.GetType("System.Int32");
+                columnUsername.DataType = System.Type.GetType("System.Int32");
                 dt.Columns.Add(columnScore);
 
                 DataColumn columnDate = new DataColumn();
                 columnDate.Caption = "Date";
                 columnDate.ColumnName = "Date";
-                columnId.DataType = System.Type.GetType("System.String");
+                columnUsername.DataType = System.Type.GetType("System.String");
                 dt.Columns.Add(columnDate);
 
                 for (int i = 0; i < rows; i++)
                 {
                     DataRow row = dt.NewRow();
-                    row["Id"] = games[i].GameID;
+                    row["Username"] = games[i].Username;
                     row["Score"] = games[i].Score;
                     row["Date"] = games[i].Date;
                     dt.Rows.Add(row);
