@@ -7,12 +7,17 @@
         mc:Ignorable="d"
         Title="UserInputWindow" Height="450" Width="800">
     <Grid Background="Maroon">
-        <StackPanel>
-            <TextBlock HorizontalAlignment="Center" Margin="0,10,0,10" FontSize="40" FontFamily="Century Gothic">CATEGORIES</TextBlock>
-            <TextBlock FontSize="15" Margin="50,10,0,5" FontFamily="Century Gothic">enter keyword :</TextBlock>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.ColumnSpan="1">
+            <TextBlock FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">Choose category</TextBlock>
+            <TextBlock Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">Enter a keyword and we will build a word search for you!</TextBlock>
+            <TextBlock Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">An artist you love, or your favorite song. We got you!</TextBlock>
             <TextBox Name="txtUserInput"  Margin="50,0,450,10" Background="#545d6a" Foreground="White" FontSize="18"/>
             <Button Name="btnSubmit" FontFamily="Century Gothic" Click ="btnSubmitClick" Content="Category" Margin="50,0,450,10" Width="100" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"></Button>
-            <TextBlock FontSize="15" Margin="50,0,0,5" FontFamily="Century Gothic">choose categories :</TextBlock>
+            <TextBlock Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Left">choose categories :</TextBlock>
             <ListBox Name="listBoxZone" ItemsSource="{Binding TheList}"
                      Height="115" Background="Azure">
                 <ListBox.ItemTemplate>
@@ -23,6 +28,19 @@
             </ListBox>
             <Button Name="btnSubmit2" FontFamily="Century Gothic" Click ="btnSubmitClick2" Content="Generate" Margin="50,0,450,10" Width="100" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"></Button>
         </StackPanel>
-        <TextBox Name="ZoneText" Width="160" Height="20" Margin="-80,340,0,0" Background="Bisque" />
+        <StackPanel Grid.Column="2">
+            <TextBlock FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">CHOOSE FOR ME</TextBlock>
+            <Button Content="SUPRISE ME" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center"
+                Width="200" Height="50" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5" Click="supriseMe_click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="8.5"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
+        </StackPanel>
     </Grid>
 </Window>

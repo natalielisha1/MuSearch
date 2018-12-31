@@ -39,5 +39,46 @@
             }
             return categories;
         }
+
+        //decate, album, artist
+        public Category randomeCategory(string tableName)
+        {
+            Category category = null;
+            var dbCon = DBConnection.Instance();
+            List<Category> categories = new List<Category>();
+            dbCon.DatabaseName = "musearch";
+            if (dbCon.IsConnect())
+            {
+                var cmd = new MySqlCommand("musearch.getRandom_" + tableName, dbCon.Connection);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.Add(new MySqlParameter("table_name1", tableName));
+                cmd.Connection.Open();
+                MySqlDataReader reader = cmd.ExecuteReader();
+                try
+                {
+                    if (tableName == "artists")
+                    {
+                        while (reader.Read())
+                        {
+                            category = new Category(reader["artistName"].ToString(), "suprise               Category", "artists");
+                        }
+                    }
+                    else
+                    {
+                        while (reader.Read())
+                        {
+                            category = new Category(reader["albumName"].ToString(), "suprise               Category", "albums");
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine(e.StackTrace);
+                }
+
+                dbCon.Close();
+            }
+            return category;
+        }
     }
 }
