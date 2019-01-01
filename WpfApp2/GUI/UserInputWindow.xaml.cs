@@ -120,5 +120,6 @@ namespace WpfApp2.GUI
             gameMainWindow.Show();
             this.Close();
         }
+
     }
 }

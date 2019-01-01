@@ -60,14 +60,14 @@
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["artistName"].ToString(), "suprise               Category", "artists");
+                            category = new Category(reader["artistName"].ToString(), "suprise Category", "artist");
                         }
                     }
                     else
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["albumName"].ToString(), "suprise               Category", "albums");
+                            category = new Category(reader["albumName"].ToString(), "suprise Category", "album");
                         }
                     }
                 }
