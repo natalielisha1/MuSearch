@@ -90,11 +90,19 @@ namespace WpfApp2.GUI
         }
         
 
-        private void btnSubmitClick2(object sender, RoutedEventArgs e)
+        private void btnGenerateClick(object sender, RoutedEventArgs e)
         {
             
             //go to next page
             MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); 
+            gameMainWindow.Show();
+            this.Close();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //go to home page
+            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(this.userId);
             gameMainWindow.Show();
             this.Close();
         }
@@ -120,6 +128,6 @@ namespace WpfApp2.GUI
             gameMainWindow.Show();
             this.Close();
         }
-
+        
     }
 }

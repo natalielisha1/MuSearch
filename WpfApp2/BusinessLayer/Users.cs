@@ -20,7 +20,7 @@
             return this.conn.getTopGames(userID);
         }
 
-        public List<Game> getTopAllGames()
+        public List<GameAll> getTopAllGames()
         {
             return this.conn.getAllTopGames();
         }
