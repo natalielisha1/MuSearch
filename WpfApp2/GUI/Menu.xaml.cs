@@ -55,7 +55,7 @@ namespace WpfApp2.GUI
 
         /// <summary>
         /// OnClick function. when Start button pressed the function
-        /// is activated and the Game screen shows.
+        /// is activated and the GameAll screen shows.
         /// </summary>
         private void OnStartGame(object sender, RoutedEventArgs e)
         {

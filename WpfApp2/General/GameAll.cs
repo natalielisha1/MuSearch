@@ -37,4 +37,20 @@ namespace WpfApp2.General
         }
     }
 
+    public class GameAll
+    {
+        #region Properties
+        public string Username { get; set; }
+        public int Score { get; set; }
+        public string Date { get; set; }
+        #endregion
+
+        public GameAll(string username, int score, string date)
+        {
+            this.Username = username;
+            this.Score = score;
+            this.Date = date;
+        }
+    }
+
 }
