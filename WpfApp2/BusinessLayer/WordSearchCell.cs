@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.BusinessLayer
 {
-    class WordSearchCell
+    public class WordSearchCell
     {
         public Point gridPosition;
         public char value;

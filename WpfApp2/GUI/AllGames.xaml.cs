@@ -67,6 +67,7 @@ namespace WpfApp2.GUI
                     DataRow row = dt.NewRow();
                     row["Username"] = games[i].Username;
                     row["Score"] = games[i].Score;
+                    games[i].Date = games[i].Date.Replace("00:00:00", "");
                     row["Date"] = games[i].Date;
                     dt.Rows.Add(row);
                 }

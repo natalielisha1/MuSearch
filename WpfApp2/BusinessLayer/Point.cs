@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.BusinessLayer
 {
-    class Point
+    public class Point
     {
         public int x;
         public int y;

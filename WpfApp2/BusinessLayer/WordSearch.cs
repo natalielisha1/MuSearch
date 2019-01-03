@@ -9,7 +9,7 @@ namespace MuSearch.BusinessLayer
 {
     using WpfApp2.General;
 
-    class WordSearch
+    public class WordSearch
     {
         public GameGrid gameGrid;
         public Dictionary<string, Point> words;
