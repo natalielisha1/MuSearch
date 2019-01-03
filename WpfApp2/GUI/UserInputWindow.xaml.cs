@@ -18,6 +18,8 @@ namespace WpfApp2.GUI
     using System.Data;
 
     using MuSearch.BusinessLayer;
+    using MuSearch.DB;
+    using WpfApp2.General;
 
     /// <summary>
     /// Interaction logic for UserInput.xaml
@@ -33,52 +35,53 @@ namespace WpfApp2.GUI
         public string categoryInput { get; set; }
         private int userId;
         private UserInput userInputBL;
+        private DBcategories catDB;
         List<CheckBox> CategoryBoxes;
 
-        private List<string> categories;
+        private List<Category> categoryOptions;
+
+        private List<Category> categories;
 
         public UserInputWindow(int userId)
         {
             InitializeComponent();
             this.userInputBL = new UserInput();
             this.userId = userId;
-            this.categories = new List<string>();
+            this.categories = new List<Category>();
             CategoryBoxes = new List<CheckBox>();
+            this.categoryOptions = new List<Category>();
+            this.TheList = new ObservableCollection<BoolStringClass>();
+            this.catDB = new DBcategories();
         }
         
         private void CheckBoxZone_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox chkZone = (CheckBox)sender;
-            this.categories.Add(chkZone.Content.ToString());
-            ZoneText.Text = "Selected So Far= " + String.Join(", ", this.categories.ToArray());
+            int i = Int32.Parse(chkZone.Tag.ToString());
+            this.categories.Add(this.categoryOptions[i]);
         }
         private void CheckBoxZone_Unchecked(object sender, RoutedEventArgs e)
         {
             CheckBox chkZone = (CheckBox)sender;
-            this.categories.Remove(chkZone.Content.ToString());
-            ZoneText.Text = "Selected So Far= " + String.Join(", ", this.categories.ToArray());
+            int i = Int32.Parse(chkZone.Tag.ToString());
+            this.categories.Remove(this.categoryOptions[i]);
         }
         public void CreateCheckBoxList()
         {
-            //string valid = this.userInputBL.generateCategories(this.txtUserInput.Text);
-
-            TheList = new ObservableCollection<BoolStringClass>();
-            List<string> ifatList = new List<string>();
-            ifatList.Add("ifat");
-            ifatList.Add("ifat2");
-            ifatList.Add("ifat3");
-            //if (valid != null)
+            TheList.Clear();
+            categoryOptions = this.userInputBL.generateCategories(this.txtUserInput.Text);
+            if (this.categoryOptions.Count!= 0)
             {
-                for (int i = 0; i < ifatList.Count; i++)
+                for (int i = 0; i < categoryOptions.Count; i++)
                 {
-                    TheList.Add(new BoolStringClass { TheText = ifatList[i], TheValue = i });
+                    TheList.Add(new BoolStringClass { TheText = categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + ")", TheValue = i });
                 }
                 this.DataContext = this;
             }
-            //else
+            else
             {
                 // pop up error
-                //MessageBox.Show("Sorry, this song doesn't exist in our database!");
+                MessageBox.Show("Sorry, this name doesn't exist in our database!");
             }
         }
         private void btnSubmitClick(object sender, RoutedEventArgs e)
@@ -87,22 +90,44 @@ namespace WpfApp2.GUI
         }
         
 
-        private void btnSubmitClick2(object sender, RoutedEventArgs e)
+        private void btnGenerateClick(object sender, RoutedEventArgs e)
         {
-            List<string> checkedCategories = new List<string>();
-            //check which categories were checked and add them the list
-            for (int i = 0; i < CategoryBoxes.Count; i++) {
-                if (CategoryBoxes[i].IsChecked == true)
-                {
-                    //checkedCategories.Add(CategoryBoxes[i].Text);
-                }
-            }
-            //TODO: do something with the checkedCategories
+            
             //go to next page
-
-            MainWindow gameMainWindow = new MainWindow(this.userId, ""); //for compilation
+            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); 
             gameMainWindow.Show();
             this.Close();
         }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
+            //go to home page
+            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(this.userId);
+            gameMainWindow.Show();
+            this.Close();
+        }
+
+        private void supriseMe_click(object sender, RoutedEventArgs e)
+        {
+            // 1 - Artist, 2 - Album
+            int catType;
+            Random rand = new Random();
+            catType = rand.Next(1, 3);
+            switch(catType)
+            {
+                case 1:
+                    this.categories.Add(this.catDB.randomeCategory("artists"));
+                    break;
+                case 2:
+                    this.categories.Add(this.catDB.randomeCategory("albums"));
+                    break;
+                default:
+                    break;
+            }
+            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
+            gameMainWindow.Show();
+            this.Close();
+        }
+        
     }
 }

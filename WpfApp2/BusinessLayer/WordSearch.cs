@@ -7,15 +7,19 @@ using WpfApp2.BusinessLayer;
 
 namespace MuSearch.BusinessLayer
 {
+    using WpfApp2.General;
+
     class WordSearch
     {
         public GameGrid gameGrid;
         public Dictionary<string, Point> words;
+        public List<Category> categories;
 
-        public WordSearch(int rows, int columns)
+        public WordSearch(int rows, int columns, List<Category> categoryLst)
         {
             this.gameGrid = new GameGrid(rows, columns);
             this.words = new Dictionary<string, Point>();
+            this.categories = categoryLst;
         }
 
         private bool haveRoom(string word, int direction, Point position)
@@ -52,21 +56,6 @@ namespace MuSearch.BusinessLayer
                 return null;
             return this.words[word];
         }
-
-
-        /*public void printTable()
-        {
-            Console.WriteLine("  0 1 2 3 4 5 6 7 8 9 0 1 2 3 4");
-            for(int i = 0; i < this.rows; i++)
-            {
-                Console.Write(i%10);
-                for (int j = 0; j < this.columns; j++)
-                {
-                    Console.Write(" " + this.gameTable[i, j]);
-                }
-                Console.WriteLine();
-            }
-        }*/
         
         private void savePosition(string word, Point pos)
         {
@@ -75,15 +64,23 @@ namespace MuSearch.BusinessLayer
 
         public void createWordSearch(List<string> words)
         {
+            List<string> sortedWords = words.OrderBy(x => x.Length).ToList();
+            sortedWords = fixWords(sortedWords);
             Random rnd = new Random();
             int direction;
             Point position;
 
-            foreach (string word in words)
+            foreach (string word in sortedWords)
             {
+                if (word.Length > 20)
+                {
+                    continue;
+                }
                 direction = rnd.Next(0, 2);
+                int i = 0;
                 do
                 {
+                    i++;
                     if (direction == 0)
                     {
                         position = new Point(rnd.Next(0, gameGrid.rows), rnd.Next(0, gameGrid.columns - word.Length));
@@ -100,10 +97,11 @@ namespace MuSearch.BusinessLayer
         }
 
 
-        public List<string> fixWords(List<string> words)
+        private List<string> fixWords(List<string> words)
         {
             for (int i = 0; i < words.Count; i++)
             {
+                words[i] = words[i].Trim('"');
                 words[i] = words[i].ToLower();
                 words[i] = words[i].Replace(" ", String.Empty);
             }
