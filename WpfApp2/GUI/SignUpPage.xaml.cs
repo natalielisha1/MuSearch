@@ -18,11 +18,11 @@ namespace WpfApp2.GUI
     /// <summary>
     /// Interaction logic for SignInPage.xaml
     /// </summary>
-    public partial class SignInPage : Window
+    public partial class SignUpPage : Window
     {
         private DBusers BDUsers;
 
-        public SignInPage()
+        public SignUpPage()
         {
             InitializeComponent();
             this.BDUsers = new DBusers();

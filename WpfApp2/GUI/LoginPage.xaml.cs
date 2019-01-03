@@ -76,7 +76,7 @@ namespace WpfApp2.GUI
         /// <param name="e"></param>
         private void btnSignInClick(object sender, RoutedEventArgs e)
         {
-            SignInPage signIn = new SignInPage();
+            SignUpPage signIn = new SignUpPage();
             signIn.Show();
             this.Close();
         }
