@@ -47,13 +47,8 @@ namespace WpfApp2.GUI
         {
             try
             {
-<<<<<<< HEAD
                 List<Game> games = this._users.getTopAllGames();
                 var rows = games.Count;
-=======
-                List<GameAll> games = this._users.getTopAllGames();
-                var rows = games.Count; // how many top games will be shown
->>>>>>> aa49b8b113fc671e45555589ad925544bf113b80
                 DataTable dt = new DataTable();
 
                 // creating Data Column for username

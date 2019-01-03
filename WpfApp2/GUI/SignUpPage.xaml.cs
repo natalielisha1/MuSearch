@@ -22,12 +22,20 @@ namespace WpfApp2.GUI
     {
         private DBusers BDUsers;
 
+        /// <summary>
+        /// Constructor for the Bonus object
+        /// </summary>
         public SignUpPage()
         {
             InitializeComponent();
             this.BDUsers = new DBusers();
         }
 
+        /// <summary>
+        /// clicking on the sign In button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSignUpClick(object sender, RoutedEventArgs e)
         {
             try

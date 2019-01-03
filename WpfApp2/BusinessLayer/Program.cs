@@ -27,11 +27,6 @@ namespace MuSearch.BusinessLayer
                 List<string> words = songs.GetWords(categories);
                 WordSearch search = new WordSearch(rows, cols, categories);
                 search.createWordSearch(words);
-<<<<<<< HEAD
-                Console.ReadLine();
-=======
-                //Console.ReadLine();
->>>>>>> aa49b8b113fc671e45555589ad925544bf113b80
                 return search;
             }
             catch (Exception ex)
