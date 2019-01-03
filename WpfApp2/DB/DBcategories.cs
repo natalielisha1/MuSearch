@@ -34,7 +34,20 @@
                 {
                     while (reader.Read())
                     {
-                        categories.Add(new Category(reader["CategoryName"].ToString(), reader["Input"].ToString(), reader["Categories"].ToString()));
+                        categories.Add(new Category(reader["CategoryName"].ToString(), reader["Input"].ToString(), 
+                                    reader["Categories"].ToString(), Convert.ToInt32(reader["NumberOfSongs"].ToString())));
+                    }
+                    List<int> bad_indexes = new List<int>();
+                    for (int i = 0; i < categories.Count; i++)
+                    {
+                        if (categories[i].Count == 0)
+                        {
+                            bad_indexes.Add(i);
+                        }
+                    }
+                    for (int i = bad_indexes.Count - 1; i >= 0 ; i--)
+                    {
+                        categories.RemoveAt(bad_indexes[i]);
                     }
                 }
                 catch (Exception e)
@@ -44,6 +57,7 @@
 
                 dbCon.Close();
             }
+                
             return categories;
         }
 
@@ -71,14 +85,14 @@
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["artistName"].ToString(), "suprise Category", "artist");
+                            category = new Category(reader["artistName"].ToString(), "suprise Category", "artist",0);
                         }
                     }
                     else
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["albumName"].ToString(), "suprise Category", "album");
+                            category = new Category(reader["albumName"].ToString(), "suprise Category", "album",0);
                         }
                     }
                 }
