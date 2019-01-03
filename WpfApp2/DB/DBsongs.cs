@@ -50,46 +50,35 @@ namespace MuSearch.DB
 
         public static string CreateQuery(List<Category> categories)
         {
-            string query;
-            if (categories[0].Categories.Equals("artist"))
+            string query = string.Empty;
+
+            for (int i = 0; i < categories.Count; i++)
             {
-                query = "SELECT songs.songName FROM musearch.songs where songs.artistId LIKE " + '"'
-                               + categories[0].CategoryName + '"';
-            }
-            else if (categories[0].Categories.Equals("album"))
-            {
-                query = "SELECT songs.songName FROM musearch.songs where songs.albumId LIKE " + '"'
-                               + categories[0].CategoryName + '"';
-            }
-            else if (categories[0].Categories.Equals("decade"))
-            {
-                query = "SELECT songs.songName,songs.year FROM musearch.songs where(songs.year -" + categories[0].CategoryName +
-                               ") < 10 AND(songs.year - " + categories[0].CategoryName + ") > 0";
-            }
-            else
-            {
-                query = "ifat";
-            }
-            for (int i = 1; i < categories.Count; i++)
-            {
+
+                query = query + "UNION ";
+                if (i == 0)
+                {
+                    query = string.Empty;
+                }
                 if (categories[i].Categories.Equals("artist"))
                 {
-                    query = query+ " UNION SELECT songs.songName FROM musearch.songs where songs.artistId LIKE " + '"'
+                    query = "SELECT songs.songName FROM musearch.songs JOIN musearch.albums ON songs.AlbumId = albums.albumId "
+                            + "JOIN musearch.artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
                             + categories[i].CategoryName + '"';
                 }
                 else if (categories[i].Categories.Equals("album"))
                 {
-                    query = query + " UNION SELECT songs.songName FROM musearch.songs where songs.albumId LIKE " + '"'
-                            + categories[i].CategoryName + '"';
+                    query = "SELECT songs.songName FROM musearch.songs JOIN musearch.albums ON songs.AlbumId = albums.albumId "
+                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"';
                 }
                 else if (categories[i].Categories.Equals("decade"))
                 {
-                    query = query + " UNION SELECT songs.songName,songs.year FROM musearch.songs where(songs.year -" + categories[i].CategoryName +
-                            ") < 10 AND(songs.year - " + categories[i].CategoryName + ") > 0";
+                    query = "SELECT songs.songName, songs.yearReleased FROM musearch.songs where(songs.yearReleased -" + 
+                        categories[i].CategoryName + ") < 10 AND(songs.yearReleased - " + categories[i].CategoryName + ") > 0";
                 }
                 else
                 {
-                    query = "ifat";
+                    continue;
                 }
             }
             query = query + " LIMIT 10";

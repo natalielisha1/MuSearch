@@ -114,7 +114,7 @@
     <Compile Include="DB\DBconnection.cs" />
     <Compile Include="DB\DBsongs.cs" />
     <Compile Include="DB\DBusers.cs" />
-    <Compile Include="General\Game.cs" />
+    <Compile Include="General\GameAll.cs" />
     <Compile Include="GUI\AllGames.xaml.cs">
       <DependentUpon>AllGames.xaml</DependentUpon>
     </Compile>
