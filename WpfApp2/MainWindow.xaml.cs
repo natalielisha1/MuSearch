@@ -217,17 +217,16 @@ namespace WpfApp2
             {
                 try
                 {
+                    //let the user know the game ended
+                    MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
                     if (this.categories[0].Input == "suprise Category")
                     {
-                        this.dataGrid.Visibility = Visibility.Hidden;
-                        this.bonus.Visibility = Visibility.Visible;
-                        this.bonus_answer.Visibility = Visibility.Visible;
-                        this.bonus_button.Visibility = Visibility.Visible;
+                        Bonus bonusWin = new Bonus(this.wordSearch, this.userId, this.UserScore);
+                        bonusWin.Show();
+                        this.Close();
                     }
                     else
                     {
-                        //let the user know the game ended
-                        MessageBox.Show("The game is over. You found all the words in. \r\nGreatWork!");
                         // insert this game to the user's games
                         this.DBUsers.insertNewGame(this.userId, this.UserScore);
                         //send him back to the menu
@@ -305,24 +304,6 @@ namespace WpfApp2
             window.Show();
             this.Close();
         }
-        private void bonusQuestion(object sender, RoutedEventArgs e)
-        {
-            if (this.bonus_answer.Text == this.categories[0].CategoryName)
-            {
-                this.UserScore += 5;
-                MessageBox.Show("You are correct, extra 5 points for you!. \r\nGreatWork!");
-            }
-            else
-            {
-                MessageBox.Show("You didn't get it right this time, don't worry you still have the points from tha game!." +
-                    " \r\nTry again next time");
-            }
-            // insert this game to the user's games
-            this.DBUsers.insertNewGame(this.userId, this.UserScore);
-            //send him back to the menu
-            Menu menu = new Menu(userId);
-            menu.Show();
-           this.Close();
-        }
+        
     }
 }
