@@ -134,7 +134,7 @@ namespace WpfApp2
                 // Convert the data table in to data grid
                 this.dataGrid.ItemsSource = dt.DefaultView;
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show("System Error. \r\nTry again later.");
                 this.Close();
@@ -200,7 +200,7 @@ namespace WpfApp2
                 {
                     //add the word to the list of what the user found and add to his score
                     this.userFind.Add(choosenCell.fullWord);
-                    this.UserScore+=2;
+                    this.UserScore += 2;
                     //color the word he found
                     for (int i = 0; i < choosenCell.fullWord.Length; i++)
                     {
@@ -211,23 +211,32 @@ namespace WpfApp2
                     }
                     this.removeFromListBox(choosenCell.fullWord);
                 }
-            
+
             // if the user finished the game
             if (this.userFind.Count() == this.wordSearch.words.Count())
             {
                 try
                 {
-                    // insert this game to the user's games
-                    this.DBUsers.insertNewGame(this.userId, this.UserScore);
-                    //let the user know the game ended
-                    MessageBox.Show("The game is over. You found all the words in. \r\nGreatWork!");
-
-                    //send him back to themenu
-                    Menu menu = new Menu(userId);
-                    menu.Show();
-                    this.Close();
+                    if (this.categories[0].Input == "suprise Category")
+                    {
+                        this.dataGrid.Visibility = Visibility.Hidden;
+                        this.bonus.Visibility = Visibility.Visible;
+                        this.bonus_answer.Visibility = Visibility.Visible;
+                        this.bonus_button.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        //let the user know the game ended
+                        MessageBox.Show("The game is over. You found all the words in. \r\nGreatWork!");
+                        // insert this game to the user's games
+                        this.DBUsers.insertNewGame(this.userId, this.UserScore);
+                        //send him back to the menu
+                        Menu menu = new Menu(userId);
+                        menu.Show();
+                        this.Close();
+                    }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show("System Error. \r\nTry again later.");
                     this.Close();
@@ -237,9 +246,9 @@ namespace WpfApp2
 
         private void removeFromListBox(string word)
         {
-           for(int i = 0; i < this.wordBox.Items.Count; i++)
+            for (int i = 0; i < this.wordBox.Items.Count; i++)
             {
-                if(this.wordBox.Items[i].ToString() == word)
+                if (this.wordBox.Items[i].ToString() == word)
                 {
                     this.wordBox.Items.Remove(word);
                     break;
@@ -247,7 +256,7 @@ namespace WpfApp2
             }
         }
 
-        private void colorCell(int cellRow, int cellCol) 
+        private void colorCell(int cellRow, int cellCol)
         {
             DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(
                 dataGrid.Items[cellRow], dataGrid.Columns[cellCol]);
@@ -295,6 +304,25 @@ namespace WpfApp2
             Menu window = new Menu(this.userId);
             window.Show();
             this.Close();
+        }
+        private void bonusQuestion(object sender, RoutedEventArgs e)
+        {
+            if (this.bonus_answer.Text == this.categories[0].CategoryName)
+            {
+                this.UserScore += 5;
+                MessageBox.Show("You are correct, extra 5 points for you!. \r\nGreatWork!");
+            }
+            else
+            {
+                MessageBox.Show("You didn't get it right this time, don't worry you still have the points from tha game!." +
+                    " \r\nTry again next time");
+            }
+            // insert this game to the user's games
+            this.DBUsers.insertNewGame(this.userId, this.UserScore);
+            //send him back to the menu
+            Menu menu = new Menu(userId);
+            menu.Show();
+           this.Close();
         }
     }
 }

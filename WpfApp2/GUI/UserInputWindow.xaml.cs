@@ -18,7 +18,7 @@ namespace WpfApp2.GUI
     using System.Data;
 
     using MuSearch.BusinessLayer;
-
+    using MuSearch.DB;
     using WpfApp2.General;
 
     /// <summary>
@@ -35,6 +35,7 @@ namespace WpfApp2.GUI
         public string categoryInput { get; set; }
         private int userId;
         private UserInput userInputBL;
+        private DBcategories catDB;
         List<CheckBox> CategoryBoxes;
 
         private List<Category> categoryOptions;
@@ -50,6 +51,7 @@ namespace WpfApp2.GUI
             CategoryBoxes = new List<CheckBox>();
             this.categoryOptions = new List<Category>();
             this.TheList = new ObservableCollection<BoolStringClass>();
+            this.catDB = new DBcategories();
         }
         
         private void CheckBoxZone_Checked(object sender, RoutedEventArgs e)
@@ -88,11 +90,10 @@ namespace WpfApp2.GUI
         }
         
 
-        private void btnSubmitClick2(object sender, RoutedEventArgs e)
+        private void btnGenerateClick(object sender, RoutedEventArgs e)
         {
             
             //go to next page
-            
             MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); 
             gameMainWindow.Show();
             this.Close();
@@ -105,5 +106,28 @@ namespace WpfApp2.GUI
             gameMainWindow.Show();
             this.Close();
         }
+
+        private void supriseMe_click(object sender, RoutedEventArgs e)
+        {
+            // 1 - Artist, 2 - Album
+            int catType;
+            Random rand = new Random();
+            catType = rand.Next(1, 3);
+            switch(catType)
+            {
+                case 1:
+                    this.categories.Add(this.catDB.randomeCategory("artists"));
+                    break;
+                case 2:
+                    this.categories.Add(this.catDB.randomeCategory("albums"));
+                    break;
+                default:
+                    break;
+            }
+            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
+            gameMainWindow.Show();
+            this.Close();
+        }
+        
     }
 }

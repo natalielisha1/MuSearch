@@ -16,7 +16,7 @@
             <Button Name="start" Content="START" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,0,0,0"  Click="startTheGameButton" Width="100" Height="40" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR CENA"/>
             <TextBlock Name="help2" Visibility="Hidden" Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">Press on the first letter of the word to check it off. Good Luck!</TextBlock>
             <TextBlock Name="help1" Visibility="Hidden" Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">Want a little bit of help? double click any word to get it's position. Be wear, you will lose some points for that help.</TextBlock>
-            <DataGrid Name ="dataGrid" CanUserAddRows="False" Visibility="Hidden" HorizontalAlignment="Center" Height="410" Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
+            <DataGrid Name ="dataGrid" CanUserAddRows="False" Visibility="Hidden" HorizontalAlignment="Center"  Margin="0,0,0,0" VerticalAlignment="Top" Width="500" HeadersVisibility="None" ColumnWidth="*" SelectedCellsChanged="DataGrid_MouseCapture" SelectionUnit="Cell">
 
                 <DataGrid.CellStyle>
                     <Style TargetType="DataGridCell" >
@@ -32,6 +32,9 @@
             </DataGrid>
             <Button Content="BACK TO MENU" HorizontalAlignment="Center" Margin="0,40,0,0" VerticalAlignment="Bottom"
             Width="220" Height="40" Click="OnBackToMenu" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR CENA" RenderTransformOrigin="0.5,0.5"/>
+            <TextBlock Name="bonus" Visibility="Hidden" Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">Bonus question! Waht was the category that we choose for you?</TextBlock>
+            <TextBox Name="bonus_answer" HorizontalAlignment="Center" Visibility="Hidden"></TextBox>
+            <Button Name="bonus_button" Visibility="Hidden" Content="GET ME THAT BONUS" HorizontalAlignment="Center" VerticalAlignment="Bottom" Width="250" Height="40" Click="bonusQuestion" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR CENA" RenderTransformOrigin="0.5,0.5"/>
         </StackPanel>
         <StackPanel Grid.RowSpan="2" Grid.ColumnSpan="2">
             <Button Name="ShowWords" Visibility="Hidden" Content="SHOW WORDS" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" Margin="10,10,0,0" FontFamily="AR CENA" HorizontalAlignment="Left" VerticalAlignment="Center" Width="160" Height="50" RenderTransformOrigin="0.494,0.34" Click="ShowWordsClick"/>
