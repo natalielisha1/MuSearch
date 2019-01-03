@@ -10,18 +10,24 @@ namespace MuSearch.BusinessLayer
 {
     using WpfApp2.General;
 
-    class Program
+    public class Program
     {
-
+        /// <summary>
+        /// The function returns a WordSearch object
+        /// </summary>
+        /// <param name="rows">number of rows in the grid</param>
+        /// <param name="cols">number of columns in the grid</param>
+        /// <param name="categories">list of the categories in the grid</param>
+        /// <returns>a word search</returns>
         public static WordSearch getWordSearch(int rows, int cols, List<Category> categories)
         {
-            try { 
+            try
+            {
+                //get the words in the given categories, those words will be in the word search
                 List<string> words = songs.GetWords(categories);
                 WordSearch search = new WordSearch(rows, cols, categories);
-                //search.fixWords(words);
                 search.createWordSearch(words);
-                //search.printTable();
-                Console.ReadLine();
+                //Console.ReadLine();
                 return search;
             }
             catch (Exception ex)

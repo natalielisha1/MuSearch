@@ -10,16 +10,34 @@
 
         private DBusers conn = new DBusers();
 
+        /// <summary>
+        /// The function returns 0 if the user is valid,
+        /// and 1 otherwise.
+        /// </summary>
+        /// <param name="username">a string</param>
+        /// <param name="password">a string</param>
+        /// <returns></returns>
         public int checkUser(string username, string password)
         {
             return this.conn.checkUser(username, password);
         }
 
+        /// <summary>
+        /// The function returns a list of the
+        /// top games of the given user
+        /// </summary>
+        /// <param name="userID">the ID of the user</param>
+        /// <returns>list of games</returns>
         public List<Game> getTopGames(int userID)
         {
             return this.conn.getTopGames(userID);
         }
 
+        /// <summary>
+        /// The function returns a list of the
+        /// top games of all users in the system
+        /// </summary>
+        /// <returns>list of games</returns>
         public List<GameAll> getTopAllGames()
         {
             return this.conn.getAllTopGames();
