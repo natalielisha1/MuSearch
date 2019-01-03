@@ -74,7 +74,7 @@ namespace WpfApp2.GUI
             {
                 for (int i = 0; i < categoryOptions.Count; i++)
                 {
-                    TheList.Add(new BoolStringClass { TheText = categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + ")", TheValue = i });
+                    TheList.Add(new BoolStringClass { TheText = categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + "), amount: "+ categoryOptions[i].Count, TheValue = i });
                 }
                 this.DataContext = this;
             }
