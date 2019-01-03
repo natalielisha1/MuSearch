@@ -113,17 +113,22 @@ namespace WpfApp2.GUI
             int catType;
             Random rand = new Random();
             catType = rand.Next(1, 3);
-            switch(catType)
+            songs songsDB = new songs();
+            do
             {
-                case 1:
-                    this.categories.Add(this.catDB.randomeCategory("artists"));
-                    break;
-                case 2:
-                    this.categories.Add(this.catDB.randomeCategory("albums"));
-                    break;
-                default:
-                    break;
-            }
+                this.categories.Clear();
+                switch (catType)
+                {
+                    case 1:
+                        this.categories.Add(this.catDB.randomeCategory("artists"));
+                        break;
+                    case 2:
+                        this.categories.Add(this.catDB.randomeCategory("albums"));
+                        break;
+                    default:
+                        break;
+                }
+            } while (songs.GetWords(this.categories).Count() == 0);
             MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
             gameMainWindow.Show();
             this.Close();

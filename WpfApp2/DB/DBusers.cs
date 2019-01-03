@@ -115,7 +115,7 @@
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameId"], (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game((int)reader["gameId"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }
@@ -124,9 +124,9 @@
             return games;
         }
 
-        public List<GameAll> getAllTopGames()
+        public List<Game> getAllTopGames()
         {
-            List<GameAll> games = new List<GameAll>();
+            List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
@@ -138,7 +138,7 @@
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new GameAll(reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game((int)reader["gameID"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }

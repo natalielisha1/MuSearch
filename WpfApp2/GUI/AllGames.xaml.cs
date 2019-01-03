@@ -28,6 +28,10 @@ namespace WpfApp2.GUI
         private int userId;
         #endregion
 
+        /// <summary>
+        /// Constructor for the AllGames object
+        /// </summary>
+        /// <param name="userId">not used here</param>
         public AllGames(int userId)
         {
             InitializeComponent();
@@ -36,32 +40,39 @@ namespace WpfApp2.GUI
             this.ShowTopAllGames();
         }
 
+        /// <summary>
+        /// The function show's all top games of all users in the view
+        /// </summary>
         public void ShowTopAllGames()
         {
             try
             {
-                List<GameAll> games = this._users.getTopAllGames();
+                List<Game> games = this._users.getTopAllGames();
                 var rows = games.Count;
                 DataTable dt = new DataTable();
 
+                // creating Data Column for username
                 DataColumn columnUsername = new DataColumn();
                 columnUsername.Caption = "Username";
                 columnUsername.ColumnName = "Username";
                 columnUsername.DataType = System.Type.GetType("System.String");
                 dt.Columns.Add(columnUsername);
 
+                // creating Data Column for score
                 DataColumn columnScore = new DataColumn();
                 columnScore.Caption = "Score";
                 columnScore.ColumnName = "Score";
                 columnUsername.DataType = System.Type.GetType("System.Int32");
                 dt.Columns.Add(columnScore);
 
+                // creating Data Column for date
                 DataColumn columnDate = new DataColumn();
                 columnDate.Caption = "Date";
                 columnDate.ColumnName = "Date";
                 columnUsername.DataType = System.Type.GetType("System.String");
                 dt.Columns.Add(columnDate);
 
+                // for every game, fill it's row
                 for (int i = 0; i < rows; i++)
                 {
                     DataRow row = dt.NewRow();
@@ -74,6 +85,7 @@ namespace WpfApp2.GUI
 
                 this.dataGrid.ItemsSource = dt.DefaultView;
             }
+            // in case on an exception
             catch(Exception e)
             {
                 MessageBox.Show("System Error. \r\nTry again later.");
@@ -81,12 +93,17 @@ namespace WpfApp2.GUI
             }
         }
 
-
+        /// <summary>
+        /// The function shows the client the menu window
+        /// and closes the current window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            Menu gameMainWindow = new Menu(this.userId);
-            gameMainWindow.Show();
+            Menu menuWindow = new Menu(this.userId);
+            menuWindow.Show();
             this.Close();
         }
     }

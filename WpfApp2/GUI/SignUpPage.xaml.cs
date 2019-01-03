@@ -18,17 +18,25 @@ namespace WpfApp2.GUI
     /// <summary>
     /// Interaction logic for SignInPage.xaml
     /// </summary>
-    public partial class SignInPage : Window
+    public partial class SignUpPage : Window
     {
         private DBusers BDUsers;
 
-        public SignInPage()
+        /// <summary>
+        /// Constructor for the Bonus object
+        /// </summary>
+        public SignUpPage()
         {
             InitializeComponent();
             this.BDUsers = new DBusers();
         }
 
-        private void btnSignInClick(object sender, RoutedEventArgs e)
+        /// <summary>
+        /// clicking on the sign In button
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void btnSignUpClick(object sender, RoutedEventArgs e)
         {
             try
             {
