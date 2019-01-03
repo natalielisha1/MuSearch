@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WpfApp2.GUI"
         mc:Ignorable="d"
+<<<<<<< HEAD:WpfApp2/GUI/SignUpPage.xaml
         Title="SignUpPage" Height="700" Width="650">
+=======
+        Title="SignUnPage" Height="700" Width="650">
+>>>>>>> aa49b8b113fc671e45555589ad925544bf113b80:WpfApp2/GUI/SignUpPage.xaml
     <Border Background="#4d4d33" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Sign Up To Play" Foreground="Maroon" FontSize="65" HorizontalAlignment="Center" FontFamily="AR BERKLEY"></Label>
@@ -16,7 +20,11 @@
             <PasswordBox Name="txtPassword" Background="#adad85" Foreground="White" FontSize="18"/>
             <Label Content="Retype Password" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"/>
             <PasswordBox Name="txtPassword2" Background="#adad85" Foreground="White" FontSize="18"/>
+<<<<<<< HEAD:WpfApp2/GUI/SignUpPage.xaml
             <Button Name="btnSignUp" Click ="btnSignUpClick" Content="Sign In" Margin="60 10" Background="#adad85" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"></Button>
+=======
+            <Button Name="btnSignUp" Click ="btnSignUpClick" Content="Sign Up" Margin="60 10" Background="#adad85" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"></Button>
+>>>>>>> aa49b8b113fc671e45555589ad925544bf113b80:WpfApp2/GUI/SignUpPage.xaml
         </StackPanel>
     </Border>
 </Window>

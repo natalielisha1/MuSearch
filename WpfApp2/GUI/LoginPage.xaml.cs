@@ -26,12 +26,23 @@ namespace WpfApp2.GUI
         public string Password { get; set; }
 
         private Users usersBL;
+
+        /// <summary>
+        /// Constructor for the LoginPage page
+        /// </summary>
         public LoginPage()
         {
             InitializeComponent();
             this.usersBL = new Users();
         }
 
+        /// <summary>
+        /// When "submit" button is clicked, the function is activated.
+        /// If the username and password are valid, the user enters the menu
+        /// window, otherwise - an error message pops up.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
             try
@@ -57,6 +68,12 @@ namespace WpfApp2.GUI
             }
         }
 
+        /// <summary>
+        /// When "sign in" button is clicked, the function
+        /// is activated. It opens the Sign In Page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSignInClick(object sender, RoutedEventArgs e)
         {
             SignUpPage signIn = new SignUpPage();
