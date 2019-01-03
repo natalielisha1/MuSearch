@@ -40,7 +40,6 @@ namespace WpfApp2
         private int userId; // The current users's ID
         private List<string> userFind; // The list of words the user already found
         private int _UserScore;
-
         private DispatcherTimer dispatcherTimer;
         public int UserScore
         {
@@ -53,10 +52,11 @@ namespace WpfApp2
         }// The score of the current user
         private DBusers DBUsers; // A Way To Connect to the DB
 
-        /*
-         * Constructor
-         * @input: userID - the ID of the user that is currently playing
-         */
+        /// <summary>
+        ///  Constructor
+        /// </summary>
+        /// <param name="userId">the ID of the current user</param>
+        /// <param name="categories">the categories for this game</param>
         public MainWindow(int userId, List<Category> categories)
         {
             InitializeComponent();
@@ -73,6 +73,11 @@ namespace WpfApp2
             lblStopWatch.Content = "00:00:00";
         }
 
+        /// <summary>
+        /// clock event
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         void dt_Tick(object sender, EventArgs e)
         {
             TimeSpan ts = stopWatch.Elapsed;
@@ -91,10 +96,9 @@ namespace WpfApp2
             }
         }
 
-        /*
-         * fillinDaatGrid
-         * filling the data grid with the word search we created
-         */
+        /// <summary>
+        ///  filling the data grid with the word search we created
+        /// </summary>
         private void fillingDataGrid()
         {
             // Make the word search grid and the "show words" button visible
@@ -141,10 +145,11 @@ namespace WpfApp2
             }
         }
 
-        /*
-         * startTheGameButton
-         * When the button is clicked creat the game
-         */
+        /// <summary>
+        /// When the button is clicked creat the game
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void startTheGameButton(object sender, RoutedEventArgs e)
         {
             this.fillingDataGrid();
@@ -153,10 +158,11 @@ namespace WpfApp2
             dispatcherTimer.Start();
         }
 
-        /*
-         * OnMyGames
-         * Click on the "my games" buttons. show the "my games" page
-         */
+        /// <summary>
+        /// Click on the "my games" buttons. show the "my games" page
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
             MyGames window = new MyGames(this.userId);
@@ -164,10 +170,11 @@ namespace WpfApp2
             this.Close();
         }
 
-        /*
-         * OnAllGames
-         * Click on the "all games" buttons. show the "all games" page
-         */
+        /// <summary>
+        /// Click on the "all games" buttons. show the "all games" page
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void OnAllGames(object sender, RoutedEventArgs e)
         {
             Menu window = new Menu(this.userId);
@@ -175,10 +182,11 @@ namespace WpfApp2
             this.Close();
         }
 
-        /*
-         * DataGrid_MouseCapture
-         * When the user clicks on one of the cells in the data grid (that is our word search)
-         */
+        /// <summary>
+        /// When the user clicks on one of the cells in the data grid (that is our word search)
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void DataGrid_MouseCapture(object sender, SelectedCellsChangedEventArgs e)
         {
             //save the location that the user clicks on
@@ -243,6 +251,10 @@ namespace WpfApp2
             }
         }
 
+        /// <summary>
+        /// when a word was found it shoud be out the list box of the words
+        /// </summary>
+        /// <param name="word">the sord we want to remove</param>
         private void removeFromListBox(string word)
         {
             for (int i = 0; i < this.wordBox.Items.Count; i++)
@@ -255,6 +267,11 @@ namespace WpfApp2
             }
         }
 
+        /// <summary>
+        /// coloring the cell in the position given
+        /// </summary>
+        /// <param name="cellRow">the row of the cell</param>
+        /// <param name="cellCol">the colunm of the cell</param>
         private void colorCell(int cellRow, int cellCol)
         {
             DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(
@@ -266,6 +283,11 @@ namespace WpfApp2
             dataGrid.CurrentCell = dataGridCellInfo;
         }
 
+        /// <summary>
+        /// return the grid cell given the info
+        /// </summary>
+        /// <param name="cellInfo">the cell info</param>
+        /// <returns></returns>
         private DataGridCell GetDataGridCell(DataGridCellInfo cellInfo)
         {
             var cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
@@ -275,6 +297,11 @@ namespace WpfApp2
             return null;
         }
 
+        /// <summary>
+        /// clicking on the show words button. show the list box
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void ShowWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Visible;
@@ -283,6 +310,11 @@ namespace WpfApp2
             this.HideWords.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// clicking on the hide words button. hide the list box
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void HideWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Hidden;
@@ -291,6 +323,11 @@ namespace WpfApp2
             this.ShowWords.Visibility = Visibility.Visible;
         }
 
+        /// <summary>
+        /// double cliding on a word in the list box, showing the word position
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void WordBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             this.UserScore--;
@@ -298,6 +335,12 @@ namespace WpfApp2
             Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);
         }
+
+        /// <summary>
+        /// clicking on the back button
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void OnBackToMenu(object sender, RoutedEventArgs e)
         {
             Menu window = new Menu(this.userId);

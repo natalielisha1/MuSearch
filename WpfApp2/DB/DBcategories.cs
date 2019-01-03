@@ -17,7 +17,7 @@
         /// checkCategories
         /// </summary>
         /// <param name="input">the searching word of the user</param>
-        /// <returns> a list of categorys that are relevant to the input</returns>
+        /// <returns> a list of categorys that are relevant to the input </returns>
         public List<Category> checkCategories(string input)
         {
             var dbCon = DBConnection.Instance();
@@ -48,10 +48,10 @@
         }
 
         /// <summary>
-        /// randomeCategory
+        /// gets a randome category for the suprise word search
         /// </summary>
-        /// <param name="tableName"></param>
-        /// <returns></returns>
+        /// <param name="tableName">that the category is commng from</param>
+        /// <returns>the category that we got</returns>
         public Category randomeCategory(string tableName)
         {
             Category category = null;
