@@ -9,6 +9,12 @@
 
     public class DBusers
     {
+        /// <summary>
+        /// checking if the user exist and if he's passsword is currect
+        /// </summary>
+        /// <param name="username">the typed username</param>
+        /// <param name="password">the typed password</param>
+        /// <returns>the user ID of the user or -1 if the user does not exist</returns>
         public int checkUser(string username, string password)
         {
             var dbCon = DBConnection.Instance();
@@ -32,6 +38,11 @@
             return userId;
         }
 
+        /// <summary>
+        /// checking if the username exist
+        /// </summary>
+        /// <param name="username">the typed username</param>
+        /// <returns>true if he exist, false otherwise</returns>
         public bool isUsernameExists(string username)
         {
             var dbCon = DBConnection.Instance();
@@ -56,6 +67,12 @@
             return false;
         }
 
+        /// <summary>
+        /// inserting a new user to the users table
+        /// </summary>
+        /// <param name="userName">the new user's username</param>
+        /// <param name="password">the new user's password</param>
+        /// <returns>the new user's ID</returns>
         public int insertNewUser(string userName, string password)
         {
             var dbCon = DBConnection.Instance();
@@ -82,6 +99,11 @@
 
         }
 
+        /// <summary>
+        /// insert the new game to the games table
+        /// </summary>
+        /// <param name="userID">the user that played the new game</param>
+        /// <param name="score">the score from the new game</param>
         public void insertNewGame(int userID, int score)
         {
             var dbCon = DBConnection.Instance();
@@ -101,6 +123,11 @@
                 throw new Exception();
         }
 
+        /// <summary>
+        /// geting the top 5 games of a user
+        /// </summary>
+        /// <param name="userID">the ID of the user we want the top 5 games of</param>
+        /// <returns>a list of he's top games (limited to 5)</returns>
         public List<Game> getTopGames(int userID)
         {
             List<Game> games = new List<Game>();
@@ -115,7 +142,7 @@
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameId"], (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game((int)reader["gameId"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }
@@ -124,9 +151,13 @@
             return games;
         }
 
-        public List<GameAll> getAllTopGames()
+        /// <summary>
+        /// get the top games of all the users
+        /// </summary>
+        /// <returns>a list of the top gamse. limited to 5 games</returns>
+        public List<Game> getAllTopGames()
         {
-            List<GameAll> games = new List<GameAll>();
+            List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
@@ -138,7 +169,7 @@
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new GameAll(reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game((int)reader["gameID"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }

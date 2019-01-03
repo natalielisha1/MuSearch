@@ -75,6 +75,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="GUI\Bonus.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="GUI\LoginPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -87,7 +91,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\SignInPage.xaml">
+    <Page Include="GUI\SignUpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -118,6 +122,9 @@
     <Compile Include="GUI\AllGames.xaml.cs">
       <DependentUpon>AllGames.xaml</DependentUpon>
     </Compile>
+    <Compile Include="GUI\Bonus.xaml.cs">
+      <DependentUpon>Bonus.xaml</DependentUpon>
+    </Compile>
     <Compile Include="GUI\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -127,8 +134,8 @@
     <Compile Include="GUI\MyGames.xaml.cs">
       <DependentUpon>MyGames.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\SignInPage.xaml.cs">
-      <DependentUpon>SignInPage.xaml</DependentUpon>
+    <Compile Include="GUI\SignUpPage.xaml.cs">
+      <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
@@ -166,9 +173,6 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="GUI\DesignFiles\music_notes_wallpaper_by_amh05.jpg" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

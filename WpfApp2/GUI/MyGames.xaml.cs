@@ -32,6 +32,7 @@ namespace MuSearch.GUI
 
         /// <summary>
         /// Constructor function for My Games window.
+        /// <paramref name="userId">the ID of the current user</paramref>
         /// </summary>
         public MyGames(int userId)
         {
@@ -41,7 +42,9 @@ namespace MuSearch.GUI
             this.ShowTopGames();
         }
 
-
+        /// <summary>
+        /// The function show's all top games of all users in the view
+        /// </summary>
         public void ShowTopGames()
         {
             try
@@ -73,6 +76,7 @@ namespace MuSearch.GUI
                     DataRow row = dt.NewRow();
                     row["Id"] = games[i].GameID;
                     row["Score"] = games[i].Score;
+                    games[i].Date = games[i].Date.Replace("00:00:00", "");
                     row["Date"] = games[i].Date;
                     dt.Rows.Add(row);
                 }
@@ -86,11 +90,17 @@ namespace MuSearch.GUI
             }
         }
 
+        /// <summary>
+        /// The function shows the client the menu window
+        /// and closes the current window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(userId);
-            gameMainWindow.Show();
+            WpfApp2.GUI.Menu menuWindow = new WpfApp2.GUI.Menu(userId);
+            menuWindow.Show();
             this.Close();
         }
     }
