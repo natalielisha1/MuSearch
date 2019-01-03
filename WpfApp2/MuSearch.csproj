@@ -91,7 +91,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="GUI\SignInPage.xaml">
+    <Page Include="GUI\SignUpPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -134,8 +134,8 @@
     <Compile Include="GUI\MyGames.xaml.cs">
       <DependentUpon>MyGames.xaml</DependentUpon>
     </Compile>
-    <Compile Include="GUI\SignInPage.xaml.cs">
-      <DependentUpon>SignInPage.xaml</DependentUpon>
+    <Compile Include="GUI\SignUpPage.xaml.cs">
+      <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="GUI\UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
