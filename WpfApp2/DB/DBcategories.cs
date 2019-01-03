@@ -4,13 +4,20 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Runtime.CompilerServices;
-
     using MySql.Data.MySqlClient;
-
     using WpfApp2.General;
 
+    /// <summary>
+    /// DBDBcategories
+    /// connection to the database for category information
+    /// </summary>
     public class DBcategories
     {
+        /// <summary>
+        /// checkCategories
+        /// </summary>
+        /// <param name="input">the searching word of the user</param>
+        /// <returns> a list of categorys that are relevant to the input</returns>
         public List<Category> checkCategories(string input)
         {
             var dbCon = DBConnection.Instance();
@@ -40,7 +47,11 @@
             return categories;
         }
 
-        //decate, album, artist
+        /// <summary>
+        /// randomeCategory
+        /// </summary>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         public Category randomeCategory(string tableName)
         {
             Category category = null;

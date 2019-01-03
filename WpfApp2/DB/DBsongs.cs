@@ -19,13 +19,6 @@ namespace MuSearch.DB
             if (dbCon.IsConnect())
             {
                 string query = CreateQuery(categories);
-                /*var cmd = new MySqlCommand("musearch.getSongsShort", dbCon.Connection)
-                              {
-                                  CommandType = CommandType.StoredProcedure
-                              };
-                cmd.Parameters.Add(new MySqlParameter("artistName", artistName));*/
-
-
                 var cmd = new MySqlCommand(query, dbCon.Connection);
 
                 cmd.Connection.Open();

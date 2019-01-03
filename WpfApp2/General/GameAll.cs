@@ -10,13 +10,15 @@ namespace WpfApp2.General
     {
         #region Properties
         public int GameID {get; set;}
+        public string Username { get; set; }
         public int Score { get; set; }
         public string Date { get; set; }
         #endregion
 
-        public Game(int id, int score, string date)
+        public Game(int id, string username, int score, string date)
         {
             this.GameID = id;
+            this.Username = username;
             this.Score = score;
             this.Date = date;
         }
@@ -36,21 +38,4 @@ namespace WpfApp2.General
             this.Categories = categories;
         }
     }
-
-    public class GameAll
-    {
-        #region Properties
-        public string Username { get; set; }
-        public int Score { get; set; }
-        public string Date { get; set; }
-        #endregion
-
-        public GameAll(string username, int score, string date)
-        {
-            this.Username = username;
-            this.Score = score;
-            this.Date = date;
-        }
-    }
-
 }

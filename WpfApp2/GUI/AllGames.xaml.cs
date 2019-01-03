@@ -40,7 +40,7 @@ namespace WpfApp2.GUI
         {
             try
             {
-                List<GameAll> games = this._users.getTopAllGames();
+                List<Game> games = this._users.getTopAllGames();
                 var rows = games.Count;
                 DataTable dt = new DataTable();
 

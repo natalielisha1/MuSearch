@@ -18,9 +18,7 @@ namespace MuSearch.BusinessLayer
             try { 
                 List<string> words = songs.GetWords(categories);
                 WordSearch search = new WordSearch(rows, cols, categories);
-                //search.fixWords(words);
                 search.createWordSearch(words);
-                //search.printTable();
                 Console.ReadLine();
                 return search;
             }
