@@ -3,7 +3,6 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Runtime.CompilerServices;
 
     using MuSearch.DB.Interfaces;
 
@@ -146,7 +145,7 @@
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameId"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game(reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }
@@ -173,7 +172,7 @@
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameID"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game(reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }

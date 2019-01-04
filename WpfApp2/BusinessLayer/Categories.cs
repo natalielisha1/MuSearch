@@ -1,10 +1,8 @@
 ﻿namespace WpfApp2.BusinessLayer
 {
     using System.Collections.Generic;
-
     using MuSearch.DB;
     using MuSearch.DB.Interfaces;
-
     using WpfApp2.BusinessLayer.Interfaces;
 
     public class Categories : ICategories

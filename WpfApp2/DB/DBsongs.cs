@@ -1,9 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
 using MySql.Data.MySqlClient;
 namespace MuSearch.DB
 {
@@ -67,19 +63,19 @@ namespace MuSearch.DB
                 }
                 if (categories[i].Categories.Equals("artist"))
                 {
-                    query = "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
+                    query += "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
                             + "JOIN musearchdb.artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
-                            + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21";
+                            + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else if (categories[i].Categories.Equals("album"))
                 {
-                    query = "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
-                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21";
+                    query += "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
+                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else if (categories[i].Categories.Equals("decade"))
                 {
-                    query = "SELECT songs.songName, songs.yearReleased FROM musearchdb.songs where(songs.yearReleased -" + 
-                        categories[i].CategoryName + ") < 10 AND (songs.yearReleased - " + categories[i].CategoryName + ") > 0" + " AND length(replace(songs.songName,' ',''))<21";
+                    query += "SELECT songs.songName, songs.yearReleased FROM musearchdb.songs where(songs.yearReleased -" + 
+                        categories[i].CategoryName + ") < 10 AND (songs.yearReleased - " + categories[i].CategoryName + ") > 0" + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else
                 {

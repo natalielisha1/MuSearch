@@ -1,8 +1,8 @@
 ﻿namespace MuSearch.BusinessLayer
 {
-    using MuSearch.DB;
     using System.Collections.Generic;
 
+    using MuSearch.DB;
     using MuSearch.DB.Interfaces;
 
     using WpfApp2.BusinessLayer;

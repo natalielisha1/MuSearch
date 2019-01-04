@@ -1,22 +1,9 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using MuSearch.BusinessLayer;
-using WpfApp2.BusinessLayer.Interfaces;
-
-namespace WpfApp2.GUI
+﻿namespace WpfApp2.GUI
 {
+    using System;
+    using System.Windows;
+    using MuSearch.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
 
     /// <summary>
     /// Interaction logic for LoginPage.xaml

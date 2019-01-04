@@ -1,23 +1,11 @@
-﻿using MuSearch.BusinessLayer;
-using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using WpfApp2;
+﻿
 
 namespace WpfApp2.GUI
 {
-
+    using MuSearch.BusinessLayer;
+    using System;
+    using System.Windows;
+    using System.Windows.Input;
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
 

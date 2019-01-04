@@ -1,30 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MuSearch.BusinessLayer;
-using System.ComponentModel;
-using System.Windows.Threading;
-using System.Timers;
-
-namespace WpfApp2
+﻿namespace WpfApp2
 {
-    using MuSearch.GUI;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using MuSearch.BusinessLayer;
+    using System.ComponentModel;
+    using System.Windows.Threading;
     using System.Data;
     using System.Diagnostics;
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.GUI;
+
+    using Menu = WpfApp2.GUI.Menu;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -172,30 +164,6 @@ namespace WpfApp2
         }
 
         /// <summary>
-        /// Click on the "my games" buttons. show the "my games" page
-        /// </summary>
-        /// <param name="sender">the object that send the event</param>
-        /// <param name="e">arguments</param>
-        private void OnMyGames(object sender, RoutedEventArgs e)
-        {
-            MyGames window = new MyGames(this.userId);
-            window.Show();
-            this.Close();
-        }
-
-        /// <summary>
-        /// Click on the "all games" buttons. show the "all games" page
-        /// </summary>
-        /// <param name="sender">the object that send the event</param>
-        /// <param name="e">arguments</param>
-        private void OnAllGames(object sender, RoutedEventArgs e)
-        {
-            Menu window = new Menu(this.userId);
-            window.Show();
-            this.Close();
-        }
-
-        /// <summary>
         /// When the user clicks on one of the cells in the data grid (that is our word search)
         /// </summary>
         /// <param name="sender">the object that send the event</param>
@@ -207,7 +175,7 @@ namespace WpfApp2
             int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
 
             // save the cell from the WordSearch in this location
-            WordSearchCell chosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
+            WordSearchCell chosenCell = this.wordSearch.gameGrid.getCellByPosition(new BusinessLayer.Point(cellRow, cellCol));
 
             // if this cell is part of a word and it is the first char of the word
             // then this word is found
@@ -354,7 +322,7 @@ namespace WpfApp2
         {
             this.UserScore--;
             string currentWord = this.wordBox.SelectedValue.ToString();
-            Point wordsPos = this.wordSearch.getPosition(currentWord);
+            BusinessLayer.Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);
         }
 
