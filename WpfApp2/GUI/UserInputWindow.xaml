@@ -15,7 +15,7 @@
             <StackPanel Grid.ColumnSpan="1">
                 <TextBlock FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">Choose category</TextBlock>
                 <TextBlock Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">Enter a keyword and we will build a word search for you!</TextBlock>
-                <TextBlock Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">An artist you love, or your favorite song. We got you!</TextBlock>
+                <TextBlock Foreground="Black" FontSize="15" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Center">An artist you love, or your favorite song. We've got you!</TextBlock>
                 <TextBox Name="txtUserInput" Width="300" HorizontalAlignment="Left" Background="#545d6a" Foreground="White" FontSize="18"/>
                 <Button Name="btnSubmit" Width="100" HorizontalAlignment="Left" Height="40" Background="Black" Foreground="Maroon" FontSize="18" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5" Content="Submit" Click="btnSubmitClick"></Button>
                 <TextBlock Foreground="Black" FontSize="18" Margin="0,0,0,0" FontFamily="AR CENA" HorizontalAlignment="Left">choose categories :</TextBlock>
@@ -41,8 +41,8 @@
                 </Button>
             </StackPanel>
             <StackPanel Grid.Column="2">
-                <TextBlock FontSize="40" HorizontalAlignment="Center" Margin="0,0,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">CHOOSE FOR ME</TextBlock>
-                <Button Content="SUPRISE ME" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center"
+                <TextBlock FontSize="25" HorizontalAlignment="Center" Margin="0,10,0,0" Foreground="Black" FontWeight="ExtraBlack" FontFamily="AR DELANEY">Or we can choose one for you</TextBlock>
+                <Button Content="SURPRISE ME" HorizontalAlignment="Center" Margin="0,100,0,0" VerticalAlignment="Center"
                 Width="200" Height="50" Background="Black" Foreground="Maroon" FontSize="26" FontWeight="ExtraBlack" FontFamily="AR DELANEY" RenderTransformOrigin="0.5,0.5" Click="supriseMe_click">
                     <Button.RenderTransform>
                         <TransformGroup>

@@ -209,30 +209,33 @@ namespace WpfApp2
             int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
 
             // save the cell from the WordSearch in this location
-            WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
+            WordSearchCell chosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
 
             // if this cell is part of a word and it is the first char of the word
             // then this word is found
-            if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
+            if (chosenCell.partOfTheGame && chosenCell.isStartOfWord)
+                
                 // did the user already found it?
-                if (this.userFind.Contains(choosenCell.fullWord))
-                    MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
+                if (this.userFind.Contains(chosenCell.fullWord))
+                {
+                    MessageBox.Show("You already found: " + chosenCell.fullWord + "! Try a different word.");
+                }
 
                 // if it's the first time:
                 else
                 {
                     // add the word to the list of what the user found and add to his score
-                    this.userFind.Add(choosenCell.fullWord);
+                    this.userFind.Add(chosenCell.fullWord);
                     this.UserScore += 2;
                     // color the word he found
-                    for (int i = 0; i < choosenCell.fullWord.Length; i++)
+                    for (int i = 0; i < chosenCell.fullWord.Length; i++)
                     {
-                        if (choosenCell.direction == 0) //horizontal
+                        if (chosenCell.direction == 0) //horizontal
                             this.colorCell(cellRow, cellCol + i);
                         else
                             this.colorCell(cellRow + i, cellCol);
                     }
-                    this.removeFromListBox(choosenCell.fullWord);
+                    this.removeFromListBox(chosenCell.fullWord);
                 }
 
             // if the user finished the game

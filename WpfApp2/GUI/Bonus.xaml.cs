@@ -47,9 +47,9 @@ namespace WpfApp2.GUI
             this.userID = id;
             this.userScore = score;
             this.wordSearch = wordSearchInput;
-            this.showOptions();
             this.categoriesBL = new Categories();
             this.usersBL = new Users();
+            this.showOptions();
         }
 
         /// <summary>
@@ -64,7 +64,9 @@ namespace WpfApp2.GUI
             {
                 // if that is the position of the right answer, insert it
                 if (answerPos == i)
+                {
                     this.options.Items.Add(this.wordSearch.categories[0].CategoryName);
+                }
                 else
                 {
                     // else, get another random category for the other answers
