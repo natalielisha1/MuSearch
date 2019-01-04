@@ -63,5 +63,19 @@ namespace WpfApp2.GUI
                 this.Close();
             }
         }
+
+        /// <summary>
+        /// The function shows the client the menu window
+        /// and closes the current window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // go to login page
+            LoginPage login = new LoginPage();
+            login.Show();
+            this.Close();
+        }
     }
 }

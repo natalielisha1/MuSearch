@@ -115,10 +115,6 @@ namespace MuSearch.BusinessLayer
             // put every word in the word search
             foreach (string word in sortedWords)
             {
-                if (word.Length > 20)
-                {
-                    continue;
-                }
                 direction = rnd.Next(0, 2);
                 int i = 0;
 

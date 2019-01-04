@@ -40,7 +40,7 @@ namespace MuSearch.DB
             {
                 if (String.IsNullOrEmpty(databaseName))
                     return false;
-                string connstring = string.Format("Server=localhost; database=musearch; UID=root; password =" + ConfigurationManager.AppSettings["DBPassword"], this.databaseName);
+                string connstring = string.Format("Server=localhost; database=musearchdb; UID=root; password =" + ConfigurationManager.AppSettings["DBPassword"], this.databaseName);
                 connection = new MySqlConnection(connstring);
                 try
                 {
