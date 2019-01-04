@@ -443,7 +443,7 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getTopAllGames`()
 BEGIN
-	SELECT gameId, users.userName, points, date 
+	SELECT users.userName, points, date 
 	FROM musearchdb.games 
 	JOIN musearchdb.users 
 	ON users.userId = games.userId
@@ -492,7 +492,7 @@ DELIMTER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `getTopGames`(IN userid1 INT(11))
 BEGIN
-	SELECT gameId, users.userName, points, date 
+	SELECT users.userName, points, date 
 	FROM musearchdb.games 
 	JOIN musearchdb.users 
 	ON users.userId = games.userId and users.userId = userid1
