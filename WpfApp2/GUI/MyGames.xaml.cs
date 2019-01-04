@@ -18,15 +18,17 @@ using WpfApp2.General;
 using MuSearch.BusinessLayer;
 using System.Data;
 using WpfApp2;
+using WpfApp2.BusinessLayer.Interfaces;
 
 namespace MuSearch.GUI
 {
-   /// <summary>
+
+    /// <summary>
     /// Interaction logic for MyGames.xaml
     /// </summary>
     public partial class MyGames : Window
     {
-        private Users usersBL;
+        private IUsers usersBL;
         private int userId;
         List<Game> games { get; set; }
 

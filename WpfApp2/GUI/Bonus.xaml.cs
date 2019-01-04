@@ -1,5 +1,4 @@
 ﻿using MuSearch.BusinessLayer;
-using MuSearch.DB;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -19,6 +18,10 @@ using WpfApp2.General;
 
 namespace WpfApp2.GUI
 {
+
+    using WpfApp2.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
+
     /// <summary>
     /// Interaction logic for Bonus.xaml
     /// </summary>
@@ -28,6 +31,10 @@ namespace WpfApp2.GUI
         private int userID;
         private int userScore;
 
+        private ICategories categoriesBL;
+
+        private IUsers usersBL;
+
         /// <summary>
         /// Constructor for the Bonus object
         /// </summary>
@@ -36,11 +43,13 @@ namespace WpfApp2.GUI
         /// <param name="score">the current score of the current user</param>
         public Bonus(WordSearch wordSearchInput, int id, int score)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.userID = id;
             this.userScore = score;
             this.wordSearch = wordSearchInput;
             this.showOptions();
+            this.categoriesBL = new Categories();
+            this.usersBL = new Users();
         }
 
         /// <summary>
@@ -51,16 +60,15 @@ namespace WpfApp2.GUI
             // choosing randomly the position of the right answer
             Random rand = new Random();
             int answerPos = rand.Next(1, 5);
-            DBcategories dBcategories = new DBcategories();
             for (int i = 0; i < 4; i++)
             {
-                // is that is the position of the right answer, insert it
+                // if that is the position of the right answer, insert it
                 if (answerPos == i)
                     this.options.Items.Add(this.wordSearch.categories[0].CategoryName);
                 else
                 {
                     // else, get another random category for the other answers
-                    Category newCat = dBcategories.randomeCategory(this.wordSearch.categories[0].Categories + "s");
+                    Category newCat = this.categoriesBL.randomCategory(this.wordSearch.categories[0].Categories + "s");
                     this.options.Items.Add(newCat.CategoryName);
                 }
             }
@@ -87,10 +95,9 @@ namespace WpfApp2.GUI
             }
 
             // insert this game to the user's games
-            DBusers usersDB = new DBusers();
-            usersDB.insertNewGame(this.userID, this.userScore);
+            this.usersBL.insertNewGame(this.userID, this.userScore);
             
-            //send him back to the menu
+            // send him back to the menu
             Menu menu = new Menu(this.userID);
             menu.Show();
             this.Close();
@@ -105,8 +112,7 @@ namespace WpfApp2.GUI
         private void ExitNoBonus_Click(object sender, RoutedEventArgs e)
         {
             // insert this game to the user's games
-            DBusers usersDB = new DBusers();
-            usersDB.insertNewGame(this.userID, this.userScore);
+            this.usersBL.insertNewGame(this.userID, this.userScore);
             
             // send him back to the menu
             Menu menu = new Menu(this.userID);

@@ -6,7 +6,9 @@ namespace MuSearch.DB
     using System;
     using System.Configuration;
 
-    public class DBConnection
+    using MuSearch.DB.Interfaces;
+
+    public class DBConnection : IDBconnection
     {
         private DBConnection()
         {

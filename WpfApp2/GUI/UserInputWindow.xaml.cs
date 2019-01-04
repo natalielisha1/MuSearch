@@ -17,7 +17,9 @@ namespace WpfApp2.GUI
     using System.Collections.ObjectModel;
     using System.Data;
     using MuSearch.BusinessLayer;
-    using MuSearch.DB;
+
+    using WpfApp2.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.General;
 
     /// <summary>
@@ -35,8 +37,9 @@ namespace WpfApp2.GUI
         public ObservableCollection<BoolStringClass> TheList { get; set; }
         public string categoryInput { get; set; }
         private int userId;
-        private UserInput userInputBL;
-        private DBcategories catDB;
+
+        private ISongs songsBL;
+        private ICategories categoriesBL;
         List<CheckBox> CategoryBoxes;
         private List<Category> categoryOptions;
         private List<Category> categories;
@@ -48,13 +51,13 @@ namespace WpfApp2.GUI
         public UserInputWindow(int userId)
         {
             InitializeComponent();
-            this.userInputBL = new UserInput();
             this.userId = userId;
             this.categories = new List<Category>();
-            CategoryBoxes = new List<CheckBox>();
+            this.CategoryBoxes = new List<CheckBox>();
             this.categoryOptions = new List<Category>();
             this.TheList = new ObservableCollection<BoolStringClass>();
-            this.catDB = new DBcategories();
+            this.categoriesBL = new Categories();
+            this.songsBL = new Songs();
         }
         
         /// <summary>
@@ -87,12 +90,13 @@ namespace WpfApp2.GUI
         public void CreateCheckBoxList()
         {
             TheList.Clear();
-            categoryOptions = this.userInputBL.generateCategories(this.txtUserInput.Text);
+            categoryOptions = this.categoriesBL.checkCategories(this.txtUserInput.Text);
             if (this.categoryOptions.Count!= 0)
             {
                 for (int i = 0; i < categoryOptions.Count; i++)
                 {
-                    TheList.Add(new BoolStringClass { TheText = categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + "), amount: "+ categoryOptions[i].Count, TheValue = i });
+                    TheList.Add(new BoolStringClass { TheText = 
+                        categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + "), amount: "+ categoryOptions[i].Count, TheValue = i });
                 }
                 this.DataContext = this;
             }
@@ -159,15 +163,15 @@ namespace WpfApp2.GUI
                 switch (catType)
                 {
                     case 1:
-                        this.categories.Add(this.catDB.randomeCategory("artists"));
+                        this.categories.Add(this.categoriesBL.randomCategory("artists"));
                         break;
                     case 2:
-                        this.categories.Add(this.catDB.randomeCategory("albums"));
+                        this.categories.Add(this.categoriesBL.randomCategory("albums"));
                         break;
                     default:
                         break;
                 }
-            } while (songs.GetWords(this.categories).Count() == 0);
+            } while (this.songsBL.GetWords(this.categories).Count() == 0);
             MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
             gameMainWindow.Show();
             this.Close();

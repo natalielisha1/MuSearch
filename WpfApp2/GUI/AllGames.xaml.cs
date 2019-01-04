@@ -15,16 +15,18 @@ using System.Windows.Shapes;
 using System.Data;
 using MuSearch.BusinessLayer;
 using WpfApp2.General;
+using WpfApp2.BusinessLayer.Interfaces;
 
 namespace WpfApp2.GUI
 {
+
     /// <summary>
     /// Interaction logic for AllGames.xaml
     /// </summary>
     public partial class AllGames : Window
     {
         #region Properties
-        private Users _users;
+        private IUsers usersBL;
         private int userId;
         #endregion
 
@@ -35,7 +37,7 @@ namespace WpfApp2.GUI
         public AllGames(int userId)
         {
             this.InitializeComponent();
-            this._users = new Users();
+            this.usersBL = new Users();
             this.userId = userId;
             this.ShowTopAllGames();
         }
@@ -47,7 +49,7 @@ namespace WpfApp2.GUI
         {
             try
             {
-                List<Game> games = this._users.getTopAllGames();
+                List<Game> games = this.usersBL.getTopAllGames();
                 var rows = games.Count;
                 DataTable dt = new DataTable();
 

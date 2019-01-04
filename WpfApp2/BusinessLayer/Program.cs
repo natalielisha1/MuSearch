@@ -23,8 +23,9 @@ namespace MuSearch.BusinessLayer
         {
             try
             {
+                Songs songsBL = new Songs();
                 // get the words in the given categories, those words will be in the word search
-                List<string> words = songs.GetWords(categories);
+                List<string> words = songsBL.GetWords(categories);
                 WordSearch search = new WordSearch(rows, cols, categories);
                 search.createWordSearch(words);
                 return search;

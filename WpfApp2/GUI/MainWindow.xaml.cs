@@ -19,12 +19,12 @@ using System.Timers;
 
 namespace WpfApp2
 {
-    using MuSearch.DB;
     using MuSearch.GUI;
     using System.Data;
     using System.Diagnostics;
     using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.General;
     using WpfApp2.GUI;
 
@@ -60,7 +60,7 @@ namespace WpfApp2
         }
 
         // A connection to the DB
-        private DBusers DBUsers;
+        private IUsers usersBL;
 
         /// <summary>
         ///  Constructor
@@ -72,7 +72,7 @@ namespace WpfApp2
             this.InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
-            this.DBUsers = new DBusers();
+            this.usersBL = new Users();
             this.DataContext = this;
             this.categories = categories;
 
@@ -251,10 +251,10 @@ namespace WpfApp2
                     else
                     {
                         // insert this game to the user's games
-                        this.DBUsers.insertNewGame(this.userId, this.UserScore);
+                        this.usersBL.insertNewGame(this.userId, this.UserScore);
                         
                         // send him back to the menu
-                        Menu menu = new Menu(userId);
+                        Menu menu = new Menu(this.userId);
                         menu.Show();
                         this.Close();
                     }
