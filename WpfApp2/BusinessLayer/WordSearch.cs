@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp2.BusinessLayer;
-
-namespace MuSearch.BusinessLayer
+﻿namespace MuSearch.BusinessLayer
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using WpfApp2.BusinessLayer;
+
     public class WordSearch
     {
         public GameGrid gameGrid;

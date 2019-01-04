@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfApp2.BusinessLayer
+﻿namespace WpfApp2.BusinessLayer
 {
+    using System;
+
     public class GameGrid
     {
         public WordSearchCell[,] grid;
@@ -22,7 +18,7 @@ namespace WpfApp2.BusinessLayer
         {
             this.rows = row;
             this.columns = col;
-            this.grid = new WordSearchCell[rows, columns];
+            this.grid = new WordSearchCell[this.rows, this.columns];
         }
 
         /// <summary>
@@ -36,7 +32,7 @@ namespace WpfApp2.BusinessLayer
             {
                 for (int j = 0; j < this.columns; j++)
                 {
-                    if (grid[i, j] != null && this.grid[i, j].gridPosition.equal(pos))
+                    if (this.grid[i, j] != null && this.grid[i, j].gridPosition.equal(pos))
                         return this.grid[i, j];
                 }
             }
@@ -56,7 +52,8 @@ namespace WpfApp2.BusinessLayer
             // print confirmation message to the console
             Console.WriteLine(word + " is in: " + position.printPoint());
 
-            if (direction == 0) // horizontal
+            // horizontal
+            if (direction == 0)
             {
                 // for every letter in the word
                 for (int i = 0; i < word.Length; i++)
@@ -65,14 +62,21 @@ namespace WpfApp2.BusinessLayer
                     WordSearchCell newCell = new WordSearchCell(newPosition, word[i], true);
                     newCell.fullWord = word; // for every new cell define the current word as the full word of the cell
                     newCell.direction = direction;
-                    if (i == 0) // if it's the start of the word
+
+                    // if it's the start of the word
+                    if (i == 0)
+                    {
                         newCell.isStartOfWord = true;
-                    else // otherwise
+                    }
+                    else
+                    {
                         newCell.isStartOfWord = false;
-                    grid[position.x, position.y + i] = newCell;
+                    }
+                    this.grid[position.x, position.y + i] = newCell;
                 }
             }
             else // vertical
+            {
                 for (int i = 0; i < word.Length; i++)
                 {
                     Point newPosition = new Point(position.x + i, position.y);
@@ -80,11 +84,16 @@ namespace WpfApp2.BusinessLayer
                     newCell.fullWord = word;
                     newCell.direction = direction;
                     if (i == 0)
+                    {
                         newCell.isStartOfWord = true;
+                    }
                     else
+                    {
                         newCell.isStartOfWord = false;
-                    grid[position.x + i, position.y] = newCell;
+                    }
+                    this.grid[position.x + i, position.y] = newCell;
                 }
+            }
         }
 
         /// <summary>
@@ -96,17 +105,18 @@ namespace WpfApp2.BusinessLayer
             Random r = new Random();
             int charRandIndex;
 
-            //for every cell in the grid
-            for (int i = 0; i < rows; i++)
+            // for every cell in the grid
+            for (int i = 0; i < this.rows; i++)
             {
                 for (int j = 0; j < this.columns; j++)
                 {
-                    if (grid[i, j] == null) // if the cell is empty
+                    // if the cell is empty
+                    if (this.grid[i, j] == null)
                     {
                         // put a random letter in the empty cell
                         Point cellPos = new Point(i, j);
                         charRandIndex = r.Next(chars.Length);
-                        grid[i, j] = new WordSearchCell(cellPos, chars[charRandIndex], false);
+                        this.grid[i, j] = new WordSearchCell(cellPos, chars[charRandIndex], false);
                     }
                 }
             }

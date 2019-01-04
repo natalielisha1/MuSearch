@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MuSearch.DB;
-using WpfApp2.BusinessLayer;
-
-namespace MuSearch.BusinessLayer
+﻿namespace MuSearch.BusinessLayer
 {
+    using System;
+    using System.Collections.Generic;
+    using WpfApp2.BusinessLayer;
+
     public class Program
     {
         /// <summary>
