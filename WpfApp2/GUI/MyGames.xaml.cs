@@ -13,8 +13,6 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using WpfApp2.BusinessLayer;
-using MuSearch.DB;
-using WpfApp2.General;
 using MuSearch.BusinessLayer;
 using System.Data;
 using WpfApp2;

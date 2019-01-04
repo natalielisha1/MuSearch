@@ -14,7 +14,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using WpfApp2;
-using WpfApp2.General;
 
 namespace WpfApp2.GUI
 {

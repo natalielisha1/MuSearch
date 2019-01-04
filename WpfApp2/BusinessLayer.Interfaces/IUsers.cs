@@ -6,8 +6,6 @@ using System.Threading.Tasks;
 
 namespace WpfApp2.BusinessLayer.Interfaces
 {
-    using WpfApp2.General;
-
     interface IUsers
     {
         int checkUser(string username, string password);

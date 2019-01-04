@@ -22,10 +22,8 @@ namespace WpfApp2
     using MuSearch.GUI;
     using System.Data;
     using System.Diagnostics;
-    using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
-    using WpfApp2.General;
     using WpfApp2.GUI;
 
     /// <summary>

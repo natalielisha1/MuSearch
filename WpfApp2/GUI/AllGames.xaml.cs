@@ -14,11 +14,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Data;
 using MuSearch.BusinessLayer;
-using WpfApp2.General;
 using WpfApp2.BusinessLayer.Interfaces;
 
 namespace WpfApp2.GUI
 {
+    using WpfApp2.BusinessLayer;
 
     /// <summary>
     /// Interaction logic for AllGames.xaml

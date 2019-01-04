@@ -6,7 +6,6 @@
     using MuSearch.DB.Interfaces;
 
     using WpfApp2.BusinessLayer.Interfaces;
-    using WpfApp2.General;
 
     public class Songs : ISongs
     {

@@ -8,8 +8,6 @@ using WpfApp2.BusinessLayer;
 
 namespace MuSearch.BusinessLayer
 {
-    using WpfApp2.General;
-
     public class Program
     {
         /// <summary>

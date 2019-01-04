@@ -9,7 +9,7 @@ namespace MuSearch.DB
 {
     using MuSearch.DB.Interfaces;
 
-    using WpfApp2.General;
+    using WpfApp2.BusinessLayer;
 
     class DBsongs : IDBsongs
     {

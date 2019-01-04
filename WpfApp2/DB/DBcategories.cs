@@ -8,7 +8,8 @@
     using MuSearch.DB.Interfaces;
 
     using MySql.Data.MySqlClient;
-    using WpfApp2.General;
+
+    using WpfApp2.BusinessLayer;
 
     /// <summary>
     /// DBcategories

@@ -20,7 +20,6 @@ namespace WpfApp2.GUI
 
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
-    using WpfApp2.General;
 
     /// <summary>
     /// Interaction logic for UserInput.xaml
