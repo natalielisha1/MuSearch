@@ -33,12 +33,12 @@
             return this.conn.getTopGames(userID);
         }
 
-        public List<Game> getTopAllGames()
         /// <summary>
         /// The function returns a list of the
         /// top games of all users in the system
         /// </summary>
         /// <returns>list of games</returns>
+        public List<Game> getTopAllGames()
         {
             return this.conn.getAllTopGames();
         }

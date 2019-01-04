@@ -15,7 +15,7 @@ namespace MuSearch.DB
         /// getting te words to the word search
         /// </summary>
         /// <param name="categories">the categories we want to build the game according it</param>
-        /// <returns>a list of the relavent words</returns>
+        /// <returns>a list of the relevant words</returns>
         public static List<string> GetWords(List<Category> categories)
         {
             var dbCon = DBConnection.Instance();
@@ -47,10 +47,10 @@ namespace MuSearch.DB
         }
 
         /// <summary>
-        /// creating the apropriate query
+        /// creating the appropriate query
         /// </summary>
         /// <param name="categories">the categories for the query</param>
-        /// <returns>the qpropriet query</returns>
+        /// <returns>the appropriate query</returns>
         public static string CreateQuery(List<Category> categories)
         {
             string query = string.Empty;

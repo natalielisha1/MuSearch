@@ -42,7 +42,7 @@ namespace WpfApp2.GUI
         private List<Category> categories;
 
         /// <summary>
-        /// Constructor for the UserInputWUndow object
+        /// Constructor for the UserInputWindow object
         /// </summary>
         /// <param name="userId">the current user's ID</param>
         public UserInputWindow(int userId)
@@ -58,7 +58,7 @@ namespace WpfApp2.GUI
         }
         
         /// <summary>
-        /// one of the radio butons is checked
+        /// one of the radio buttons is checked
         /// </summary>
         /// <param name="sender">the object that send the event</param>
         /// <param name="e">arguments</param>
@@ -70,7 +70,7 @@ namespace WpfApp2.GUI
         }
 
         /// <summary>
-        /// one of the radio butons is Unchecked
+        /// one of the radio buttons is Unchecked
         /// </summary>
         /// <param name="sender">the object that send the event</param>
         /// <param name="e">arguments</param>
@@ -82,7 +82,7 @@ namespace WpfApp2.GUI
         }
 
         /// <summary>
-        /// creating the list for the user to see on the option for cateories
+        /// creating the list for the user to see on the option for categories
         /// </summary>
         public void CreateCheckBoxList()
         {
@@ -141,18 +141,19 @@ namespace WpfApp2.GUI
         }
 
         /// <summary>
-        /// clicking the suprise me button
+        /// clicking the surprise me button
         /// </summary>
         /// <param name="sender">the object that send the event</param>
         /// <param name="e">arguments</param>
         private void supriseMe_click(object sender, RoutedEventArgs e)
         {
-            //choosing randomly the catagory type. 1 for artists, 2 for albums
+            // choosing randomly the catagory type. 1 for artists, 2 for albums
             int catType;
             Random rand = new Random();
             catType = rand.Next(1, 3);
-            songs songsDB = new songs();
-            do //do while the categry get words. don't want a 0 words word search
+
+            // do while the category get words. don't want a 0 words word search
+            do
             {
                 this.categories.Clear();
                 switch (catType)

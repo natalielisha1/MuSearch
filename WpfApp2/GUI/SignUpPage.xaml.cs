@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 namespace WpfApp2.GUI
 {
     /// <summary>
-    /// Interaction logic for SignInPage.xaml
+    /// Interaction logic for SignUpPage.xaml
     /// </summary>
     public partial class SignUpPage : Window
     {
@@ -27,7 +27,7 @@ namespace WpfApp2.GUI
         /// </summary>
         public SignUpPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.BDUsers = new DBusers();
         }
 
@@ -40,14 +40,17 @@ namespace WpfApp2.GUI
         {
             try
             {
-                //is the passwords are matching?
+                // if the passwords aren't matching
                 if (this.txtPassword.Password != this.txtPassword2.Password)
                     MessageBox.Show("The passwords are'nt matching, try again.");
-                //is this username already exsit?
+                
+                // if this username already exist
                 else if (this.BDUsers.isUsernameExists(this.txtUsername.Text))
                     MessageBox.Show("Username already exists, try a diffrent username.");
+                
+                // if everything is OK - add the new user to the DataBase
                 else
-                {//if everything is OK add the new user to the DataBase
+                {
                     int userID = this.BDUsers.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
                     Menu gameMainWindow = new Menu(userID);
                     gameMainWindow.Show();

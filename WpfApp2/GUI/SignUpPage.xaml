@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:WpfApp2.GUI"
         mc:Ignorable="d"
         Title="SignUpPage" Height="700" Width="650">
-    <Border Background="#4d4d33" CornerRadius="20" Margin="20">
+    <Border Background="Black" CornerRadius="20" Margin="20">
         <StackPanel Margin="20">
             <Label Content="Sign Up To Play" Foreground="Maroon" FontSize="65" HorizontalAlignment="Center" FontFamily="AR BERKLEY"></Label>
             <Separator Background="Maroon"></Separator>

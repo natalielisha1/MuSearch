@@ -27,7 +27,7 @@ namespace WpfApp2.GUI
         /// </summary>
         public Menu(int userId)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.userId = userId;
         }
 
@@ -66,7 +66,7 @@ namespace WpfApp2.GUI
 
         /// <summary>
         /// OnClick function. when EXIT button pressed the function
-        /// is activated and the program shuts safetly.
+        /// is activated and the program shuts safely.
         /// </summary>
         private void OnExit(object sender, RoutedEventArgs e)
         {

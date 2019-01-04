@@ -56,7 +56,7 @@ namespace WpfApp2.BusinessLayer
             // print confirmation message to the console
             Console.WriteLine(word + " is in: " + position.printPoint());
 
-            if (direction == 0) // hurizantel
+            if (direction == 0) // horizontal
             {
                 // for every letter in the word
                 for (int i = 0; i < word.Length; i++)
@@ -95,6 +95,7 @@ namespace WpfApp2.BusinessLayer
             char[] chars = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
             Random r = new Random();
             int charRandIndex;
+
             //for every cell in the grid
             for (int i = 0; i < rows; i++)
             {

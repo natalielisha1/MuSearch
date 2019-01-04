@@ -8,7 +8,7 @@
     using WpfApp2.General;
 
     /// <summary>
-    /// DBDBcategories
+    /// DBcategories
     /// connection to the database for category information
     /// </summary>
     public class DBcategories
@@ -17,7 +17,7 @@
         /// checkCategories
         /// </summary>
         /// <param name="input">the searching word of the user</param>
-        /// <returns> a list of categorys that are relevant to the input </returns>
+        /// <returns> a list of categories that are relevant to the input </returns>
         public List<Category> checkCategories(string input)
         {
             var dbCon = DBConnection.Instance();
@@ -62,15 +62,14 @@
         }
 
         /// <summary>
-        /// gets a randome category for the suprise word search
+        /// gets a random category for the surprise word search
         /// </summary>
-        /// <param name="tableName">that the category is commng from</param>
+        /// <param name="tableName">that the category is coming from</param>
         /// <returns>the category that we got</returns>
         public Category randomeCategory(string tableName)
         {
             Category category = null;
             var dbCon = DBConnection.Instance();
-            List<Category> categories = new List<Category>();
             dbCon.DatabaseName = "musearch";
             if (dbCon.IsConnect())
             {

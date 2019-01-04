@@ -10,7 +10,7 @@
     public class DBusers
     {
         /// <summary>
-        /// checking if the user exist and if he's passsword is currect
+        /// checking if the user exist and if he's password is correct
         /// </summary>
         /// <param name="username">the typed username</param>
         /// <param name="password">the typed password</param>
@@ -124,7 +124,7 @@
         }
 
         /// <summary>
-        /// geting the top 5 games of a user
+        /// getting the top 5 games of a user
         /// </summary>
         /// <param name="userID">the ID of the user we want the top 5 games of</param>
         /// <returns>a list of he's top games (limited to 5)</returns>
@@ -154,7 +154,7 @@
         /// <summary>
         /// get the top games of all the users
         /// </summary>
-        /// <returns>a list of the top gamse. limited to 5 games</returns>
+        /// <returns>a list of the top games. limited to 5 games</returns>
         public List<Game> getAllTopGames()
         {
             List<Game> games = new List<Game>();
