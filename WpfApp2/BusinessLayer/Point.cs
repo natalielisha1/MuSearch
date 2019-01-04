@@ -25,7 +25,7 @@ namespace WpfApp2.BusinessLayer
 
         /// <summary>
         /// The function returns a printable
-        /// vertion of the current point
+        /// version of the current point
         /// </summary>
         /// <returns>the point as a string</returns>
         public string printPoint()

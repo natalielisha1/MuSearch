@@ -99,7 +99,7 @@ namespace MuSearch.GUI
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            WpfApp2.GUI.Menu menuWindow = new WpfApp2.GUI.Menu(userId);
+            WpfApp2.GUI.Menu menuWindow = new WpfApp2.GUI.Menu(this.userId);
             menuWindow.Show();
             this.Close();
         }

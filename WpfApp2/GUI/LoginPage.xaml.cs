@@ -32,7 +32,7 @@ namespace WpfApp2.GUI
         /// </summary>
         public LoginPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.usersBL = new Users();
         }
 
@@ -50,7 +50,7 @@ namespace WpfApp2.GUI
                 int userId = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
                 if (userId != -1)
                 {
-                    //go to next page
+                    // go to next page
                     Menu menuWindow = new Menu(userId);
                     menuWindow.Show();
                     this.Close();

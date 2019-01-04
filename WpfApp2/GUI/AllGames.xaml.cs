@@ -34,7 +34,7 @@ namespace WpfApp2.GUI
         /// <param name="userId">not used here</param>
         public AllGames(int userId)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this._users = new Users();
             this.userId = userId;
             this.ShowTopAllGames();
@@ -85,7 +85,8 @@ namespace WpfApp2.GUI
 
                 this.dataGrid.ItemsSource = dt.DefaultView;
             }
-            // in case on an exception
+
+            // in case of an exception
             catch(Exception e)
             {
                 MessageBox.Show("System Error. \r\nTry again later.");
@@ -101,7 +102,7 @@ namespace WpfApp2.GUI
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //go to home page
+            // go to home page
             Menu menuWindow = new Menu(this.userId);
             menuWindow.Show();
             this.Close();
