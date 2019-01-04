@@ -12,10 +12,11 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MuSearch.BusinessLayer;
+using WpfApp2.BusinessLayer.Interfaces;
 
 namespace WpfApp2.GUI
 {
-    using MuSearch.BusinessLayer;
 
     /// <summary>
     /// Interaction logic for LoginPage.xaml
@@ -25,7 +26,7 @@ namespace WpfApp2.GUI
         public string Username { get; set; }
         public string Password { get; set; }
 
-        private Users usersBL;
+        private IUsers usersBL;
 
         /// <summary>
         /// Constructor for the LoginPage page

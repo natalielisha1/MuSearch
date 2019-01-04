@@ -19,13 +19,11 @@ using System.Timers;
 
 namespace WpfApp2
 {
-    using MuSearch.DB;
     using MuSearch.GUI;
     using System.Data;
     using System.Diagnostics;
-    using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
-    using WpfApp2.General;
+    using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.GUI;
 
     /// <summary>
@@ -60,7 +58,7 @@ namespace WpfApp2
         }
 
         // A connection to the DB
-        private DBusers DBUsers;
+        private IUsers usersBL;
 
         /// <summary>
         ///  Constructor
@@ -72,7 +70,7 @@ namespace WpfApp2
             this.InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
-            this.DBUsers = new DBusers();
+            this.usersBL = new Users();
             this.DataContext = this;
             this.categories = categories;
 
@@ -209,30 +207,33 @@ namespace WpfApp2
             int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
 
             // save the cell from the WordSearch in this location
-            WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
+            WordSearchCell chosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
 
             // if this cell is part of a word and it is the first char of the word
             // then this word is found
-            if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
+            if (chosenCell.partOfTheGame && chosenCell.isStartOfWord)
+                
                 // did the user already found it?
-                if (this.userFind.Contains(choosenCell.fullWord))
-                    MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
+                if (this.userFind.Contains(chosenCell.fullWord))
+                {
+                    MessageBox.Show("You already found: " + chosenCell.fullWord + "! Try a different word.");
+                }
 
                 // if it's the first time:
                 else
                 {
                     // add the word to the list of what the user found and add to his score
-                    this.userFind.Add(choosenCell.fullWord);
+                    this.userFind.Add(chosenCell.fullWord);
                     this.UserScore += 2;
                     // color the word he found
-                    for (int i = 0; i < choosenCell.fullWord.Length; i++)
+                    for (int i = 0; i < chosenCell.fullWord.Length; i++)
                     {
-                        if (choosenCell.direction == 0) //horizontal
+                        if (chosenCell.direction == 0) //horizontal
                             this.colorCell(cellRow, cellCol + i);
                         else
                             this.colorCell(cellRow + i, cellCol);
                     }
-                    this.removeFromListBox(choosenCell.fullWord);
+                    this.removeFromListBox(chosenCell.fullWord);
                 }
 
             // if the user finished the game
@@ -251,10 +252,10 @@ namespace WpfApp2
                     else
                     {
                         // insert this game to the user's games
-                        this.DBUsers.insertNewGame(this.userId, this.UserScore);
+                        this.usersBL.insertNewGame(this.userId, this.UserScore);
                         
                         // send him back to the menu
-                        Menu menu = new Menu(userId);
+                        Menu menu = new Menu(this.userId);
                         menu.Show();
                         this.Close();
                     }

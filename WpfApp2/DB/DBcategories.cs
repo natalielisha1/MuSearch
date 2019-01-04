@@ -4,14 +4,18 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Runtime.CompilerServices;
+
+    using MuSearch.DB.Interfaces;
+
     using MySql.Data.MySqlClient;
-    using WpfApp2.General;
+
+    using WpfApp2.BusinessLayer;
 
     /// <summary>
     /// DBcategories
     /// connection to the database for category information
     /// </summary>
-    public class DBcategories
+    public class DBcategories : IDBcategories
     {
         /// <summary>
         /// checkCategories
@@ -66,7 +70,7 @@
         /// </summary>
         /// <param name="tableName">that the category is coming from</param>
         /// <returns>the category that we got</returns>
-        public Category randomeCategory(string tableName)
+        public Category randomCategory(string tableName)
         {
             Category category = null;
             var dbCon = DBConnection.Instance();

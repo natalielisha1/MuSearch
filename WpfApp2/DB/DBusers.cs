@@ -4,10 +4,14 @@
     using System.Collections.Generic;
     using System.Data;
     using System.Runtime.CompilerServices;
-    using MySql.Data.MySqlClient;
-    using WpfApp2.General;
 
-    public class DBusers
+    using MuSearch.DB.Interfaces;
+
+    using MySql.Data.MySqlClient;
+
+    using WpfApp2.BusinessLayer;
+
+    public class DBusers : IDBusers
     {
         /// <summary>
         /// checking if the user exist and if he's password is correct

@@ -1,5 +1,4 @@
-﻿using MuSearch.DB;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +11,18 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using WpfApp2.BusinessLayer.Interfaces;
+using MuSearch.BusinessLayer;
 
 namespace WpfApp2.GUI
 {
+
     /// <summary>
     /// Interaction logic for SignUpPage.xaml
     /// </summary>
     public partial class SignUpPage : Window
     {
-        private DBusers BDUsers;
+        private IUsers usersBL;
 
         /// <summary>
         /// Constructor for the SignUpPage object
@@ -28,7 +30,7 @@ namespace WpfApp2.GUI
         public SignUpPage()
         {
             this.InitializeComponent();
-            this.BDUsers = new DBusers();
+            this.usersBL = new Users();
         }
 
         /// <summary>
@@ -42,16 +44,16 @@ namespace WpfApp2.GUI
             {
                 // if the passwords aren't matching
                 if (this.txtPassword.Password != this.txtPassword2.Password)
-                    MessageBox.Show("The passwords are'nt matching, try again.");
+                    MessageBox.Show("The passwords aren't matching, try again.");
                 
                 // if this username already exist
-                else if (this.BDUsers.isUsernameExists(this.txtUsername.Text))
-                    MessageBox.Show("Username already exists, try a diffrent username.");
+                else if (this.usersBL.isUsernameExists(this.txtUsername.Text))
+                    MessageBox.Show("Username already exists, try a different username.");
                 
                 // if everything is OK - add the new user to the DataBase
                 else
                 {
-                    int userID = this.BDUsers.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
+                    int userID = this.usersBL.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
                     Menu gameMainWindow = new Menu(userID);
                     gameMainWindow.Show();
                     this.Close();

@@ -107,18 +107,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessLayer.Interfaces\ICategories.cs" />
+    <Compile Include="BusinessLayer.Interfaces\ISongs.cs" />
+    <Compile Include="BusinessLayer.Interfaces\IUsers.cs" />
+    <Compile Include="BusinessLayer\Categories.cs" />
+    <Compile Include="BusinessLayer\Category.cs" />
+    <Compile Include="BusinessLayer\Game.cs" />
     <Compile Include="BusinessLayer\GameGrid.cs" />
     <Compile Include="BusinessLayer\Point.cs" />
-    <Compile Include="BusinessLayer\UserInput.cs" />
+    <Compile Include="BusinessLayer\Songs.cs" />
     <Compile Include="BusinessLayer\Program.cs" />
     <Compile Include="BusinessLayer\Users.cs" />
     <Compile Include="BusinessLayer\WordSearch.cs" />
     <Compile Include="BusinessLayer\WordSearchCell.cs" />
+    <Compile Include="DB.Interfaces\IDBcategories.cs" />
+    <Compile Include="DB.Interfaces\IDBconnection.cs" />
+    <Compile Include="DB.Interfaces\IDBsongs.cs" />
+    <Compile Include="DB.Interfaces\IDBusers.cs" />
     <Compile Include="DB\DBcategories.cs" />
     <Compile Include="DB\DBconnection.cs" />
     <Compile Include="DB\DBsongs.cs" />
     <Compile Include="DB\DBusers.cs" />
-    <Compile Include="General\General.cs" />
     <Compile Include="GUI\AllGames.xaml.cs">
       <DependentUpon>AllGames.xaml</DependentUpon>
     </Compile>

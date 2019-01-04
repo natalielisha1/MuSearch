@@ -7,16 +7,18 @@ using System.Data;
 using MySql.Data.MySqlClient;
 namespace MuSearch.DB
 {
-    using WpfApp2.General;
+    using MuSearch.DB.Interfaces;
 
-    class songs
+    using WpfApp2.BusinessLayer;
+
+    class DBsongs : IDBsongs
     {
         /// <summary>
-        /// getting te words to the word search
+        /// getting the words to the word search
         /// </summary>
         /// <param name="categories">the categories we want to build the game according it</param>
         /// <returns>a list of the relevant words</returns>
-        public static List<string> GetWords(List<Category> categories)
+        public List<string> GetWords(List<Category> categories)
         {
             var dbCon = DBConnection.Instance();
             dbCon.DatabaseName = "musearchdb";
@@ -51,7 +53,7 @@ namespace MuSearch.DB
         /// </summary>
         /// <param name="categories">the categories for the query</param>
         /// <returns>the appropriate query</returns>
-        public static string CreateQuery(List<Category> categories)
+        public string CreateQuery(List<Category> categories)
         {
             string query = string.Empty;
 
