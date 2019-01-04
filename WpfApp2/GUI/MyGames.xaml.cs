@@ -96,7 +96,7 @@ namespace MuSearch.GUI
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
             WpfApp2.GUI.Menu menuWindow = new WpfApp2.GUI.Menu(this.userId);

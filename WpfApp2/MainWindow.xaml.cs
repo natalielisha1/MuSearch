@@ -241,8 +241,8 @@ namespace WpfApp2
                 try
                 {
                     // let the user know the game ended
-                    MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
-                    if (this.categories[0].Input == "suprise Category")
+                    MessageBox.Show("The game is over. You found all the words. \r\nGreat work!");
+                    if (this.categories[0].Input == "surprise Category")
                     {
                         Bonus bonusWin = new Bonus(this.wordSearch, this.userId, this.UserScore);
                         bonusWin.Show();
@@ -324,7 +324,8 @@ namespace WpfApp2
         private void ShowWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Visible;
-            this.help1.Visibility = Visibility.Visible;
+            this.help1a.Visibility = Visibility.Visible;
+            this.help1b.Visibility = Visibility.Visible;
             this.ShowWords.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Visible;
         }
@@ -337,7 +338,8 @@ namespace WpfApp2
         private void HideWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Hidden;
-            this.help1.Visibility = Visibility.Hidden;
+            this.help1a.Visibility = Visibility.Hidden;
+            this.help1b.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Hidden;
             this.ShowWords.Visibility = Visibility.Visible;
         }

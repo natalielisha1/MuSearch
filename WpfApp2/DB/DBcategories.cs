@@ -22,10 +22,10 @@
         {
             var dbCon = DBConnection.Instance();
             List<Category> categories = new List<Category>();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.categoryGenerator", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.categoryGenerator", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("input", input));
                 cmd.Connection.Open();
@@ -70,10 +70,10 @@
         {
             Category category = null;
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getRandom_" + tableName, dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.getRandom_" + tableName, dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("table_name1", tableName));
                 cmd.Connection.Open();
@@ -84,14 +84,14 @@
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["artistName"].ToString(), "suprise Category", "artist",0);
+                            category = new Category(reader["artistName"].ToString(), "surprise Category", "artist",0);
                         }
                     }
                     else
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["albumName"].ToString(), "suprise Category", "album",0);
+                            category = new Category(reader["albumName"].ToString(), "surprise Category", "album",0);
                         }
                     }
                 }

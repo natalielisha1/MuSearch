@@ -83,7 +83,7 @@ namespace WpfApp2.GUI
             else
             {
                 // else, let him know he didn't choose the right one
-                MessageBox.Show("You didn't get it right this time, don't worry you still have the points from the game!.\r\n" + "The category was: " + this.wordSearch.categories[0].CategoryName + "\r\nTry again next time");
+                MessageBox.Show("You didn't get it right this time. Don't worry, you still have the points from the game!\r\n" + "The category was: " + this.wordSearch.categories[0].CategoryName + "\r\nTry again next time!");
             }
 
             // insert this game to the user's games

@@ -17,6 +17,17 @@
             <Label Content="Retype Password" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"/>
             <PasswordBox Name="txtPassword2" Background="#adad85" Foreground="White" FontSize="18"/>
             <Button Name="btnSignUp" Click ="btnSignUpClick" Content="Sign Up" Margin="60 10" Background="#adad85" FontFamily="AR BERKLEY" FontSize="29" Foreground="Maroon"></Button>
+            <Button Margin="0,30,0,10" HorizontalAlignment="Center" FontSize="20" FontWeight="Bold" FontFamily="AR CHRISTY" 
+                    Foreground="Maroon" Background="Black" Height="36" Width="100" Content="BACK" RenderTransformOrigin="0.5,0.5" Click="Back_Button_Click">
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="4.374"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
         </StackPanel>
     </Border>
 </Window>
