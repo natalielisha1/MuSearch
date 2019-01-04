@@ -241,96 +241,125 @@ ALTER DATABASE `musearchdb` CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `categoryGenerator`(IN input VARCHAR(255))
 BEGIN
-	
 	-- if input is a song
     SELECT artists.artistName as CategoryName,"song" as Input, "artist" as Categories, COUNT(songs.songName) as NumberOfSongs
-	FROM musearchdb.songs 
-	JOIN musearchdb.albums 
+	FROM musearchDB.songs 
+	JOIN musearchDB.albums 
 	ON songs.AlbumId = albums.albumId
-	JOIN musearchdb.artists 
+	JOIN musearchDB.artists 
 	ON albums.artistId = artists.id 
 	WHERE artists.id = 
     (SELECT artists.id
-    FROM musearchdb.artists
-	JOIN musearchdb.albums ON albums.artistId = artists.id
-    JOIN musearchdb.songs ON songs.AlbumId = albums.albumId
+    FROM musearchDB.artists
+	JOIN musearchDB.albums ON albums.artistId = artists.id
+    JOIN musearchDB.songs ON songs.AlbumId = albums.albumId
     WHERE songs.songName LIKE input)
+    AND length(replace(songs.songName,' ',''))<21
     
     UNION
     
     SELECT albums.albumName as CategoryName,"song" as Input, "album" as Categories, COUNT(songs.songName) as NumberOfSongs
-	FROM musearchdb.songs 
-	JOIN musearchdb.albums 
+	FROM musearchDB.songs 
+	JOIN musearchDB.albums 
 	ON songs.AlbumId = albums.albumId
-	JOIN musearchdb.artists 
+	JOIN musearchDB.artists 
 	ON albums.artistId = artists.id 
 	WHERE albums.albumId =
     (SELECT albums.albumId
-    FROM musearchdb.albums
-	JOIN musearchdb.songs ON songs.AlbumId = albums.albumId
+    FROM musearchDB.albums
+	JOIN musearchDB.songs ON songs.AlbumId = albums.albumId
     WHERE songs.songName LIKE input)
+    AND length(replace(songs.songName,' ',''))<21
     
     UNION
     
     SELECT (songs.yearReleased) - songs.yearReleased % 10 as CategoryName,"song" as Input, "decade" as Categories, COUNT(songs.songName) as NumberOfSongs
-    FROM musearchdb.songs 
+    FROM musearchDB.songs 
     WHERE 0 < (songs.yearReleased -
-    (SELECT (songs.yearReleased) - songs.yearReleased % 10
-    FROM musearchdb.songs
-	WHERE songs.songName LIKE input AND songs.yearReleased not like "0")) < 10
+		(SELECT songs.yearReleased - songs.yearReleased % 10
+		FROM musearchDB.songs
+		WHERE songs.songName LIKE input 
+		AND songs.yearReleased not like "0"))
+    AND (songs.yearReleased -
+		(SELECT (songs.yearReleased) - songs.yearReleased % 10
+		FROM musearchDB.songs
+		WHERE songs.songName LIKE input 
+        AND songs.yearReleased not like "0")) < 10
+    AND length(replace(songs.songName,' ',''))<21
 
 	-- if input is an artist
     UNION
     
     SELECT artists.artistName as CategoryName,"artist" as Input, "artist" as Categories, COUNT(songs.songName) as NumberOfSongs
-	FROM musearchdb.songs, musearchdb.albums, musearchdb.artists
-    WHERE albums.artistId = artists.id and artists.artistName LIKE input and songs.albumId = albums.albumId
+	FROM musearchDB.songs, musearchDB.albums, musearchDB.artists
+    WHERE albums.artistId = artists.id and artists.artistName LIKE input and songs.albumId = albums.albumId 
+    AND length(replace(songs.songName,' ',''))<21
 
     
     UNION
     
     SELECT albums.albumName as CategoryName,"artist" as Input, "album" as Categories, COUNT(songs.songName) as NumberOfSongs
-    FROM musearchdb.songs, musearchdb.albums, musearchdb.artists
+    FROM musearchDB.songs, musearchDB.albums, musearchDB.artists
     WHERE albums.artistId = artists.id and artists.artistName LIKE  input
-    AND songs.albumId = albums.albumId
+    AND songs.albumId = albums.albumId AND length(replace(songs.songName,' ',''))<21
     group by albums.albumName
     
     UNION 
     
-    SELECT (albums.yearReleased) - albums.yearReleased % 10 as CategoryName,"artist" as Input, "decade" as Categories, COUNT(songs.songName) as NumberOfSongs
-    FROM musearchdb.songs, musearchdb.albums, musearchdb.artists
-    WHERE albums.artistId = artists.id and artists.artistName LIKE input and songs.albumId = albums.albumId
-    group by CategoryName
+    SELECT (songs.yearReleased) - songs.yearReleased % 10 as CategoryName,"artist" as Input, "decade" as Categories, COUNT(songs.songName) as NumberOfSongs
+    FROM musearchDB.songs 
+    WHERE 0 < (songs.yearReleased -
+		(SELECT (albums.yearReleased - albums.yearReleased % 10)
+		FROM musearchDB.albums
+        JOIN musearchDB.artists
+		WHERE albums.artistId = artists.id 
+        AND artists.artistName LIKE input 
+        AND albums.yearReleased not like "0" LIMIT 1))
+	AND (songs.yearReleased -
+		(SELECT (albums.yearReleased - albums.yearReleased % 10)
+		FROM musearchDB.albums
+        JOIN musearchDB.artists
+		WHERE albums.artistId = artists.id 
+        AND artists.artistName LIKE input 
+        AND albums.yearReleased not like "0" LIMIT 1))< 10
+    AND length(replace(songs.songName,' ',''))<21
     
     UNION 
     -- if input is an album
         
     SELECT artists.artistName as CategoryName,"album" as Input, "artist" as Categories, COUNT(songs.songName) as NumberOfSongs
-	FROM musearchdb.songs 
-	JOIN musearchdb.albums 
+	FROM musearchDB.songs 
+	JOIN musearchDB.albums 
 	ON songs.AlbumId = albums.albumId
-	JOIN musearchdb.artists 
+	JOIN musearchDB.artists 
 	ON albums.artistId = artists.id 
 	WHERE artists.id = 
     (SELECT artists.id
-    FROM musearchdb.artists
-    JOIN musearchdb.albums ON albums.artistId = artists.id
+    FROM musearchDB.artists
+    JOIN musearchDB.albums ON albums.artistId = artists.id
 	WHERE albums.albumName LIKE input)
+    AND length(replace(songs.songName,' ',''))<21
     
     UNION
         
     SELECT albums.albumName as CategoryName,"album" as Input, "album" as Categories, COUNT(songs.songName) as NumberOfSongs
 	FROM songs, albums
-    WHERE songs.albumId = albums.albumId and albums.albumName like input
+    WHERE songs.albumId = albums.albumId and albums.albumName like input 
+    AND length(replace(songs.songName,' ',''))<21
     
     UNION 
     
     SELECT (songs.yearReleased) - songs.yearReleased % 10 as CategoryName,"album" as Input, "decade" as Categories, COUNT(songs.songName) as NumberOfSongs
-    FROM musearchdb.songs 
+    FROM musearchDB.songs 
     WHERE 0 < (songs.yearReleased -
-    (SELECT ((albums.yearReleased) - albums.yearReleased % 10)
-    FROM musearchdb.albums
-	WHERE albums.AlbumName LIKE input AND albums.yearReleased not like "0")) < 10
+		(SELECT (albums.yearReleased - albums.yearReleased % 10)
+		FROM musearchDB.albums
+		WHERE albums.AlbumName LIKE input AND albums.yearReleased not like "0"))
+	AND (songs.yearReleased -
+		(SELECT (albums.yearReleased - albums.yearReleased % 10)
+		FROM musearchDB.albums
+		WHERE albums.AlbumName LIKE input AND albums.yearReleased not like "0"))< 10
+    AND length(replace(songs.songName,' ',''))<21
     ;
 END ;;
 DELIMITER ;

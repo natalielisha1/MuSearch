@@ -67,17 +67,17 @@ namespace MuSearch.DB
                 {
                     query = "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
                             + "JOIN musearchdb.artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
-                            + categories[i].CategoryName + '"';
+                            + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21";
                 }
                 else if (categories[i].Categories.Equals("album"))
                 {
                     query = "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
-                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"';
+                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21";
                 }
                 else if (categories[i].Categories.Equals("decade"))
                 {
                     query = "SELECT songs.songName, songs.yearReleased FROM musearchdb.songs where(songs.yearReleased -" + 
-                        categories[i].CategoryName + ") < 10 AND(songs.yearReleased - " + categories[i].CategoryName + ") > 0";
+                        categories[i].CategoryName + ") < 10 AND (songs.yearReleased - " + categories[i].CategoryName + ") > 0" + " AND length(replace(songs.songName,' ',''))<21";
                 }
                 else
                 {
