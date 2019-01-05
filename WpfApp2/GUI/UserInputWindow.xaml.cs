@@ -122,11 +122,16 @@
         /// <param name="e">arguments</param>
         private void btnGenerateClick(object sender, RoutedEventArgs e)
         {
-            
-            //go to next page
-            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories); 
-            gameMainWindow.Show();
-            this.Close();
+            if (this.categories.Count == 0)
+                MessageBox.Show("You have to choose at least one category for the game.");
+
+            else
+            {
+                //go to next page
+                MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
+                gameMainWindow.Show();
+                this.Close();
+            }
         }
 
         /// <summary>
