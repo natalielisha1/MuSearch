@@ -1,20 +1,8 @@
-﻿using MuSearch.GUI;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace WpfApp2.GUI
+﻿namespace WpfApp2.GUI
 {
+    using System.Windows;
+    using MuSearch.GUI;
+    
     /// <summary>
     /// Interaction logic for Menu.xaml
     /// </summary>
@@ -27,7 +15,7 @@ namespace WpfApp2.GUI
         /// </summary>
         public Menu(int userId)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.userId = userId;
         }
 
@@ -66,7 +54,7 @@ namespace WpfApp2.GUI
 
         /// <summary>
         /// OnClick function. when EXIT button pressed the function
-        /// is activated and the program shuts safetly.
+        /// is activated and the program shuts safely.
         /// </summary>
         private void OnExit(object sender, RoutedEventArgs e)
         {

@@ -3,14 +3,17 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Runtime.CompilerServices;
-    using MySql.Data.MySqlClient;
-    using WpfApp2.General;
 
-    public class DBusers
+    using MuSearch.DB.Interfaces;
+
+    using MySql.Data.MySqlClient;
+
+    using WpfApp2.BusinessLayer;
+
+    public class DBusers : IDBusers
     {
         /// <summary>
-        /// checking if the user exist and if he's passsword is currect
+        /// checking if the user exist and if he's password is correct
         /// </summary>
         /// <param name="username">the typed username</param>
         /// <param name="password">the typed password</param>
@@ -19,10 +22,10 @@
         {
             var dbCon = DBConnection.Instance();
             int userId = -1;
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.checkUser", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.checkUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
@@ -46,10 +49,10 @@
         public bool isUsernameExists(string username)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.isUsernamExists", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.isUsernameExists", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
                 if (cmd.Connection.State.ToString() != "Open")
@@ -76,11 +79,11 @@
         public int insertNewUser(string userName, string password)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             int userId = -1;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.addNewUser", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.addNewUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", userName));
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
@@ -107,10 +110,10 @@
         public void insertNewGame(int userID, int score)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.addGameToUser", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.addGameToUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
                 cmd.Parameters.Add(new MySqlParameter("score1", score));
@@ -124,7 +127,7 @@
         }
 
         /// <summary>
-        /// geting the top 5 games of a user
+        /// getting the top 5 games of a user
         /// </summary>
         /// <param name="userID">the ID of the user we want the top 5 games of</param>
         /// <returns>a list of he's top games (limited to 5)</returns>
@@ -132,17 +135,17 @@
         {
             List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getTopGames", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.getTopGames", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
                 cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameId"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game(reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }
@@ -154,22 +157,22 @@
         /// <summary>
         /// get the top games of all the users
         /// </summary>
-        /// <returns>a list of the top gamse. limited to 5 games</returns>
+        /// <returns>a list of the top games. limited to 5 games</returns>
         public List<Game> getAllTopGames()
         {
             List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getTopAllGames", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.getTopAllGames", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter());
                 cmd.Connection.Open();
                 MySqlDataReader reader = cmd.ExecuteReader();
                 while (reader.Read())
                 {
-                    games.Add(new Game((int)reader["gameID"], reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
+                    games.Add(new Game(reader["userName"].ToString(), (int)reader["points"], reader["date"].ToString()));
                 }
                 dbCon.Close();
             }

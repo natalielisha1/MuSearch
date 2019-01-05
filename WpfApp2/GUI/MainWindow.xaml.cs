@@ -1,32 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using MuSearch.BusinessLayer;
-using System.ComponentModel;
-using System.Windows.Threading;
-using System.Timers;
-
-namespace WpfApp2
+﻿namespace WpfApp2
 {
-    using MuSearch.DB;
-    using MuSearch.GUI;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
+    using MuSearch.BusinessLayer;
+    using System.ComponentModel;
+    using System.Windows.Threading;
     using System.Data;
     using System.Diagnostics;
-    using System.Windows.Controls.Primitives;
     using WpfApp2.BusinessLayer;
-    using WpfApp2.General;
+    using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.GUI;
+
+    using Menu = WpfApp2.GUI.Menu;
 
     /// <summary>
     /// Interaction logic for MainWindow.xaml
@@ -36,21 +26,31 @@ namespace WpfApp2
         private string currentTime;
         private Stopwatch stopWatch;
         private List<Category> categories;
-        private WordSearch wordSearch; // The current wordSearch
-        private int userId; // The current users's ID
-        private List<string> userFind; // The list of words the user already found
+
+        // The current wordSearch
+        private WordSearch wordSearch;
+
+        // The current user's ID
+        private int userId;
+
+        // The list of words the user already found
+        private List<string> userFind;
         private int _UserScore;
         private DispatcherTimer dispatcherTimer;
+
+        // The score of the current user
         public int UserScore
         {
-            get { return _UserScore; }
+            get { return this._UserScore; }
             set
             {
                 _UserScore = value;
-                OnPropertyChanged("UserScore");
+                this.OnPropertyChanged("UserScore");
             }
-        }// The score of the current user
-        private DBusers DBUsers; // A Way To Connect to the DB
+        }
+
+        // A connection to the DB
+        private IUsers usersBL;
 
         /// <summary>
         ///  Constructor
@@ -59,18 +59,19 @@ namespace WpfApp2
         /// <param name="categories">the categories for this game</param>
         public MainWindow(int userId, List<Category> categories)
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
-            this.DBUsers = new DBusers();
+            this.usersBL = new Users();
             this.DataContext = this;
             this.categories = categories;
-            dispatcherTimer = new DispatcherTimer();
-            stopWatch = new Stopwatch();
-            currentTime = string.Empty;
-            dispatcherTimer.Tick += new EventHandler(dt_Tick);
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
-            lblStopWatch.Content = "00:00:00";
+
+            this.dispatcherTimer = new DispatcherTimer();
+            this.stopWatch = new Stopwatch();
+            this.currentTime = string.Empty;
+            this.dispatcherTimer.Tick += new EventHandler(dt_Tick);
+            this.dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 0, 1);
+            this.lblStopWatch.Content = "00:00:00";
         }
 
         /// <summary>
@@ -81,12 +82,13 @@ namespace WpfApp2
         void dt_Tick(object sender, EventArgs e)
         {
             TimeSpan ts = stopWatch.Elapsed;
-            currentTime = String.Format("{0:00}:{1:00}:{2:00}",
-            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
-            lblStopWatch.Content = currentTime;
+            this.currentTime = String.Format("{0:00}:{1:00}:{2:00}",
+                                            ts.Minutes, ts.Seconds, ts.Milliseconds / 10);
+            this.lblStopWatch.Content = this.currentTime;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
+
         protected void OnPropertyChanged(string name)
         {
             PropertyChangedEventHandler handler = PropertyChanged;
@@ -107,7 +109,7 @@ namespace WpfApp2
 
             try
             {
-                // Create a new word serch with the wanted size
+                // Create a new word search with the wanted size
                 this.wordSearch = Program.getWordSearch(20, 20, this.categories);
 
                 // Saving the grid
@@ -122,7 +124,9 @@ namespace WpfApp2
                 // Creating a new data table and filling it with the word search
                 DataTable dt = new DataTable();
                 for (int i = 0; i < columns; i++)
-                { dt.Columns.Add(new DataColumn()); }
+                {
+                    dt.Columns.Add(new DataColumn());
+                }
 
                 for (int i = 0; i < rows; i++)
                 {
@@ -135,6 +139,7 @@ namespace WpfApp2
                     Console.WriteLine("adding row number " + i);
                 }
                 Console.WriteLine(dt.Rows.Count);
+
                 // Convert the data table in to data grid
                 this.dataGrid.ItemsSource = dt.DefaultView;
             }
@@ -154,32 +159,8 @@ namespace WpfApp2
         {
             this.fillingDataGrid();
             this.help2.Visibility = Visibility.Visible;
-            stopWatch.Start();
-            dispatcherTimer.Start();
-        }
-
-        /// <summary>
-        /// Click on the "my games" buttons. show the "my games" page
-        /// </summary>
-        /// <param name="sender">the object that send the event</param>
-        /// <param name="e">arguments</param>
-        private void OnMyGames(object sender, RoutedEventArgs e)
-        {
-            MyGames window = new MyGames(this.userId);
-            window.Show();
-            this.Close();
-        }
-
-        /// <summary>
-        /// Click on the "all games" buttons. show the "all games" page
-        /// </summary>
-        /// <param name="sender">the object that send the event</param>
-        /// <param name="e">arguments</param>
-        private void OnAllGames(object sender, RoutedEventArgs e)
-        {
-            Menu window = new Menu(this.userId);
-            window.Show();
-            this.Close();
+            this.stopWatch.Start();
+            this.dispatcherTimer.Start();
         }
 
         /// <summary>
@@ -193,31 +174,34 @@ namespace WpfApp2
             int cellRow = dataGrid.Items.IndexOf(dataGrid.CurrentItem);
             int cellCol = dataGrid.CurrentCell.Column.DisplayIndex;
 
-            //save the cell from the WordSearch in this location
-            WordSearchCell choosenCell = this.wordSearch.gameGrid.getCellByPosition(new Point(cellRow, cellCol));
+            // save the cell from the WordSearch in this location
+            WordSearchCell chosenCell = this.wordSearch.gameGrid.getCellByPosition(new BusinessLayer.Point(cellRow, cellCol));
 
-            //if this cell is part of a word and it is the first char of the word
-            //then this word is found
-            if (choosenCell.partOfTheGame && choosenCell.isStartOfWord)
-                //did the user already found it?
-                if (this.userFind.Contains(choosenCell.fullWord))
-                    MessageBox.Show("You already found: " + choosenCell.fullWord + "! Try a diffrent word.");
+            // if this cell is part of a word and it is the first char of the word
+            // then this word is found
+            if (chosenCell.partOfTheGame && chosenCell.isStartOfWord)
+                
+                // did the user already found it?
+                if (this.userFind.Contains(chosenCell.fullWord))
+                {
+                    MessageBox.Show("You already found: " + chosenCell.fullWord + "! Try a different word.");
+                }
 
-                //if it's the first time:
+                // if it's the first time:
                 else
                 {
-                    //add the word to the list of what the user found and add to his score
-                    this.userFind.Add(choosenCell.fullWord);
+                    // add the word to the list of what the user found and add to his score
+                    this.userFind.Add(chosenCell.fullWord);
                     this.UserScore += 2;
-                    //color the word he found
-                    for (int i = 0; i < choosenCell.fullWord.Length; i++)
+                    // color the word he found
+                    for (int i = 0; i < chosenCell.fullWord.Length; i++)
                     {
-                        if (choosenCell.direction == 0) //horizantle
+                        if (chosenCell.direction == 0) //horizontal
                             this.colorCell(cellRow, cellCol + i);
                         else
                             this.colorCell(cellRow + i, cellCol);
                     }
-                    this.removeFromListBox(choosenCell.fullWord);
+                    this.removeFromListBox(chosenCell.fullWord);
                 }
 
             // if the user finished the game
@@ -225,9 +209,9 @@ namespace WpfApp2
             {
                 try
                 {
-                    //let the user know the game ended
-                    MessageBox.Show("The game is over. You found all the words. \r\nGreatWork!");
-                    if (this.categories[0].Input == "suprise Category")
+                    // let the user know the game ended
+                    MessageBox.Show("The game is over. You found all the words. \r\nGreat work!");
+                    if (this.categories[0].Input == "surprise Category")
                     {
                         Bonus bonusWin = new Bonus(this.wordSearch, this.userId, this.UserScore);
                         bonusWin.Show();
@@ -236,9 +220,10 @@ namespace WpfApp2
                     else
                     {
                         // insert this game to the user's games
-                        this.DBUsers.insertNewGame(this.userId, this.UserScore);
-                        //send him back to the menu
-                        Menu menu = new Menu(userId);
+                        this.usersBL.insertNewGame(this.userId, this.UserScore);
+                        
+                        // send him back to the menu
+                        Menu menu = new Menu(this.userId);
                         menu.Show();
                         this.Close();
                     }
@@ -252,9 +237,9 @@ namespace WpfApp2
         }
 
         /// <summary>
-        /// when a word was found it shoud be out the list box of the words
+        /// when a word was found it should be out the list box of the words
         /// </summary>
-        /// <param name="word">the sord we want to remove</param>
+        /// <param name="word">the word we want to remove</param>
         private void removeFromListBox(string word)
         {
             for (int i = 0; i < this.wordBox.Items.Count; i++)
@@ -271,7 +256,7 @@ namespace WpfApp2
         /// coloring the cell in the position given
         /// </summary>
         /// <param name="cellRow">the row of the cell</param>
-        /// <param name="cellCol">the colunm of the cell</param>
+        /// <param name="cellCol">the column of the cell</param>
         private void colorCell(int cellRow, int cellCol)
         {
             DataGridCellInfo dataGridCellInfo = new DataGridCellInfo(
@@ -292,7 +277,10 @@ namespace WpfApp2
         {
             var cellContent = cellInfo.Column.GetCellContent(cellInfo.Item);
             if (cellContent != null)
+            {
                 return (DataGridCell)cellContent.Parent;
+            }
+
 
             return null;
         }
@@ -305,7 +293,8 @@ namespace WpfApp2
         private void ShowWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Visible;
-            this.help1.Visibility = Visibility.Visible;
+            this.help1a.Visibility = Visibility.Visible;
+            this.help1b.Visibility = Visibility.Visible;
             this.ShowWords.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Visible;
         }
@@ -318,7 +307,8 @@ namespace WpfApp2
         private void HideWordsClick(object sender, RoutedEventArgs e)
         {
             this.wordBox.Visibility = Visibility.Hidden;
-            this.help1.Visibility = Visibility.Hidden;
+            this.help1a.Visibility = Visibility.Hidden;
+            this.help1b.Visibility = Visibility.Hidden;
             this.HideWords.Visibility = Visibility.Hidden;
             this.ShowWords.Visibility = Visibility.Visible;
         }
@@ -331,8 +321,8 @@ namespace WpfApp2
         private void WordBox_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
             this.UserScore--;
-            string currentWord = wordBox.SelectedValue.ToString();
-            Point wordsPos = this.wordSearch.getPosition(currentWord);
+            string currentWord = this.wordBox.SelectedValue.ToString();
+            BusinessLayer.Point wordsPos = this.wordSearch.getPosition(currentWord);
             this.colorCell(wordsPos.x, wordsPos.y);
         }
 

@@ -1,14 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MuSearch.DB;
-using WpfApp2.BusinessLayer;
-
-namespace MuSearch.BusinessLayer
+﻿namespace MuSearch.BusinessLayer
 {
-    using WpfApp2.General;
+    using System;
+    using System.Collections.Generic;
+    using WpfApp2.BusinessLayer;
 
     public class Program
     {
@@ -23,8 +17,9 @@ namespace MuSearch.BusinessLayer
         {
             try
             {
-                //get the words in the given categories, those words will be in the word search
-                List<string> words = songs.GetWords(categories);
+                Songs songsBL = new Songs();
+                // get the words in the given categories, those words will be in the word search
+                List<string> words = songsBL.GetWords(categories);
                 WordSearch search = new WordSearch(rows, cols, categories);
                 search.createWordSearch(words);
                 return search;

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using WpfApp2.BusinessLayer;
-
-namespace MuSearch.BusinessLayer
+﻿namespace MuSearch.BusinessLayer
 {
-    using WpfApp2.General;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using WpfApp2.BusinessLayer;
 
     public class WordSearch
     {
@@ -103,23 +99,23 @@ namespace MuSearch.BusinessLayer
         /// <param name="words">list of strings</param>
         public void createWordSearch(List<string> words)
         {
-            //sort the words by length
+            // sort the words by length
             List<string> sortedWords = words.OrderBy(x => x.Length).ToList();
-            //fix the words so they would fit the convention
+
+            // fix the words so they would fit the convention
             sortedWords = fixWords(sortedWords);
             Random rnd = new Random();
             int direction;
             Point position;
 
-            //put every word in the word search
+            // put every word in the word search
             foreach (string word in sortedWords)
             {
-                if (word.Length > 20)
-                {
-                    continue;
-                }
                 direction = rnd.Next(0, 2);
                 int i = 0;
+
+                // while the word can be fitted to the place given be the direction and the start position
+                // insert the word and save the position of the start of the word
                 do
                 {
                     i++;
@@ -131,14 +127,14 @@ namespace MuSearch.BusinessLayer
                     {
                         position = new Point(rnd.Next(0, gameGrid.rows - word.Length), rnd.Next(0, gameGrid.columns));
                     }
-                } while (!this.haveRoom(word, direction, position)); // while the word can be fitted to the place given
-                                                                     // be the direction and the start position
-                                                                     // insert the word and save the position of the start of the word
-                gameGrid.insertWord(word, direction, position);
+                } while (!this.haveRoom(word, direction, position));
+                                                                     
+                this.gameGrid.insertWord(word, direction, position);
                 this.savePosition(word, position);
             }
-            //fill the empty spaces in the grid
-            gameGrid.fillIn();
+
+            // fill the empty spaces in the grid
+            this.gameGrid.fillIn();
         }
 
         /// <summary>

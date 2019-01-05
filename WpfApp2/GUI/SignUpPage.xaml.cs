@@ -1,34 +1,24 @@
-﻿using MuSearch.DB;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace WpfApp2.GUI
+﻿namespace WpfApp2.GUI
 {
+    using System;
+    using System.Windows;
+    using WpfApp2.BusinessLayer.Interfaces;
+    using MuSearch.BusinessLayer;
+
     /// <summary>
-    /// Interaction logic for SignInPage.xaml
+    /// Interaction logic for SignUpPage.xaml
     /// </summary>
     public partial class SignUpPage : Window
     {
-        private DBusers BDUsers;
+        private IUsers usersBL;
 
         /// <summary>
         /// Constructor for the SignUpPage object
         /// </summary>
         public SignUpPage()
         {
-            InitializeComponent();
-            this.BDUsers = new DBusers();
+            this.InitializeComponent();
+            this.usersBL = new Users();
         }
 
         /// <summary>
@@ -40,15 +30,18 @@ namespace WpfApp2.GUI
         {
             try
             {
-                //is the passwords are matching?
+                // if the passwords aren't matching
                 if (this.txtPassword.Password != this.txtPassword2.Password)
-                    MessageBox.Show("The passwords are'nt matching, try again.");
-                //is this username already exsit?
-                else if (this.BDUsers.isUsernameExists(this.txtUsername.Text))
-                    MessageBox.Show("Username already exists, try a diffrent username.");
+                    MessageBox.Show("The passwords aren't matching, try again.");
+                
+                // if this username already exist
+                else if (this.usersBL.isUsernameExists(this.txtUsername.Text))
+                    MessageBox.Show("Username already exists, try a different username.");
+                
+                // if everything is OK - add the new user to the DataBase
                 else
-                {//if everything is OK add the new user to the DataBase
-                    int userID = this.BDUsers.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
+                {
+                    int userID = this.usersBL.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
                     Menu gameMainWindow = new Menu(userID);
                     gameMainWindow.Show();
                     this.Close();
@@ -59,6 +52,20 @@ namespace WpfApp2.GUI
                 MessageBox.Show("System Error. \r\nTry again later.");
                 this.Close();
             }
+        }
+
+        /// <summary>
+        /// The function shows the client the menu window
+        /// and closes the current window.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Back_Button_Click(object sender, RoutedEventArgs e)
+        {
+            // go to login page
+            LoginPage login = new LoginPage();
+            login.Show();
+            this.Close();
         }
     }
 }

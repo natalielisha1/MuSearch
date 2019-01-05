@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfApp2.BusinessLayer
+﻿namespace WpfApp2.BusinessLayer
 {
     public class Point
     {
@@ -25,7 +19,7 @@ namespace WpfApp2.BusinessLayer
 
         /// <summary>
         /// The function returns a printable
-        /// vertion of the current point
+        /// version of the current point
         /// </summary>
         /// <returns>the point as a string</returns>
         public string printPoint()

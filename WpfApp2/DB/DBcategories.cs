@@ -3,29 +3,32 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Runtime.CompilerServices;
+
+    using MuSearch.DB.Interfaces;
+
     using MySql.Data.MySqlClient;
-    using WpfApp2.General;
+
+    using WpfApp2.BusinessLayer;
 
     /// <summary>
-    /// DBDBcategories
+    /// DBcategories
     /// connection to the database for category information
     /// </summary>
-    public class DBcategories
+    public class DBcategories : IDBcategories
     {
         /// <summary>
         /// checkCategories
         /// </summary>
         /// <param name="input">the searching word of the user</param>
-        /// <returns> a list of categorys that are relevant to the input </returns>
+        /// <returns> a list of categories that are relevant to the input </returns>
         public List<Category> checkCategories(string input)
         {
             var dbCon = DBConnection.Instance();
             List<Category> categories = new List<Category>();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.categoryGenerator", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.categoryGenerator", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("input", input));
                 cmd.Connection.Open();
@@ -62,19 +65,18 @@
         }
 
         /// <summary>
-        /// gets a randome category for the suprise word search
+        /// gets a random category for the surprise word search
         /// </summary>
-        /// <param name="tableName">that the category is commng from</param>
+        /// <param name="tableName">that the category is coming from</param>
         /// <returns>the category that we got</returns>
-        public Category randomeCategory(string tableName)
+        public Category randomCategory(string tableName)
         {
             Category category = null;
             var dbCon = DBConnection.Instance();
-            List<Category> categories = new List<Category>();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getRandom_" + tableName, dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.getRandom_" + tableName, dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("table_name1", tableName));
                 cmd.Connection.Open();
@@ -85,14 +87,14 @@
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["artistName"].ToString(), "suprise Category", "artist",0);
+                            category = new Category(reader["artistName"].ToString(), "surprise Category", "artist",0);
                         }
                     }
                     else
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["albumName"].ToString(), "suprise Category", "album",0);
+                            category = new Category(reader["albumName"].ToString(), "surprise Category", "album",0);
                         }
                     }
                 }

@@ -99,7 +99,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="GUI\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -107,18 +107,27 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BusinessLayer.Interfaces\ICategories.cs" />
+    <Compile Include="BusinessLayer.Interfaces\ISongs.cs" />
+    <Compile Include="BusinessLayer.Interfaces\IUsers.cs" />
+    <Compile Include="BusinessLayer\Categories.cs" />
+    <Compile Include="BusinessLayer\Category.cs" />
+    <Compile Include="BusinessLayer\Game.cs" />
     <Compile Include="BusinessLayer\GameGrid.cs" />
     <Compile Include="BusinessLayer\Point.cs" />
-    <Compile Include="BusinessLayer\UserInput.cs" />
+    <Compile Include="BusinessLayer\Songs.cs" />
     <Compile Include="BusinessLayer\Program.cs" />
     <Compile Include="BusinessLayer\Users.cs" />
     <Compile Include="BusinessLayer\WordSearch.cs" />
     <Compile Include="BusinessLayer\WordSearchCell.cs" />
+    <Compile Include="DB.Interfaces\IDBcategories.cs" />
+    <Compile Include="DB.Interfaces\IDBconnection.cs" />
+    <Compile Include="DB.Interfaces\IDBsongs.cs" />
+    <Compile Include="DB.Interfaces\IDBusers.cs" />
     <Compile Include="DB\DBcategories.cs" />
     <Compile Include="DB\DBconnection.cs" />
     <Compile Include="DB\DBsongs.cs" />
     <Compile Include="DB\DBusers.cs" />
-    <Compile Include="General\GameAll.cs" />
     <Compile Include="GUI\AllGames.xaml.cs">
       <DependentUpon>AllGames.xaml</DependentUpon>
     </Compile>
@@ -140,7 +149,7 @@
     <Compile Include="GUI\UserInputWindow.xaml.cs">
       <DependentUpon>UserInputWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="GUI\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>

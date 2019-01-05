@@ -1,30 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-using System.Data;
-using MuSearch.BusinessLayer;
-using WpfApp2.General;
-
-namespace WpfApp2.GUI
+﻿namespace WpfApp2.GUI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Windows;
+    using System.Data;
+    using MuSearch.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
+    using WpfApp2.BusinessLayer;
+
     /// <summary>
     /// Interaction logic for AllGames.xaml
     /// </summary>
     public partial class AllGames : Window
     {
         #region Properties
-        private Users _users;
+        private IUsers usersBL;
         private int userId;
         #endregion
 
@@ -34,8 +24,8 @@ namespace WpfApp2.GUI
         /// <param name="userId">not used here</param>
         public AllGames(int userId)
         {
-            InitializeComponent();
-            this._users = new Users();
+            this.InitializeComponent();
+            this.usersBL = new Users();
             this.userId = userId;
             this.ShowTopAllGames();
         }
@@ -47,7 +37,7 @@ namespace WpfApp2.GUI
         {
             try
             {
-                List<Game> games = this._users.getTopAllGames();
+                List<Game> games = this.usersBL.getTopAllGames();
                 var rows = games.Count;
                 DataTable dt = new DataTable();
 
@@ -85,7 +75,8 @@ namespace WpfApp2.GUI
 
                 this.dataGrid.ItemsSource = dt.DefaultView;
             }
-            // in case on an exception
+
+            // in case of an exception
             catch(Exception e)
             {
                 MessageBox.Show("System Error. \r\nTry again later.");
@@ -101,7 +92,7 @@ namespace WpfApp2.GUI
         /// <param name="e"></param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            //go to home page
+            // go to home page
             Menu menuWindow = new Menu(this.userId);
             menuWindow.Show();
             this.Close();
