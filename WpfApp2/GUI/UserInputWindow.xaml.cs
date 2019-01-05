@@ -76,21 +76,32 @@
         /// </summary>
         public void CreateCheckBoxList()
         {
-            TheList.Clear();
-            categoryOptions = this.categoriesBL.checkCategories(this.txtUserInput.Text);
-            if (this.categoryOptions.Count!= 0)
+            try
             {
-                for (int i = 0; i < categoryOptions.Count; i++)
+                TheList.Clear();
+                categoryOptions = this.categoriesBL.checkCategories(this.txtUserInput.Text);
+                if (this.categoryOptions.Count != 0)
                 {
-                    TheList.Add(new BoolStringClass { TheText = 
-                        categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + "), amount: "+ categoryOptions[i].Count, TheValue = i });
+                    for (int i = 0; i < categoryOptions.Count; i++)
+                    {
+                        TheList.Add(new BoolStringClass
+                        {
+                            TheText =
+                            categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName + " (from " + categoryOptions[i].Input + " " + this.txtUserInput.Text + "), amount: " + categoryOptions[i].Count,
+                            TheValue = i
+                        });
+                    }
+                    this.DataContext = this;
                 }
-                this.DataContext = this;
-            }
-            else
+                else
+                {
+                    // pop up error
+                    MessageBox.Show("Sorry, this name doesn't exist in our database!");
+                }
+            }catch(Exception exe)
             {
-                // pop up error
-                MessageBox.Show("Sorry, this name doesn't exist in our database!");
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
             }
         }
 
@@ -142,26 +153,32 @@
             int catType;
             Random rand = new Random();
             catType = rand.Next(1, 3);
-
-            // do while the category get words. don't want a 0 words word search
-            do
+            try
             {
-                this.categories.Clear();
-                switch (catType)
+                // do while the category get words. don't want a 0 words word search
+                do
                 {
-                    case 1:
-                        this.categories.Add(this.categoriesBL.randomCategory("artists"));
-                        break;
-                    case 2:
-                        this.categories.Add(this.categoriesBL.randomCategory("albums"));
-                        break;
-                    default:
-                        break;
-                }
-            } while (this.songsBL.GetWords(this.categories).Count() == 0);
-            MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
-            gameMainWindow.Show();
-            this.Close();
+                    this.categories.Clear();
+                    switch (catType)
+                    {
+                        case 1:
+                            this.categories.Add(this.categoriesBL.randomCategory("artists"));
+                            break;
+                        case 2:
+                            this.categories.Add(this.categoriesBL.randomCategory("albums"));
+                            break;
+                        default:
+                            break;
+                    }
+                } while (this.songsBL.GetWords(this.categories).Count() == 0);
+                MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
+                gameMainWindow.Show();
+                this.Close();
+            }catch(Exception ex)
+            {
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
+            }
         }
         
     }

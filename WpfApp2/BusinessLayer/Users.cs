@@ -58,12 +58,12 @@
         }
 
         /// <summary>
-            /// The function returns a list of the
-            /// top games of the given user
-            /// </summary>
-            /// <param name="userID">the ID of the user</param>
-            /// <returns>list of games</returns>
-            public List<Game> getTopGames(int userID)
+        /// The function returns a list of the
+        /// top games of the given user
+        /// </summary>
+        /// <param name="userID">the ID of the user</param>
+        /// <returns>list of games</returns>
+        public List<Game> getTopGames(int userID)
         {
             return this.conn.getTopGames(userID);
         }

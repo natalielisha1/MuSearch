@@ -82,7 +82,7 @@ namespace MuSearch.DB
                     continue;
                 }
             }
-            query = query + " LIMIT 10";
+            query = query + " ORDER BY RAND() LIMIT 10";
             return query;
         }
     }
