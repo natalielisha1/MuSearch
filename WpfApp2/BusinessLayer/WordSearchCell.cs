@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WpfApp2.BusinessLayer
+﻿namespace WpfApp2.BusinessLayer
 {
-    class WordSearchCell
+    public class WordSearchCell
     {
         public Point gridPosition;
         public char value;
@@ -14,7 +8,14 @@ namespace WpfApp2.BusinessLayer
         public bool isStartOfWord;
         public string fullWord;
         public int direction;
-        
+
+        /// <summary>
+        /// Constructor function for the WordSearchCell object.
+        /// </summary>
+        /// <param name="pos">the position of the character in the grid</param>
+        /// <param name="value">the character, a string</param>
+        /// <param name="partOfGame">boolean value, true if the cell is still active
+        ///                          in the game, otherwise false</param>
         public WordSearchCell(Point pos, char value, bool partOfGame)
         {
             this.gridPosition = pos;
@@ -22,13 +23,5 @@ namespace WpfApp2.BusinessLayer
             this.partOfTheGame = partOfGame;
             this.fullWord = "\0";
         }
-
-        /*public Point GetPositionOnGrid()
-        {
-            return this.gridPosition;
-        }*/
-
-        
-
     }
 }

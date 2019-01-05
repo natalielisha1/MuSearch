@@ -1,25 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace WpfApp2.GUI
+﻿namespace WpfApp2.GUI
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Windows;
+    using System.Windows.Controls;
     using System.Collections.ObjectModel;
-    using System.Data;
-
-    using MuSearch.BusinessLayer;
-    using MuSearch.DB;
-    using WpfApp2.General;
+    using WpfApp2.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
 
     /// <summary>
     /// Interaction logic for UserInput.xaml
@@ -31,50 +19,71 @@ namespace WpfApp2.GUI
             public string TheText { get; set; }
             public int TheValue { get; set; }
         }
+        
+
         public ObservableCollection<BoolStringClass> TheList { get; set; }
         public string categoryInput { get; set; }
         private int userId;
-        private UserInput userInputBL;
-        private DBcategories catDB;
+
+        private ISongs songsBL;
+        private ICategories categoriesBL;
         List<CheckBox> CategoryBoxes;
-
         private List<Category> categoryOptions;
-
         private List<Category> categories;
 
+        /// <summary>
+        /// Constructor for the UserInputWindow object
+        /// </summary>
+        /// <param name="userId">the current user's ID</param>
         public UserInputWindow(int userId)
         {
             InitializeComponent();
-            this.userInputBL = new UserInput();
             this.userId = userId;
             this.categories = new List<Category>();
-            CategoryBoxes = new List<CheckBox>();
+            this.CategoryBoxes = new List<CheckBox>();
             this.categoryOptions = new List<Category>();
             this.TheList = new ObservableCollection<BoolStringClass>();
-            this.catDB = new DBcategories();
+            this.categoriesBL = new Categories();
+            this.songsBL = new Songs();
         }
         
+        /// <summary>
+        /// one of the radio buttons is checked
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void CheckBoxZone_Checked(object sender, RoutedEventArgs e)
         {
             CheckBox chkZone = (CheckBox)sender;
             int i = Int32.Parse(chkZone.Tag.ToString());
             this.categories.Add(this.categoryOptions[i]);
         }
+
+        /// <summary>
+        /// one of the radio buttons is Unchecked
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void CheckBoxZone_Unchecked(object sender, RoutedEventArgs e)
         {
             CheckBox chkZone = (CheckBox)sender;
             int i = Int32.Parse(chkZone.Tag.ToString());
             this.categories.Remove(this.categoryOptions[i]);
         }
+
+        /// <summary>
+        /// creating the list for the user to see on the option for categories
+        /// </summary>
         public void CreateCheckBoxList()
         {
             TheList.Clear();
-            categoryOptions = this.userInputBL.generateCategories(this.txtUserInput.Text);
+            categoryOptions = this.categoriesBL.checkCategories(this.txtUserInput.Text);
             if (this.categoryOptions.Count!= 0)
             {
                 for (int i = 0; i < categoryOptions.Count; i++)
                 {
-                    TheList.Add(new BoolStringClass { TheText = categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + ")", TheValue = i });
+                    TheList.Add(new BoolStringClass { TheText = 
+                        categoryOptions[i].Categories + " " + categoryOptions[i].CategoryName+" (from " + categoryOptions[i].Input+ " "+ this.txtUserInput.Text + "), amount: "+ categoryOptions[i].Count, TheValue = i });
                 }
                 this.DataContext = this;
             }
@@ -84,12 +93,22 @@ namespace WpfApp2.GUI
                 MessageBox.Show("Sorry, this name doesn't exist in our database!");
             }
         }
+
+        /// <summary>
+        /// once the user typed his word we create the options for him
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
             this.CreateCheckBoxList();
         }
-        
 
+        /// <summary>
+        /// after the user choose all his categories he can start the game
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void btnGenerateClick(object sender, RoutedEventArgs e)
         {
             
@@ -99,6 +118,11 @@ namespace WpfApp2.GUI
             this.Close();
         }
 
+        /// <summary>
+        /// clicking on the back button
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
@@ -107,23 +131,34 @@ namespace WpfApp2.GUI
             this.Close();
         }
 
+        /// <summary>
+        /// clicking the surprise me button
+        /// </summary>
+        /// <param name="sender">the object that send the event</param>
+        /// <param name="e">arguments</param>
         private void supriseMe_click(object sender, RoutedEventArgs e)
         {
-            // 1 - Artist, 2 - Album
+            // choosing randomly the catagory type. 1 for artists, 2 for albums
             int catType;
             Random rand = new Random();
             catType = rand.Next(1, 3);
-            switch(catType)
+
+            // do while the category get words. don't want a 0 words word search
+            do
             {
-                case 1:
-                    this.categories.Add(this.catDB.randomeCategory("artists"));
-                    break;
-                case 2:
-                    this.categories.Add(this.catDB.randomeCategory("albums"));
-                    break;
-                default:
-                    break;
-            }
+                this.categories.Clear();
+                switch (catType)
+                {
+                    case 1:
+                        this.categories.Add(this.categoriesBL.randomCategory("artists"));
+                        break;
+                    case 2:
+                        this.categories.Add(this.categoriesBL.randomCategory("albums"));
+                        break;
+                    default:
+                        break;
+                }
+            } while (this.songsBL.GetWords(this.categories).Count() == 0);
             MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
             gameMainWindow.Show();
             this.Close();

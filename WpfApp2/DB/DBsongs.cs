@@ -1,31 +1,27 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Data;
 using MySql.Data.MySqlClient;
 namespace MuSearch.DB
 {
-    using WpfApp2.General;
+    using MuSearch.DB.Interfaces;
 
-    class songs
+    using WpfApp2.BusinessLayer;
+
+    class DBsongs : IDBsongs
     {
-        public static List<string> GetWords(List<Category> categories)
+        /// <summary>
+        /// getting the words to the word search
+        /// </summary>
+        /// <param name="categories">the categories we want to build the game according it</param>
+        /// <returns>a list of the relevant words</returns>
+        public List<string> GetWords(List<Category> categories)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             List<string> songs = new List<string>();
             if (dbCon.IsConnect())
             {
                 string query = CreateQuery(categories);
-                /*var cmd = new MySqlCommand("musearch.getSongsShort", dbCon.Connection)
-                              {
-                                  CommandType = CommandType.StoredProcedure
-                              };
-                cmd.Parameters.Add(new MySqlParameter("artistName", artistName));*/
-
-
                 var cmd = new MySqlCommand(query, dbCon.Connection);
 
                 cmd.Connection.Open();
@@ -48,7 +44,12 @@ namespace MuSearch.DB
             return songs;
         }
 
-        public static string CreateQuery(List<Category> categories)
+        /// <summary>
+        /// creating the appropriate query
+        /// </summary>
+        /// <param name="categories">the categories for the query</param>
+        /// <returns>the appropriate query</returns>
+        public string CreateQuery(List<Category> categories)
         {
             string query = string.Empty;
 
@@ -62,19 +63,19 @@ namespace MuSearch.DB
                 }
                 if (categories[i].Categories.Equals("artist"))
                 {
-                    query = "SELECT songs.songName FROM musearch.songs JOIN musearch.albums ON songs.AlbumId = albums.albumId "
-                            + "JOIN musearch.artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
-                            + categories[i].CategoryName + '"';
+                    query += "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
+                            + "JOIN musearchdb.artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
+                            + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else if (categories[i].Categories.Equals("album"))
                 {
-                    query = "SELECT songs.songName FROM musearch.songs JOIN musearch.albums ON songs.AlbumId = albums.albumId "
-                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"';
+                    query += "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
+                            + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else if (categories[i].Categories.Equals("decade"))
                 {
-                    query = "SELECT songs.songName, songs.yearReleased FROM musearch.songs where(songs.yearReleased -" + 
-                        categories[i].CategoryName + ") < 10 AND(songs.yearReleased - " + categories[i].CategoryName + ") > 0";
+                    query += "SELECT songs.songName, songs.yearReleased FROM musearchdb.songs where(songs.yearReleased -" + 
+                        categories[i].CategoryName + ") < 10 AND (songs.yearReleased - " + categories[i].CategoryName + ") > 0" + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else
                 {

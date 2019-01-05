@@ -3,22 +3,32 @@
     using System;
     using System.Collections.Generic;
     using System.Data;
-    using System.Runtime.CompilerServices;
+
+    using MuSearch.DB.Interfaces;
 
     using MySql.Data.MySqlClient;
 
-    using WpfApp2.General;
+    using WpfApp2.BusinessLayer;
 
-    public class DBcategories
+    /// <summary>
+    /// DBcategories
+    /// connection to the database for category information
+    /// </summary>
+    public class DBcategories : IDBcategories
     {
+        /// <summary>
+        /// checkCategories
+        /// </summary>
+        /// <param name="input">the searching word of the user</param>
+        /// <returns> a list of categories that are relevant to the input </returns>
         public List<Category> checkCategories(string input)
         {
             var dbCon = DBConnection.Instance();
             List<Category> categories = new List<Category>();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.categoryGenerator", dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.categoryGenerator", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("input", input));
                 cmd.Connection.Open();
@@ -27,7 +37,20 @@
                 {
                     while (reader.Read())
                     {
-                        categories.Add(new Category(reader["CategoryName"].ToString(), reader["Input"].ToString(), reader["Categories"].ToString()));
+                        categories.Add(new Category(reader["CategoryName"].ToString(), reader["Input"].ToString(), 
+                                    reader["Categories"].ToString(), Convert.ToInt32(reader["NumberOfSongs"].ToString())));
+                    }
+                    List<int> bad_indexes = new List<int>();
+                    for (int i = 0; i < categories.Count; i++)
+                    {
+                        if (categories[i].Count == 0)
+                        {
+                            bad_indexes.Add(i);
+                        }
+                    }
+                    for (int i = bad_indexes.Count - 1; i >= 0 ; i--)
+                    {
+                        categories.RemoveAt(bad_indexes[i]);
                     }
                 }
                 catch (Exception e)
@@ -37,19 +60,23 @@
 
                 dbCon.Close();
             }
+                
             return categories;
         }
 
-        //decate, album, artist
-        public Category randomeCategory(string tableName)
+        /// <summary>
+        /// gets a random category for the surprise word search
+        /// </summary>
+        /// <param name="tableName">that the category is coming from</param>
+        /// <returns>the category that we got</returns>
+        public Category randomCategory(string tableName)
         {
             Category category = null;
             var dbCon = DBConnection.Instance();
-            List<Category> categories = new List<Category>();
-            dbCon.DatabaseName = "musearch";
+            dbCon.DatabaseName = "musearchdb";
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearch.getRandom_" + tableName, dbCon.Connection);
+                var cmd = new MySqlCommand("musearchdb.getRandom_" + tableName, dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("table_name1", tableName));
                 cmd.Connection.Open();
@@ -60,14 +87,14 @@
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["artistName"].ToString(), "suprise Category", "artist");
+                            category = new Category(reader["artistName"].ToString(), "surprise Category", "artist",0);
                         }
                     }
                     else
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["albumName"].ToString(), "suprise Category", "album");
+                            category = new Category(reader["albumName"].ToString(), "surprise Category", "album",0);
                         }
                     }
                 }

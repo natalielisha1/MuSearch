@@ -1,21 +1,9 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
-
-namespace WpfApp2.GUI
+﻿namespace WpfApp2.GUI
 {
+    using System;
+    using System.Windows;
     using MuSearch.BusinessLayer;
+    using WpfApp2.BusinessLayer.Interfaces;
 
     /// <summary>
     /// Interaction logic for LoginPage.xaml
@@ -25,13 +13,24 @@ namespace WpfApp2.GUI
         public string Username { get; set; }
         public string Password { get; set; }
 
-        private Users usersBL;
+        private IUsers usersBL;
+
+        /// <summary>
+        /// Constructor for the LoginPage page
+        /// </summary>
         public LoginPage()
         {
-            InitializeComponent();
+            this.InitializeComponent();
             this.usersBL = new Users();
         }
 
+        /// <summary>
+        /// When "submit" button is clicked, the function is activated.
+        /// If the username and password are valid, the user enters the menu
+        /// window, otherwise - an error message pops up.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSubmitClick(object sender, RoutedEventArgs e)
         {
             try
@@ -39,7 +38,7 @@ namespace WpfApp2.GUI
                 int userId = this.usersBL.checkUser(this.txtUsername.Text, this.txtPassword.Password);
                 if (userId != -1)
                 {
-                    //go to next page
+                    // go to next page
                     Menu menuWindow = new Menu(userId);
                     menuWindow.Show();
                     this.Close();
@@ -57,9 +56,15 @@ namespace WpfApp2.GUI
             }
         }
 
+        /// <summary>
+        /// When "sign in" button is clicked, the function
+        /// is activated. It opens the Sign In Page.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void btnSignInClick(object sender, RoutedEventArgs e)
         {
-            SignInPage signIn = new SignInPage();
+            SignUpPage signIn = new SignUpPage();
             signIn.Show();
             this.Close();
         }
