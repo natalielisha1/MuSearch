@@ -56,9 +56,16 @@ namespace WpfApp2.GUI
                 }
                 else
                 {
-                    // else, get another random category for the other answers
-                    Category newCat = this.categoriesBL.randomCategory(this.wordSearch.categories[0].Categories + "s");
-                    this.options.Items.Add(newCat.CategoryName);
+                    try
+                    {
+                        // else, get another random category for the other answers
+                        Category newCat = this.categoriesBL.randomCategory(this.wordSearch.categories[0].Categories + "s");
+                        this.options.Items.Add(newCat.CategoryName);
+                    }catch(Exception e)
+                    {
+                        MessageBox.Show("System Error. \r\nTry again later.");
+                        this.Close();
+                    }
                 }
             }
         }
@@ -82,9 +89,15 @@ namespace WpfApp2.GUI
                 // else, let him know he didn't choose the right one
                 MessageBox.Show("You didn't get it right this time. Don't worry, you still have the points from the game!\r\n" + "The category was: " + this.wordSearch.categories[0].CategoryName + "\r\nTry again next time!");
             }
-
-            // insert this game to the user's games
-            this.usersBL.insertNewGame(this.userID, this.userScore);
+            try
+            {
+                // insert this game to the user's games
+                this.usersBL.insertNewGame(this.userID, this.userScore);
+            }catch(Exception ex)
+            {
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
+            }
             
             // send him back to the menu
             Menu menu = new Menu(this.userID);
@@ -100,8 +113,15 @@ namespace WpfApp2.GUI
         /// <param name="e">arguments</param>
         private void ExitNoBonus_Click(object sender, RoutedEventArgs e)
         {
-            // insert this game to the user's games
-            this.usersBL.insertNewGame(this.userID, this.userScore);
+            try
+            {
+                // insert this game to the user's games
+                this.usersBL.insertNewGame(this.userID, this.userScore);
+            }catch(Exception exe)
+            {
+                MessageBox.Show("System Error. \r\nTry again later.");
+                this.Close();
+            }
             
             // send him back to the menu
             Menu menu = new Menu(this.userID);

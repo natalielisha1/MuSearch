@@ -28,6 +28,11 @@ namespace MuSearch.DB
         }
 
         private static DBConnection _instance = null;
+
+        /// <summary>
+        /// Instance
+        /// </summary>
+        /// <returns>unstance of the connection to the data base</returns>
         public static DBConnection Instance()
         {
             if (_instance == null)
@@ -35,6 +40,10 @@ namespace MuSearch.DB
             return _instance;
         }
 
+        /// <summary>
+        /// see if the connection is connected
+        /// </summary>
+        /// <returns>true if it is cinnected and false otherwise</returns>
         public bool IsConnect()
         {
             if (Connection == null)
@@ -55,6 +64,9 @@ namespace MuSearch.DB
             return true;
         }
 
+        /// <summary>
+        /// close the connection
+        /// </summary>
         public void Close()
         {
             connection.Close();

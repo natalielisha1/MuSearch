@@ -87,14 +87,14 @@
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["artistName"].ToString(), "surprise Category", "artist",0);
+                            category = new Category(reader["artistName"].ToString(), "surprise Category", "artist", 0);
                         }
                     }
                     else
                     {
                         while (reader.Read())
                         {
-                            category = new Category(reader["albumName"].ToString(), "surprise Category", "album",0);
+                            category = new Category(reader["albumName"].ToString(), "surprise Category", "album", 0);
                         }
                     }
                 }
@@ -105,6 +105,8 @@
 
                 dbCon.Close();
             }
+            else
+                throw new Exception();
             return category;
         }
     }
