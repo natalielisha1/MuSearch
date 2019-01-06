@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
 
     using MuSearch.DB.Interfaces;
@@ -23,12 +24,13 @@
         /// <returns> a list of categories that are relevant to the input </returns>
         public List<Category> checkCategories(string input)
         {
+            string DBSchemeName = ConfigurationManager.AppSettings["SchemeName"];
             var dbCon = DBConnection.Instance();
             List<Category> categories = new List<Category>();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.categoryGenerator", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".categoryGenerator", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("input", input));
                 cmd.Connection.Open();
@@ -71,12 +73,13 @@
         /// <returns>the category that we got</returns>
         public Category randomCategory(string tableName)
         {
+            string DBSchemeName = ConfigurationManager.AppSettings["SchemeName"];
             Category category = null;
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.getRandom_" + tableName, dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".getRandom_" + tableName, dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("table_name1", tableName));
                 cmd.Connection.Open();

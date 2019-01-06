@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Configuration;
     using System.Data;
 
     using MuSearch.DB.Interfaces;
@@ -12,6 +13,7 @@
 
     public class DBusers : IDBusers
     {
+        private string DBSchemeName = ConfigurationManager.AppSettings["SchemeName"];
         /// <summary>
         /// checking if the user exist and if he's password is correct
         /// </summary>
@@ -22,10 +24,10 @@
         {
             var dbCon = DBConnection.Instance();
             int userId = -1;
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.checkUser", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".checkUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
@@ -49,10 +51,10 @@
         public bool isUsernameExists(string username)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.isUsernameExists", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".isUsernameExists", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", username));
                 if (cmd.Connection.State.ToString() != "Open")
@@ -79,11 +81,11 @@
         public int insertNewUser(string userName, string password)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             int userId = -1;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.addNewUser", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".addNewUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("username1", userName));
                 cmd.Parameters.Add(new MySqlParameter("password1", password));
@@ -110,10 +112,10 @@
         public void insertNewGame(int userID, int score)
         {
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.addGameToUser", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".addGameToUser", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
                 cmd.Parameters.Add(new MySqlParameter("score1", score));
@@ -135,10 +137,10 @@
         {
             List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.getTopGames", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".getTopGames", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter("userID1", userID));
                 cmd.Connection.Open();
@@ -162,10 +164,10 @@
         {
             List<Game> games = new List<Game>();
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             if (dbCon.IsConnect())
             {
-                var cmd = new MySqlCommand("musearchdb.getTopAllGames", dbCon.Connection);
+                var cmd = new MySqlCommand(DBSchemeName + ".getTopAllGames", dbCon.Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
                 cmd.Parameters.Add(new MySqlParameter());
                 cmd.Connection.Open();
