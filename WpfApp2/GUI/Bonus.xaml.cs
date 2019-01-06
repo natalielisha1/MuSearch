@@ -46,7 +46,7 @@ namespace WpfApp2.GUI
         {
             // choosing randomly the position of the right answer
             Random rand = new Random();
-            int answerPos = rand.Next(1, 5);
+            int answerPos = rand.Next(0, 4);
             for (int i = 0; i < 4; i++)
             {
                 // if that is the position of the right answer, insert it
