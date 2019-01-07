@@ -8,6 +8,7 @@
     using System.Data;
     using WpfApp2;
     using WpfApp2.BusinessLayer.Interfaces;
+    using Musearch;
 
     /// <summary>
     /// Interaction logic for MyGames.xaml
@@ -25,7 +26,7 @@
         public MyGames(int userId)
         {
             InitializeComponent();
-            usersBL = new Users();
+            usersBL = Container.Instance.usersBL;
             this.userId = userId;
             this.ShowTopGames();
         }

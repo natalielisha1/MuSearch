@@ -8,6 +8,7 @@
     using System.Collections.ObjectModel;
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
+    using Musearch;
 
     /// <summary>
     /// Interaction logic for UserInput.xaml
@@ -43,8 +44,8 @@
             this.CategoryBoxes = new List<CheckBox>();
             this.categoryOptions = new List<Category>();
             this.TheList = new ObservableCollection<BoolStringClass>();
-            this.categoriesBL = new Categories();
-            this.songsBL = new Songs();
+            this.categoriesBL = Container.Instance.categoriesBL;
+            this.songsBL = Container.Instance.songsBL;
         }
         
         /// <summary>

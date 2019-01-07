@@ -4,11 +4,8 @@
     using System.Collections.Generic;
     using System.Configuration;
     using System.Data;
-
     using MuSearch.DB.Interfaces;
-
     using MySql.Data.MySqlClient;
-
     using WpfApp2.BusinessLayer;
 
     /// <summary>

@@ -1,15 +1,11 @@
 ﻿namespace WpfApp2.BusinessLayer
 {
     using System.Collections.Generic;
-
-    using MuSearch.DB;
-    using MuSearch.DB.Interfaces;
-
+    using Musearch;
     using WpfApp2.BusinessLayer.Interfaces;
 
     public class Songs : ISongs
     {
-        private IDBsongs conn = new DBsongs();
 
         /// <summary>
         /// getting the words to the word search
@@ -18,7 +14,7 @@
         /// <returns>a list of the relevant words</returns>
         public List<string> GetWords(List<Category> categories)
         {
-            return this.conn.GetWords(categories);
+            return Container.Instance.songsDB.GetWords(categories);
         }
 
         /// <summary>
@@ -28,7 +24,7 @@
         /// <returns>the appropriate query</returns>
         public string CreateQuery(List<Category> categories)
         {
-            return this.conn.CreateQuery(categories);
+            return Container.Instance.songsDB.CreateQuery(categories);
         }
     }
 }

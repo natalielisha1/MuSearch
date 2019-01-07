@@ -4,7 +4,6 @@ namespace MuSearch.DB
 {
     using System;
     using System.Configuration;
-
     using MuSearch.DB.Interfaces;
 
     public class DBConnection : IDBconnection
