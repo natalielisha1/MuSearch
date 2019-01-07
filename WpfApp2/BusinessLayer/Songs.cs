@@ -2,14 +2,10 @@
 {
     using System.Collections.Generic;
     using Musearch;
-    using MuSearch.DB;
-    using MuSearch.DB.Interfaces;
-
     using WpfApp2.BusinessLayer.Interfaces;
 
     public class Songs : ISongs
     {
-        //private IDBsongs conn = Container.Instance.songsDB;
 
         /// <summary>
         /// getting the words to the word search

@@ -3,7 +3,6 @@
     using System;
     using System.Windows;
     using Musearch;
-    using MuSearch.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
 
     /// <summary>

@@ -2,13 +2,10 @@
 {
     using System.Collections.Generic;
     using Musearch;
-    using MuSearch.DB;
-    using MuSearch.DB.Interfaces;
     using WpfApp2.BusinessLayer.Interfaces;
 
     public class Categories : ICategories
     {
-        //private IDBcategories conn = new DBcategories();
 
         /// <summary>
         /// checkCategories

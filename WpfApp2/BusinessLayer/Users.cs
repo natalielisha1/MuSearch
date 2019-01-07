@@ -2,17 +2,12 @@
 {
     using System.Collections.Generic;
     using Musearch;
-    using MuSearch.DB;
-    using MuSearch.DB.Interfaces;
-
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
 
     public class Users : IUsers
     {
         public List<int> games;
-
-        //private IDBusers conn = new DBusers();
 
         /// <summary>
         /// The function returns 0 if the user is valid,

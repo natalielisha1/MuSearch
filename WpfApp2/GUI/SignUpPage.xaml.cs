@@ -12,7 +12,6 @@
     public partial class SignUpPage : Window
     {
         private IUsers usersBL;
-        private Container container;
 
         /// <summary>
         /// Constructor for the SignUpPage object
@@ -20,8 +19,7 @@
         public SignUpPage()
         {
             this.InitializeComponent();
-            this.container = Container.Instance;
-            this.usersBL = container.usersBL;
+            this.usersBL = Container.Instance.usersBL;
         }
 
         /// <summary>
