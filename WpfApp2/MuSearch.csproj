@@ -120,6 +120,7 @@
     <Compile Include="BusinessLayer\Users.cs" />
     <Compile Include="BusinessLayer\WordSearch.cs" />
     <Compile Include="BusinessLayer\WordSearchCell.cs" />
+    <Compile Include="Container.cs" />
     <Compile Include="DB.Interfaces\IDBcategories.cs" />
     <Compile Include="DB.Interfaces\IDBconnection.cs" />
     <Compile Include="DB.Interfaces\IDBsongs.cs" />

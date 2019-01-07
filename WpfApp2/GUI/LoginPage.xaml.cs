@@ -2,6 +2,7 @@
 {
     using System;
     using System.Windows;
+    using Musearch;
     using MuSearch.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
 
@@ -21,7 +22,7 @@
         public LoginPage()
         {
             this.InitializeComponent();
-            this.usersBL = new Users();
+            this.usersBL = Container.Instance.usersBL;
         }
 
         /// <summary>

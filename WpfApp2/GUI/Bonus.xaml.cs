@@ -2,6 +2,7 @@
 
 namespace WpfApp2.GUI
 {
+    using Musearch;
     using MuSearch.BusinessLayer;
     using System;
     using System.Windows;
@@ -34,8 +35,8 @@ namespace WpfApp2.GUI
             this.userID = id;
             this.userScore = score;
             this.wordSearch = wordSearchInput;
-            this.categoriesBL = new Categories();
-            this.usersBL = new Users();
+            this.categoriesBL = Container.Instance.categoriesBL;
+            this.usersBL = Container.Instance.usersBL;
             this.showOptions();
         }
 

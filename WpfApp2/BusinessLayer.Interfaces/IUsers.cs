@@ -2,7 +2,7 @@
 
 namespace WpfApp2.BusinessLayer.Interfaces
 {
-    interface IUsers
+    public interface IUsers
     {
         /// <summary>
         /// The function returns 0 if the user is valid,

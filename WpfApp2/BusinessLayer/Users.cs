@@ -1,7 +1,7 @@
 ﻿namespace MuSearch.BusinessLayer
 {
     using System.Collections.Generic;
-
+    using Musearch;
     using MuSearch.DB;
     using MuSearch.DB.Interfaces;
 
@@ -12,7 +12,7 @@
     {
         public List<int> games;
 
-        private IDBusers conn = new DBusers();
+        //private IDBusers conn = new DBusers();
 
         /// <summary>
         /// The function returns 0 if the user is valid,
@@ -23,7 +23,7 @@
         /// <returns></returns>
         public int checkUser(string username, string password)
         {
-            return this.conn.checkUser(username, password);
+            return Container.Instance.usersDB.checkUser(username, password);
         }
 
         /// <summary>
@@ -33,7 +33,7 @@
         /// <returns>true if he exist, false otherwise</returns>
         public bool isUsernameExists(string username)
         {
-            return this.conn.isUsernameExists(username);
+            return Container.Instance.usersDB.isUsernameExists(username);
         }
 
         /// <summary>
@@ -44,7 +44,7 @@
         /// <returns>the new user's ID</returns>
         public int insertNewUser(string userName, string password)
         {
-            return this.conn.insertNewUser(userName,password);
+            return Container.Instance.usersDB.insertNewUser(userName,password);
         }
 
         /// <summary>
@@ -54,7 +54,7 @@
         /// <param name="score">the score from the new game</param>
         public void insertNewGame(int userID, int score)
         {
-            this.conn.insertNewGame(userID, score);
+            Container.Instance.usersDB.insertNewGame(userID, score);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@
         /// <returns>list of games</returns>
         public List<Game> getTopGames(int userID)
         {
-            return this.conn.getTopGames(userID);
+            return Container.Instance.usersDB.getTopGames(userID);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@
         /// <returns>list of games</returns>
         public List<Game> getTopAllGames()
         {
-            return this.conn.getAllTopGames();
+            return Container.Instance.usersDB.getAllTopGames();
         }
 
     }

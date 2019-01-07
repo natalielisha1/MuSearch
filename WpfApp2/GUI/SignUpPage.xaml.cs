@@ -4,6 +4,7 @@
     using System.Windows;
     using WpfApp2.BusinessLayer.Interfaces;
     using MuSearch.BusinessLayer;
+    using Musearch;
 
     /// <summary>
     /// Interaction logic for SignUpPage.xaml
@@ -11,6 +12,7 @@
     public partial class SignUpPage : Window
     {
         private IUsers usersBL;
+        private Container container;
 
         /// <summary>
         /// Constructor for the SignUpPage object
@@ -18,7 +20,8 @@
         public SignUpPage()
         {
             this.InitializeComponent();
-            this.usersBL = new Users();
+            this.container = Container.Instance;
+            this.usersBL = container.usersBL;
         }
 
         /// <summary>
