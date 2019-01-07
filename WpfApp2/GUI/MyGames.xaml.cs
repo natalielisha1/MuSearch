@@ -15,6 +15,8 @@
     public partial class MyGames : Window
     {
         private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
         private int userId;
         List<Game> games { get; set; }
 
@@ -22,10 +24,12 @@
         /// Constructor function for My Games window.
         /// <paramref name="userId">the ID of the current user</paramref>
         /// </summary>
-        public MyGames(int userId)
+        public MyGames(IUsers usersbl, ISongs songsbl, ICategories categoriesbl, int userId)
         {
             InitializeComponent();
-            usersBL = new Users();
+            usersBL = usersbl;
+            this.songsBL = songsbl;
+            this.categoriesBL = categoriesbl;
             this.userId = userId;
             this.ShowTopGames();
         }
@@ -80,7 +84,7 @@
         private void Back_Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            WpfApp2.GUI.Menu menuWindow = new WpfApp2.GUI.Menu(this.userId);
+            WpfApp2.GUI.Menu menuWindow = new WpfApp2.GUI.Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
             menuWindow.Show();
             this.Close();
         }

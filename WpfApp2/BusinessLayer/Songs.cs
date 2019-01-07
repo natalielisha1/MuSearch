@@ -9,7 +9,12 @@
 
     public class Songs : ISongs
     {
-        private IDBsongs conn = new DBsongs();
+        private IDBsongs conn;// = new DBsongs();
+
+        public Songs(IDBsongs dbConn)
+        {
+            this.conn = dbConn;
+        }
 
         /// <summary>
         /// getting the words to the word search

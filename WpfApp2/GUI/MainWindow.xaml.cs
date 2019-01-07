@@ -51,18 +51,22 @@
 
         // A connection to the DB
         private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
 
         /// <summary>
         ///  Constructor
         /// </summary>
         /// <param name="userId">the ID of the current user</param>
         /// <param name="categories">the categories for this game</param>
-        public MainWindow(int userId, List<Category> categories)
+        public MainWindow(IUsers usersbl, ISongs songsbl, ICategories categoriesbl, int userId, List<Category> categories)
         {
             this.InitializeComponent();
             this.userId = userId;
             this.userFind = new List<string>();
-            this.usersBL = new Users();
+            this.usersBL = usersbl;
+            this.songsBL = songsbl;
+            this.categoriesBL = categoriesbl;
             this.DataContext = this;
             this.categories = categories;
 
@@ -110,7 +114,7 @@
             try
             {
                 // Create a new word search with the wanted size
-                this.wordSearch = Program.getWordSearch(20, 20, this.categories);
+                this.wordSearch = Program.getWordSearch(20, 20, this.categories, this.songsBL);
 
                 // Saving the grid
                 GameGrid gameGrid = wordSearch.gameGrid;
@@ -213,7 +217,7 @@
                     MessageBox.Show("The game is over. You found all the words. \r\nGreat work!");
                     if (this.categories[0].Input == "surprise Category")
                     {
-                        Bonus bonusWin = new Bonus(this.wordSearch, this.userId, this.UserScore);
+                        Bonus bonusWin = new Bonus(this.wordSearch, this.usersBL, this.songsBL, this.categoriesBL,  this.userId, this.UserScore);
                         bonusWin.Show();
                         this.Close();
                     }
@@ -223,7 +227,7 @@
                         this.usersBL.insertNewGame(this.userId, this.UserScore);
                         
                         // send him back to the menu
-                        Menu menu = new Menu(this.userId);
+                        Menu menu = new Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
                         menu.Show();
                         this.Close();
                     }
@@ -333,7 +337,7 @@
         /// <param name="e">arguments</param>
         private void OnBackToMenu(object sender, RoutedEventArgs e)
         {
-            Menu window = new Menu(this.userId);
+            Menu window = new Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
             window.Show();
             this.Close();
         }

@@ -11,14 +11,18 @@
     public partial class SignUpPage : Window
     {
         private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
 
         /// <summary>
         /// Constructor for the SignUpPage object
         /// </summary>
-        public SignUpPage()
+        public SignUpPage(IUsers usersbl, ISongs songsbl, ICategories categoriesbl)
         {
             this.InitializeComponent();
-            this.usersBL = new Users();
+            this.usersBL = usersbl;
+            this.songsBL = songsbl;
+            this.categoriesBL = categoriesbl;
         }
 
         /// <summary>
@@ -42,7 +46,7 @@
                 else
                 {
                     int userID = this.usersBL.insertNewUser(this.txtUsername.Text, this.txtPassword.Password);
-                    Menu gameMainWindow = new Menu(userID);
+                    Menu gameMainWindow = new Menu(this.usersBL, this.songsBL, this.categoriesBL, userID);
                     gameMainWindow.Show();
                     this.Close();
                 }

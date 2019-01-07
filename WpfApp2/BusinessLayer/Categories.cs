@@ -7,7 +7,12 @@
 
     public class Categories : ICategories
     {
-        private IDBcategories conn = new DBcategories();
+        private IDBcategories conn;// = new DBcategories();
+
+        public Categories(IDBcategories dbConn)
+        {
+            this.conn = dbConn;
+        }
 
         /// <summary>
         /// checkCategories

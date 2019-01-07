@@ -12,7 +12,12 @@
     {
         public List<int> games;
 
-        private IDBusers conn = new DBusers();
+        private IDBusers conn;// = new DBusers();
+
+        public Users(IDBusers dbConn)
+        {
+            this.conn = dbConn;
+        }
 
         /// <summary>
         /// The function returns 0 if the user is valid,

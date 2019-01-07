@@ -2,20 +2,27 @@
 {
     using System.Windows;
     using MuSearch.GUI;
-    
+    using WpfApp2.BusinessLayer.Interfaces;
+
     /// <summary>
     /// Interaction logic for Menu.xaml
     /// </summary>
     public partial class Menu : Window
     {
         private int userId;
+        private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
 
         /// <summary>
         /// Constructor function for Menu window
         /// </summary>
-        public Menu(int userId)
+        public Menu(IUsers usersbl, ISongs songsbl, ICategories categoriesbl, int userId)
         {
             this.InitializeComponent();
+            this.usersBL = usersbl;
+            this.songsBL = songsbl;
+            this.categoriesBL = categoriesbl;
             this.userId = userId;
         }
 
@@ -25,7 +32,7 @@
         /// </summary>
         private void OnMyGames(object sender, RoutedEventArgs e)
         {
-            MyGames window = new MyGames(this.userId);
+            MyGames window = new MyGames(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
             window.Show();
             this.Close();
         }
@@ -36,7 +43,7 @@
         /// </summary>
         private void OnAllGames(object sender, RoutedEventArgs e)
         {
-            AllGames window = new AllGames(this.userId);
+            AllGames window = new AllGames(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
             window.Show();
             this.Close();
         }
@@ -47,7 +54,7 @@
         /// </summary>
         private void OnStartGame(object sender, RoutedEventArgs e)
         {
-            UserInputWindow userInputWindow = new UserInputWindow(this.userId);
+            UserInputWindow userInputWindow = new UserInputWindow(this.usersBL, this.songsBL, this.categoriesBL,  this.userId);
             userInputWindow.Show();
             this.Close();
         }

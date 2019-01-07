@@ -25,17 +25,19 @@
         public string categoryInput { get; set; }
         private int userId;
 
+        private IUsers usersBL;
         private ISongs songsBL;
         private ICategories categoriesBL;
         List<CheckBox> CategoryBoxes;
         private List<Category> categoryOptions;
         private List<Category> categories;
+        
 
         /// <summary>
         /// Constructor for the UserInputWindow object
         /// </summary>
         /// <param name="userId">the current user's ID</param>
-        public UserInputWindow(int userId)
+        public UserInputWindow(IUsers usersbl, ISongs songsbl, ICategories categoriesbl, int userId)
         {
             InitializeComponent();
             this.userId = userId;
@@ -43,8 +45,9 @@
             this.CategoryBoxes = new List<CheckBox>();
             this.categoryOptions = new List<Category>();
             this.TheList = new ObservableCollection<BoolStringClass>();
-            this.categoriesBL = new Categories();
-            this.songsBL = new Songs();
+            this.categoriesBL = categoriesbl;
+            this.songsBL = songsbl;
+            this.usersBL = usersbl;
         }
         
         /// <summary>
@@ -128,7 +131,7 @@
             else
             {
                 //go to next page
-                MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
+                MainWindow gameMainWindow = new MainWindow(this.usersBL, this.songsBL, this.categoriesBL, this.userId, this.categories);
                 gameMainWindow.Show();
                 this.Close();
             }
@@ -142,7 +145,7 @@
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             //go to home page
-            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(this.userId);
+            WpfApp2.GUI.Menu gameMainWindow = new WpfApp2.GUI.Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
             gameMainWindow.Show();
             this.Close();
         }
@@ -176,7 +179,7 @@
                             break;
                     }
                 } while (this.songsBL.GetWords(this.categories).Count() == 0);
-                MainWindow gameMainWindow = new MainWindow(this.userId, this.categories);
+                MainWindow gameMainWindow = new MainWindow(this.usersBL, this.songsBL, this.categoriesBL, this.userId, this.categories);
                 gameMainWindow.Show();
                 this.Close();
             }catch(Exception ex)

@@ -15,6 +15,8 @@
     {
         #region Properties
         private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
         private int userId;
         #endregion
 
@@ -22,10 +24,12 @@
         /// Constructor for the AllGames object
         /// </summary>
         /// <param name="userId">not used here</param>
-        public AllGames(int userId)
+        public AllGames(IUsers usersbl, ISongs songsbl, ICategories categoriesbl, int userId)
         {
             this.InitializeComponent();
-            this.usersBL = new Users();
+            this.usersBL = usersbl;
+            this.songsBL = songsbl;
+            this.categoriesBL = categoriesbl;
             this.userId = userId;
             this.ShowTopAllGames();
         }
@@ -93,7 +97,7 @@
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             // go to home page
-            Menu menuWindow = new Menu(this.userId);
+            Menu menuWindow = new Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userId);
             menuWindow.Show();
             this.Close();
         }

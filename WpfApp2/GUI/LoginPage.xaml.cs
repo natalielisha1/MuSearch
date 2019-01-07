@@ -3,6 +3,9 @@
     using System;
     using System.Windows;
     using MuSearch.BusinessLayer;
+    using MuSearch.DB;
+    using MuSearch.DB.Interfaces;
+    using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
 
     /// <summary>
@@ -14,6 +17,8 @@
         public string Password { get; set; }
 
         private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
 
         /// <summary>
         /// Constructor for the LoginPage page
@@ -21,7 +26,14 @@
         public LoginPage()
         {
             this.InitializeComponent();
-            this.usersBL = new Users();
+
+            IDBusers usersDBConn = new DBusers();
+            IDBsongs songsDBConn = new DBsongs();
+            IDBcategories categoriesDBConn = new DBcategories();
+
+            this.usersBL = new Users(usersDBConn);
+            this.songsBL = new Songs(songsDBConn);
+            this.categoriesBL = new Categories(categoriesDBConn);
         }
 
         /// <summary>
@@ -39,7 +51,7 @@
                 if (userId != -1)
                 {
                     // go to next page
-                    Menu menuWindow = new Menu(userId);
+                    Menu menuWindow = new Menu(this.usersBL, this.songsBL, this.categoriesBL, userId);
                     menuWindow.Show();
                     this.Close();
                 }
@@ -64,7 +76,7 @@
         /// <param name="e"></param>
         private void btnSignInClick(object sender, RoutedEventArgs e)
         {
-            SignUpPage signIn = new SignUpPage();
+            SignUpPage signIn = new SignUpPage(this.usersBL, this.songsBL, this.categoriesBL);
             signIn.Show();
             this.Close();
         }

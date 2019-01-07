@@ -17,10 +17,9 @@ namespace WpfApp2.GUI
         private WordSearch wordSearch;
         private int userID;
         private int userScore;
-
-        private ICategories categoriesBL;
-
         private IUsers usersBL;
+        private ISongs songsBL;
+        private ICategories categoriesBL;
 
         /// <summary>
         /// Constructor for the Bonus object
@@ -28,14 +27,15 @@ namespace WpfApp2.GUI
         /// <param name="wordSearchInput"> the word search that the bonus question is about</param>
         /// <param name="id"> the current user ID </param>
         /// <param name="score">the current score of the current user</param>
-        public Bonus(WordSearch wordSearchInput, int id, int score)
+        public Bonus(WordSearch wordSearchInput, IUsers usersbl, ISongs songsbl, ICategories categories, int id, int score)
         {
             this.InitializeComponent();
             this.userID = id;
             this.userScore = score;
             this.wordSearch = wordSearchInput;
-            this.categoriesBL = new Categories();
-            this.usersBL = new Users();
+            this.usersBL = usersbl;
+            this.songsBL = songsbl;
+            this.categoriesBL = categories;
             this.showOptions();
         }
 
@@ -100,7 +100,7 @@ namespace WpfApp2.GUI
             }
             
             // send him back to the menu
-            Menu menu = new Menu(this.userID);
+            Menu menu = new Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userID);
             menu.Show();
             this.Close();
         }
@@ -124,7 +124,7 @@ namespace WpfApp2.GUI
             }
             
             // send him back to the menu
-            Menu menu = new Menu(this.userID);
+            Menu menu = new Menu(this.usersBL, this.songsBL, this.categoriesBL, this.userID);
             menu.Show();
             this.Close();
         }
