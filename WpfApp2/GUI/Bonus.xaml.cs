@@ -2,6 +2,7 @@
 
 namespace WpfApp2.GUI
 {
+    using Musearch;
     using MuSearch.BusinessLayer;
     using System;
     using System.Windows;
@@ -34,8 +35,8 @@ namespace WpfApp2.GUI
             this.userID = id;
             this.userScore = score;
             this.wordSearch = wordSearchInput;
-            this.categoriesBL = new Categories();
-            this.usersBL = new Users();
+            this.categoriesBL = Container.Instance.categoriesBL;
+            this.usersBL = Container.Instance.usersBL;
             this.showOptions();
         }
 
@@ -46,7 +47,7 @@ namespace WpfApp2.GUI
         {
             // choosing randomly the position of the right answer
             Random rand = new Random();
-            int answerPos = rand.Next(1, 5);
+            int answerPos = rand.Next(0, 4);
             for (int i = 0; i < 4; i++)
             {
                 // if that is the position of the right answer, insert it

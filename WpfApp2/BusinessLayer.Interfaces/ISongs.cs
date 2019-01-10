@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
 
-    interface ISongs
+    public interface ISongs
     {
         /// <summary>
         /// getting the words to the word search

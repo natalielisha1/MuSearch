@@ -7,6 +7,7 @@
     using MuSearch.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.BusinessLayer;
+    using Musearch;
 
     /// <summary>
     /// Interaction logic for AllGames.xaml
@@ -25,7 +26,7 @@
         public AllGames(int userId)
         {
             this.InitializeComponent();
-            this.usersBL = new Users();
+            this.usersBL = Container.Instance.usersBL;
             this.userId = userId;
             this.ShowTopAllGames();
         }

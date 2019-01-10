@@ -1,7 +1,6 @@
 ﻿namespace MuSearch.DB.Interfaces
 {
     using System.Collections.Generic;
-
     using WpfApp2.BusinessLayer;
 
     public interface IDBcategories

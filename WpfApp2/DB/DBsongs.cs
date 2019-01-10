@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 namespace MuSearch.DB
 {
     using MuSearch.DB.Interfaces;
-
+    using System.Configuration;
     using WpfApp2.BusinessLayer;
 
     class DBsongs : IDBsongs
@@ -16,8 +16,9 @@ namespace MuSearch.DB
         /// <returns>a list of the relevant words</returns>
         public List<string> GetWords(List<Category> categories)
         {
+            string DBSchemeName = ConfigurationManager.AppSettings["SchemeName"];
             var dbCon = DBConnection.Instance();
-            dbCon.DatabaseName = "musearchdb";
+            dbCon.DatabaseName = DBSchemeName;
             List<string> songs = new List<string>();
             if (dbCon.IsConnect())
             {
@@ -52,7 +53,7 @@ namespace MuSearch.DB
         public string CreateQuery(List<Category> categories)
         {
             string query = string.Empty;
-
+            string DBSchemeName = ConfigurationManager.AppSettings["SchemeName"];
             for (int i = 0; i < categories.Count; i++)
             {
 
@@ -63,18 +64,18 @@ namespace MuSearch.DB
                 }
                 if (categories[i].Categories.Equals("artist"))
                 {
-                    query += "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
-                            + "JOIN musearchdb.artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
+                    query += "SELECT songs.songName FROM " + DBSchemeName + ".songs JOIN " + DBSchemeName + ".albums ON songs.AlbumId = albums.albumId "
+                            + "JOIN " + DBSchemeName + ".artists ON albums.artistId = artists.id WHERE artists.artistName LIKE " + '"'
                             + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else if (categories[i].Categories.Equals("album"))
                 {
-                    query += "SELECT songs.songName FROM musearchdb.songs JOIN musearchdb.albums ON songs.AlbumId = albums.albumId "
+                    query += "SELECT songs.songName FROM " + DBSchemeName + ".songs JOIN " + DBSchemeName + ".albums ON songs.AlbumId = albums.albumId "
                             + "WHERE albums.albumName LIKE " + '"' + categories[i].CategoryName + '"' + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else if (categories[i].Categories.Equals("decade"))
                 {
-                    query += "SELECT songs.songName, songs.yearReleased FROM musearchdb.songs where(songs.yearReleased -" + 
+                    query += "SELECT songs.songName, songs.yearReleased FROM " + DBSchemeName + ".songs where(songs.yearReleased -" + 
                         categories[i].CategoryName + ") < 10 AND (songs.yearReleased - " + categories[i].CategoryName + ") > 0" + " AND length(replace(songs.songName,' ',''))<21 ";
                 }
                 else

@@ -1,13 +1,11 @@
 ﻿namespace WpfApp2.BusinessLayer
 {
     using System.Collections.Generic;
-    using MuSearch.DB;
-    using MuSearch.DB.Interfaces;
+    using Musearch;
     using WpfApp2.BusinessLayer.Interfaces;
 
     public class Categories : ICategories
     {
-        private IDBcategories conn = new DBcategories();
 
         /// <summary>
         /// checkCategories
@@ -16,7 +14,7 @@
         /// <returns> a list of categories that are relevant to the input </returns>
         public List<Category> checkCategories(string input)
         {
-            return this.conn.checkCategories(input);
+            return Container.Instance.categoriesDB.checkCategories(input);
         }
 
         /// <summary>
@@ -26,7 +24,7 @@
         /// <returns>the category that we got</returns>
         public Category randomCategory(string tableName)
         {
-            return this.conn.randomCategory(tableName);
+            return Container.Instance.categoriesDB.randomCategory(tableName);
         }
     }
 }

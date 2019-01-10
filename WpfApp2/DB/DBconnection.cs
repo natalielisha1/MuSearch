@@ -4,7 +4,6 @@ namespace MuSearch.DB
 {
     using System;
     using System.Configuration;
-
     using MuSearch.DB.Interfaces;
 
     public class DBConnection : IDBconnection
@@ -50,7 +49,7 @@ namespace MuSearch.DB
             {
                 if (String.IsNullOrEmpty(databaseName))
                     return false;
-                string connstring = string.Format("Server=localhost; database=musearchdb; UID=root; password =" + ConfigurationManager.AppSettings["DBPassword"], this.databaseName);
+                string connstring = string.Format("Server=localhost; database=" + ConfigurationManager.AppSettings["SchemeName"] + "; UID=" + ConfigurationManager.AppSettings["DBUsername"] + "; password =" + ConfigurationManager.AppSettings["DBPassword"], this.databaseName);
                 connection = new MySqlConnection(connstring);
                 try
                 {

@@ -15,7 +15,6 @@
     using WpfApp2.BusinessLayer;
     using WpfApp2.BusinessLayer.Interfaces;
     using WpfApp2.GUI;
-
     using Menu = WpfApp2.GUI.Menu;
 
     /// <summary>
